@@ -15,8 +15,8 @@ NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete t
 
 # View on web browser
 1. Change directories with `cd ~/Impression`.
-2. Run the application `npm run start`.
-3. A web brdfswser should open up to view the application. If not press `?` in the terminal to display a list of commands.
+2. Run the application with `npm run start`.
+3. A web browser should open up to view the application. If not press `?` in the terminal to display a list of commands.
 
 # View on android application
 1. Download and open the `Expo` android application on the `Google Play Store`. 
