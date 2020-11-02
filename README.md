@@ -20,6 +20,7 @@ NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete t
 
 # View on android application
 1. Download and open the `Expo` android application on the `Google Play Store`. 
-2. Change directories with `cd ~/Impression`.
-3. Run the application `npm run start`.
-4. Use the `Expo` app to take a picture of the QR code that appears in the terminal or web page.
+2. Change directories with `cd ./Impression`.
+3. Run `npm install`
+4. Run the application `npm run start`.
+5. Use the `Expo` app to scan the QR code that appears in the terminal or web page.
