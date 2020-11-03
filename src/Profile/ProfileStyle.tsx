@@ -18,11 +18,16 @@ const styles = StyleSheet.create({
     },
     schoolStyle: {
 	textAlign: 'left',
-	height: 50
+	height: 50,
+	margin: 50
     },
     emailStyle: {
 	textAlign: 'right',
-	height: 50
+	height: 50,
+	margin: 50
+    },
+    linksStyle: {
+	textAlign: 'center'
     },
 })
 
