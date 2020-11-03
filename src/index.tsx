@@ -25,8 +25,8 @@ export default function Tabs() {
             return <Ionicons name={iconName} size={size} color={color} />;
           },
         })
-    
-    }>
+    }
+    initialRouteName={"Scan"}>
         <Tab.Screen name="Profile" component={ProfileScreen} />
         <Tab.Screen name="Scan" component={ScanScreen} />
         <Tab.Screen name="Contacts" component={ContactScreen} />
