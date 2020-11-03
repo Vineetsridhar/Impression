@@ -3,10 +3,31 @@ import { Text, View, StyleSheet, Button, Platform, InteractionManager } from 're
 import { Camera } from 'expo-camera';
 import metrics from '../config/metrics';
 
-export default function ScanScreen() {
+export default function ScanScreen({navigation}:any) {
     const [hasPermission, setHasPermission] = useState(false);
     const [ratio, setRatio] = useState("");
+    const [displayCamera, setDisplayCamera] = useState(true);
 
+    let blurListener, focusListener;
+
+    const makeListeners = () => {
+        blurListener = navigation.addListener('blur', () => {
+            setDisplayCamera(false);
+        });
+        focusListener = navigation.addListener('focus', () => {
+            setDisplayCamera(true);
+        });
+    }
+
+    useEffect(() => {
+        makeListeners();
+
+        (async () => {
+            const { status } = await Camera.requestPermissionsAsync();
+            setHasPermission(status === 'granted');
+        })();
+    }, []);
+    
 
     let camera:Camera|null;
     const updateStateForCameraProps = () => {
@@ -25,9 +46,9 @@ export default function ScanScreen() {
             let h = parseInt(nums[0])
             let w = parseInt(nums[1])
             let val = Math.abs((h / w) - wantedRatio) //Get the absolute difference between current ratio and wated ratio
-
             if (val < diff) { //Set variables equal to the lowest difference in ratios
                 curr = ratios[i]
+                diff = val
             }
         }
         setRatio(curr)
@@ -37,10 +58,16 @@ export default function ScanScreen() {
         console.log(type, data)
     };
 
+    if (hasPermission === false) {
+        return <Text>No access to camera</Text>;
+    }
+
+    if(!displayCamera) return null;
+
     return (
         <Camera
             ref={ref => camera = ref}
-            ratio={Platform.OS === 'android' ? ratio : "auto"}
+            ratio={ratio}
             onBarCodeScanned={handleBarCodeScanned}
             style={StyleSheet.absoluteFillObject}
             onCameraReady={updateStateForCameraProps}
