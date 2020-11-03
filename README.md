@@ -10,6 +10,9 @@ NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete t
 2. Add your PATH to your `~/.profile` with `echo "export PATH=$PATH:~/.npm-global/bin" >> ~/.profile`.
 3. To avoid having to source `~/.profile` upon terminal startup, run the command `echo "source ~/.profile" >> ~/.bashrc`
 
+# Installs Needed
+1. Install React Native Elements `npm install react-native-elements`. Avatar is used for User Profile Image.
+
 # Setup Expo
 1. Install expo by running the command `npm install -g expo-cli`.
 
