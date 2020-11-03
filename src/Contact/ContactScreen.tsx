@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, Text} from 'react-native'
-import styles from './styles/ProfileStyle';
+import styles from './ContactsStyle';
 
-export default function ProfileScreen(){
+export default function ContactScreen(){
     return (
         <View style={styles.container}>
-            <Text>Profile Screen</Text>
+            <Text>Contact Screen</Text>
         </View>
     )
 }

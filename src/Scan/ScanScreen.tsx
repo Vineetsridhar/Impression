@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button, Platform, InteractionManager } from 'react-native';
+import { Text, StyleSheet, InteractionManager } from 'react-native';
 import { Camera } from 'expo-camera';
-import metrics from '../config/metrics';
+import metrics from '../../config/metrics';
+import FAB from '../components/FAB';
+import { AntDesign } from '@expo/vector-icons';
 
-export default function ScanScreen({navigation}:any) {
+export default function ScanScreen({ navigation }: any) {
     const [hasPermission, setHasPermission] = useState(false);
     const [ratio, setRatio] = useState("");
     const [displayCamera, setDisplayCamera] = useState(true);
 
-    let blurListener, focusListener;
+    let blurListener: () => {}, focusListener: () => {};
 
     const makeListeners = () => {
         blurListener = navigation.addListener('blur', () => {
@@ -21,15 +23,18 @@ export default function ScanScreen({navigation}:any) {
 
     useEffect(() => {
         makeListeners();
-
         (async () => {
             const { status } = await Camera.requestPermissionsAsync();
             setHasPermission(status === 'granted');
         })();
+        return () => {
+            focusListener();
+            blurListener();
+        }
     }, []);
-    
 
-    let camera:Camera|null;
+
+    let camera: Camera | null;
     const updateStateForCameraProps = () => {
         InteractionManager.runAfterInteractions(async () => {
             const ratios = await camera?.getSupportedRatiosAsync();
@@ -37,11 +42,11 @@ export default function ScanScreen({navigation}:any) {
         })
     }
 
-    const getBestRatio = (ratios:string[]) => {
+    const getBestRatio = (ratios: string[]) => {
         const wantedRatio = (metrics.HEIGHT_PIXELS + 200) / metrics.WIDTH_PIXELS; //Ideal Ratio of phone. Added 200 to account for appBar
         let diff = 100;
         let curr = "";
-        for (let i = 0; i < ratios.length; i++) { 
+        for (let i = 0; i < ratios.length; i++) {
             let nums = ratios[i].split(":")
             let h = parseInt(nums[0])
             let w = parseInt(nums[1])
@@ -62,7 +67,7 @@ export default function ScanScreen({navigation}:any) {
         return <Text>No access to camera</Text>;
     }
 
-    if(!displayCamera) return null;
+    if (!displayCamera) return null;
 
     return (
         <Camera
@@ -71,6 +76,12 @@ export default function ScanScreen({navigation}:any) {
             onBarCodeScanned={handleBarCodeScanned}
             style={StyleSheet.absoluteFillObject}
             onCameraReady={updateStateForCameraProps}
-        />
+        >
+            <FAB onPress={()=>{
+                navigation.push("QRCode")
+            }}>
+                <AntDesign name="qrcode" style={{ color: 'white', fontSize: 45 }} />                
+            </FAB>
+        </Camera>
     )
 }
