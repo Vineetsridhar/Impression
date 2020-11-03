@@ -10,7 +10,7 @@ export default function ProfileScreen(){
 		<Avatar    
 			size="xlarge"
 			rounded
-	    		icon={{name: 'user', type: 'font-awesome'}}
+	    		icon={{ name: 'user', type: 'font-awesome' }}
 			onPress={() => console.log("Works!")}
 		    	activeOpacity={0}
 	 	/>
@@ -32,6 +32,11 @@ export default function ProfileScreen(){
 				/>
 			</View>
 		</View>
+		<View style={ styles.container }>
+			<TextInput style={ styles.linksStyle } placeholder="https://www.github.com"/>
+			<TextInput style={ styles.linksStyle } placeholder="https://www.linkedin.com"/>
+			<TextInput style={ styles.linksStyle } placeholder="Download Resume"/>
+		</View>	
         </View> 
     )
 }
