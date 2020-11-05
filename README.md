@@ -13,7 +13,8 @@ NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete t
 
 # Installs Needed
 1. Install React Native Elements `npm install react-native-elements`. This is required for using `Avatar` for User Profile Image.
-2. Install Typescript `npm install -g typescript`
+2. Install prop-types `npm i -S prop-types`. This is used for validating props of Contact component.
+3. Install Typescript `npm install -g typescript`.
 
 # Setup Expo
 1. Install expo by running the command `npm install -g expo-cli`.
