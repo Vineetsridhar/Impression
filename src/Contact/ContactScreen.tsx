@@ -15,8 +15,6 @@ const contacts: ContactI[] = [
   { id: 4, name: "Vineet Sridhar" }
 ];
 export default function ContactScreen() {
-
-
   return (
       <View style={styles.container}>
         <Text>Contact Screen</Text>

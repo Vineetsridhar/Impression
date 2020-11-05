@@ -1,35 +1,45 @@
 import { StyleSheet } from 'react-native';
+import colors from '../../config/colors';
 
 const styles = StyleSheet.create({
     container: {
         display: 'flex',
         margin: 0,
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor:'white'
-    },
-    flexCode: {
-        flex: 1
+        backgroundColor:'white',
+        flex:1
     },
     rowContainer: {
-        flex: 1,
+        width:'95%',
+        display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
-    schoolStyle: {
-        textAlign: 'left',
+    nameStyle: {
+        flex:1,
         height: 50,
-        margin: 50
+        borderWidth: 1,
+        paddingHorizontal: 8,
+        borderRadius: 10,
+        borderColor: colors.borderColor
     },
-    emailStyle: {
-        textAlign: 'right',
-        height: 50,
-        margin: 50
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        width:'95%',
+        marginVertical: 8
     },
-    linksStyle: {
-        textAlign: 'center'
+    avatarStyle: {
+        height: 200,
+        width: 200,
+        borderRadius: 100,
+        marginTop: 50
     },
+    link: {
+        fontSize: 20,
+        color: colors.main,
+        paddingVertical: 16
+    }
 })
 
 export default styles

@@ -1,5 +1,6 @@
 const colors = {
-    main:'blue'
+    main:'blue',
+    borderColor: 'gray'
 }
 
 export default colors
