@@ -1,11 +1,17 @@
 import React from "react";
-import "../Contact/ContactsStyle.tsx";
-import Contact from "./Contact.tsx";
-function ContactList(props) {
+import styles from "../Contact/ContactsStyle";
+import Contact from "./Contact";
+import { View } from "react-native";
+
+interface ContactI {
+	id:number,
+	name:string
+}
+function ContactList({contacts}:{contacts:ContactI[]}) {
    return (
-	<div>
-	   {props.contacts.map(c => <Contact key={c.id} name={c.name} />)} 
-	</div>
+	<View>
+	   {contacts.map(c => <Contact key={c.id} name={c.name} />)} 
+	</View>
    );
 }
 

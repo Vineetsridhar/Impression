@@ -1,15 +1,13 @@
 import React from "react";
 import "../Contact/ContactsStyle.tsx";
-import PropTypes from "prop-types";
+import { View, Text } from "react-native";
 
-function Contact(props) {
+function Contact({ name }: { name: string }) {
    return (
-	<div>
-	  <span>{props.name}</span> 
-	</div>
+      <View>
+         <Text>{name}</Text>
+      </View>
    );
 }
-Contact.propTypes = {
-   name: PropTypes.string.isRequired
-};
+
 export default Contact;

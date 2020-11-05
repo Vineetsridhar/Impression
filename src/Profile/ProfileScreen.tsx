@@ -4,7 +4,6 @@ import { Avatar } from 'react-native-elements';
 import styles from './ProfileStyle';
 
 export default function ProfileScreen(){
- 
     return (
         <View style={ styles.container }>
 		<Avatar    

@@ -1,33 +1,34 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    container:{
-        display:'flex',
+    container: {
+        display: 'flex',
         margin: 0,
-	flexDirection: 'column',
-	justifyContent: 'center',
-	alignItems: 'center'
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor:'white'
     },
     flexCode: {
-	flex: 1
+        flex: 1
     },
     rowContainer: {
-    	flex: 1,
-	flexDirection: 'row',
-	justifyContent: 'space-between'
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
     schoolStyle: {
-	textAlign: 'left',
-	height: 50,
-	margin: 50
+        textAlign: 'left',
+        height: 50,
+        margin: 50
     },
     emailStyle: {
-	textAlign: 'right',
-	height: 50,
-	margin: 50
+        textAlign: 'right',
+        height: 50,
+        margin: 50
     },
     linksStyle: {
-	textAlign: 'center'
+        textAlign: 'center'
     },
 })
 
