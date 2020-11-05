@@ -1,13 +1,18 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React from 'react'
+import React, { useState } from 'react'
 import ProfileScreen from './Profile/ProfileScreen';
 import ContactScreen from './Contact/ContactScreen';
 import { Ionicons } from '@expo/vector-icons';
 import Scan from './Scan'
+import Login from './login';
 
 const Tab = createBottomTabNavigator();
 
 export default function Tabs() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  
+  if(!loggedIn) return <Login setLoggedIn={setLoggedIn}/>
+
   return (
     <Tab.Navigator screenOptions={({route}) => ({
         tabBarIcon: ({ focused, color, size }) => {
