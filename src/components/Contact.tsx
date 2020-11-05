@@ -9,5 +9,7 @@ function Contact(props) {
 	</div>
    );
 }
-
+Contact.propTypes = {
+   name: PropTypes.string.isRequired
+};
 export default Contact;
