@@ -12,9 +12,7 @@ NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete t
 3. To avoid having to source `~/.profile` upon terminal startup, run the command `echo "source ~/.profile" >> ~/.bashrc`
 
 # Installs Needed
-1. Install React Native Elements `npm install react-native-elements`. This is required for using `Avatar` for User Profile Image.
-2. Install prop-types `npm i -S prop-types`. This is used for validating props of Contact component.
-3. Install Typescript `npm install -g typescript`.
+1. Run `npm install` inside of the project directory. This will install all required packages in the project
 
 # Setup Expo
 1. Install expo by running the command `npm install -g expo-cli`.
