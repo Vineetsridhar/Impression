@@ -32,9 +32,9 @@ import tables
 ################################
 
 def get_user(userID):
-    #user = tables.User.query.filter_by(user_id).first()
-    #response =  {"email": user.email, "user_id": user.user_id, "first_name": user.first_name, "last_name": user.last_name, "descr": user.descr, "user_type": user.user_type, "gen_link_1": user.gen_link_1, "gen_link_2": user.gen_link_2, "gen_link_3": user.gen_link_3, "image": user.image, "doc": user.doc}
-    pass
+    user = tables.User.query.filter_by(user_id=userID).first()
+    response =  {"email": user.email, "user_id": user.user_id, "first_name": user.first_name, "last_name": user.last_name, "descr": user.descr, "user_type": user.user_type, "gen_link_1": user.gen_link_1, "gen_link_2": user.gen_link_2, "gen_link_3": user.gen_link_3, "image": user.image, "doc": user.doc}
+    return response
     
 @socketio.on("new connection")
 def on_new_connection(data):
