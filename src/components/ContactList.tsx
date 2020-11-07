@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../Contact/ContactsStyle";
 import Contact from "./Contact";
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 
 interface ContactI {
 	id:number,
@@ -9,9 +9,11 @@ interface ContactI {
 }
 function ContactList({contacts}:{contacts:ContactI[]}) {
    return (
-	<View>
+	<ScrollView contentContainerStyle={{alignItems:'flex-start'}}>
+	<View style={styles.contactContainer}>
 	   {contacts.map(c => <Contact key={c.id} name={c.name} />)} 
 	</View>
+	</ScrollView>
    );
 }
 
