@@ -1,6 +1,6 @@
 # models.py
 import flask_sqlalchemy
-from app import db
+from server import db
 
 class Connection(db.Model):
     id = db.Column(db.Integer, primary_key=True)
