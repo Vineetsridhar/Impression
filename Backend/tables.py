@@ -27,23 +27,6 @@ class User(db.Model):
         self.image = img
         self.doc = d
 
-    # do we need this?
-    def __repr__(self):
-        email = '<Email: %s, >' % self.email
-        user_id = '<User ID: %s, >' % self.user_id
-        fname = '<First Name: %s, >' % self.first_name
-        lname = '<Last Name: %s, >' % self.last_name
-        name = fname + lname
-        des = '<Description: %s, >' % self.descr
-        gl1 = '<Link 1: %s, >' % self.gen_link_1
-        gl2 = '<Link 2: %s, >' % self.gen_link_2
-        gl3 = '<Link 3: %s, >' % self.gen_link_3
-        im = '<Image Link: %s, >' % self.image
-        doc = '<Document Link: %s, >' % self.doc
-        links = gl1 + gl2 + gl3 + im + doc
-        res = email + user_id + name + des + links
-        return res
-
 class Connection(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userID1 = db.Column(db.String(128))
