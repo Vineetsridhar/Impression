@@ -42,6 +42,11 @@ def change_name(userID, fname, lname):
     user.last_name = lname
     db.session.commit()
     
+def change_email(userID, em):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.email = em
+    db.session.commit()
+    
 @socketio.on("new connection")
 def on_new_connection(data):
     for connection in db.session.query(tables.Connection).all():
