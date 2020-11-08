@@ -47,6 +47,11 @@ def change_email(userID, em):
     user.email = em
     db.session.commit()
     
+def change_descr(userID, des):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.descr = des
+    db.session.commit()
+    
 @socketio.on("new connection")
 def on_new_connection(data):
     for connection in db.session.query(tables.Connection).all():
