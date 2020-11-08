@@ -55,6 +55,21 @@ def change_descr(userID, des):
     user = tables.User.query.filter_by(user_id=userID).first()
     user.descr = des
     db.session.commit()
+
+def change_genlink1(userID, genlink1):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.gen_link_1 = genlink1
+    db.session.commit()
+
+def change_genlink2(userID, genlink2):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.gen_link_2 = genlink2
+    db.session.commit()
+
+def change_genlink3(userID, genlink3):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.gen_link_3 = genlink3
+    db.session.commit()
     
 @socketio.on("new connection")
 def on_new_connection(data):
