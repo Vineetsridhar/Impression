@@ -36,9 +36,13 @@ def get_user(userID):
     response =  {"email": user.email, "user_id": user.user_id, "first_name": user.first_name, "last_name": user.last_name, "descr": user.descr, "user_type": user.user_type, "gen_link_1": user.gen_link_1, "gen_link_2": user.gen_link_2, "gen_link_3": user.gen_link_3, "image": user.image, "doc": user.doc}
     return response
 
-def change_name(userID, fname, lname):
+def change_fname(userID, fname):
     user = tables.User.query.filter_by(user_id=userID).first()
     user.first_name = fname
+    db.session.commit()
+    
+def change_lname(userID, lname):
+    user = tables.User.query.filter_by(user_id=userID).first()
     user.last_name = lname
     db.session.commit()
     
