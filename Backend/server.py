@@ -70,6 +70,21 @@ def change_genlink3(userID, genlink3):
     user = tables.User.query.filter_by(user_id=userID).first()
     user.gen_link_3 = genlink3
     db.session.commit()
+
+def change_img(userID, im):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.image = im
+    db.session.commit()
+
+def change_doc(userID, document):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.doc = document
+    db.session.commit()
+
+def change_type(userID, usertype):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.user_type = usertype
+    db.session.commit()
     
 @socketio.on("new connection")
 def on_new_connection(data):
