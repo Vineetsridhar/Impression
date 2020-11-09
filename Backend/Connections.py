@@ -1,6 +1,7 @@
 import flask_sqlalchemy
 from server import db
 import tables
+from flask_sqlalchemy import _and, _or
 
 #### Given an email, returns a dictionary with the data of the user with such an email
 def get_user(query_user_email):
@@ -23,9 +24,9 @@ def get_user(query_user_email):
 #### Given 2 user emails, adds them as a new connection to the DB if such a connection does not already exist.
 #### Returns -1 if such a connection already exists, and 0 if the connection was added.
 def on_new_connection(data):
-    for connection in db.session.query(tables.Connection).filter((tables.Connection.user1_email == data["user1_email"]) & (tables.Connection.user2_email == data["user2_email"])).all():
+    for connection in db.session.query(tables.Connection).filter(_and(tables.Connection.user1_email == data["user1_email"], tables.Connection.user2_email == data["user2_email"])).all():
         return -1
-    for connection in db.session.query(tables.Connection).filter((tables.Connection.user1_email == data["user2_email"]) & (tables.Connection.user2_email == data["user1_email"])).all():
+    for connection in db.session.query(tables.Connection).filter(_and(tables.Connection.user1_email == data["user2_email"], tables.Connection.user2_email == data["user1_email"])).all():
         return -1
     
     db.session.add(tables.Connection(data["user1_email"], data["user2_email"]))
@@ -35,10 +36,10 @@ def on_new_connection(data):
 #### Given 2 user emails, remove the exisiting connection between them if it exists.
 #### Returns -1 if such a connection does not exist, and 0 if the connection existed and was deleted.
 def on_delete_connection(data):
-    for connection in db.session.query(tables.Connection).filter((tables.Connection.user1_email == data["user1_email"]) & (tables.Connection.user2_email == data["user2_email"])).all():
+    for connection in db.session.query(tables.Connection).filter(_and(tables.Connection.user1_email == data["user1_email"], tables.Connection.user2_email == data["user2_email"])).all():
         db.session.delete(connection)
         return 0
-    for connection in db.session.query(tables.Connection).filter((tables.Connection.user1_email == data["user2_email"]) & (tables.Connection.user2_email == data["user1_email"])).all():
+    for connection in db.session.query(tables.Connection).filter(_and(tables.Connection.user1_email == data["user2_email"], tables.Connection.user2_email == data["user1_email"])).all():
         db.session.delete(connection)
         return 0
     
@@ -50,7 +51,7 @@ def on_query_connections(data):
     result = []
     response = []
     
-    for connection in db.session.query(tables.Connection).filter((tables.Connection.user1_email == data["user_email"]) | (tables.Connection.user2_email == data["user_email"])).all():
+    for connection in db.session.query(tables.Connection).filter(_or(tables.Connection.user1_email == data["user_email"], tables.Connection.user2_email == data["user_email"])).all():
         result.append(connection)
 
     for connection in result:
