@@ -36,8 +36,8 @@ import tables
 
 # got rid of user ID for users
 # TODO: change filter_by
-def get_user(user_id):
-    user = tables.User.query.filter_by(user_id=user_id).first()
+def get_user(query_user_id):
+    user = tables.User.query.filter_by(user_id=query_user_id).first()
     response = {
         "email": user.email,
         "first_name": user.first_name,
