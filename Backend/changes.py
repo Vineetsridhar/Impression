@@ -2,6 +2,10 @@ import flask_sqlalchemy
 from server import db
 import tables
 
+def new_user(email, fname, lname, des, usertype, gl1, gl2, gl3, im, doc):
+    db.session.add(tables.User(email, fname, lname, des, usertype, gl1, gl2, gl3, im, doc));
+    db.session.commit();
+
 def change_fname(userID, fname):
     user = tables.User.query.filter_by(user_id=userID).first()
     user.first_name = fname
