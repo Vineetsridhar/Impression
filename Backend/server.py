@@ -12,7 +12,7 @@ import requests
 ################################
 
 # Configuration and Variables
-dotenv_path = join(dirname(__file__), "../secret.env")
+dotenv_path = join(dirname(__file__), "secret.env")
 load_dotenv(dotenv_path)
 
 app = flask.Flask(__name__)
@@ -26,11 +26,63 @@ app.config["SQLALCHEMY_DATABASE_URI"] = database_uri
 db = flask_sqlalchemy.SQLAlchemy(app)
 db.init_app(app)
 db.app = app
+
 db.session.commit()
 
+import loader
 import tables
 
 ################################
+
+def change_fname(userID, fname):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.first_name = fname
+    db.session.commit()
+    
+def change_lname(userID, lname):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.last_name = lname
+    db.session.commit()
+    
+def change_email(userID, em):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.email = em
+    db.session.commit()
+    
+def change_descr(userID, des):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.descr = des
+    db.session.commit()
+
+def change_genlink1(userID, genlink1):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.gen_link_1 = genlink1
+    db.session.commit()
+
+def change_genlink2(userID, genlink2):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.gen_link_2 = genlink2
+    db.session.commit()
+
+def change_genlink3(userID, genlink3):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.gen_link_3 = genlink3
+    db.session.commit()
+
+def change_img(userID, im):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.image = im
+    db.session.commit()
+
+def change_doc(userID, document):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.doc = document
+    db.session.commit()
+
+def change_type(userID, usertype):
+    user = tables.User.query.filter_by(user_id=userID).first()
+    user.user_type = usertype
+    db.session.commit()
 
 def get_user(userID):
     user = tables.User.query.filter_by(user_id=userID).first()
@@ -65,8 +117,9 @@ def on_query_connections(data):
 
 @app.route("/")
 def index():
-    # emit_all_addresses(ADDRESSES_RECEIVED_CHANNEL)
-    return "Hello World"
+    db.session.add(tables.Connection("test1", "test2"))
+    db.session.commit()
+    return tables.Connection.query.filter_by(userID1="test1").first().userID2
 
 if __name__ == '__main__':
     socketio.run(
