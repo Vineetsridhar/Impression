@@ -12,7 +12,7 @@ import requests
 ################################
 
 # Configuration and Variables
-dotenv_path = join(dirname(__file__), "secret.env")
+dotenv_path = join(dirname(__file__), "../secret.env")
 load_dotenv(dotenv_path)
 
 app = flask.Flask(__name__)
@@ -20,7 +20,7 @@ app = flask.Flask(__name__)
 socketio = flask_socketio.SocketIO(app)
 socketio.init_app(app, cors_allowed_origins="*")
 
-database_uri = os.getenv("DATABASE_URL")
+database_uri = os.environ("DATABASE_URL")
 app.config["SQLALCHEMY_DATABASE_URI"] = database_uri
 
 db = flask_sqlalchemy.SQLAlchemy(app)
