@@ -2,6 +2,7 @@
 import flask_sqlalchemy
 from server import db
 
+
 class User(db.Model):
     email = db.Column(db.String(120), primary_key=True)
     first_name = db.Column(db.String(120))
@@ -19,19 +20,22 @@ class User(db.Model):
         self.first_name = fname
         self.last_name = lname
         self.descr = des
+        self.user_type = u_type
         self.gen_link_1 = gl1
         self.gen_link_2 = gl2
         self.gen_link_3 = gl3
         self.image = img
         self.doc = d
 
+
 class Connection(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    userID1 = db.Column(db.String(128))
-    userID2 = db.Column(db.String(128))
+    user_id1 = db.Column(db.String(128))
+    user_id2 = db.Column(db.String(128))
 
     def __init__(self, user1, user2):
-        self.userID1 = user1
-        self.userID2 = user2
-        
+        self.user_id1 = user1
+        self.user_id2 = user2
+
+
 db.create_all()
