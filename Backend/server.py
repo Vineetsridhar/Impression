@@ -31,6 +31,7 @@ db.session.commit()
 
 import loader
 import tables
+import users
 
 ################################
 
