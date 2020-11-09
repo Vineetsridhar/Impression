@@ -1,8 +1,9 @@
-# app.py
-from os.path import join, dirname
-from dotenv import load_dotenv
+# server.py
 import os
 import datetime
+from os.path import join, dirname
+from dotenv import load_dotenv
+import requests
 import flask
 import flask_sqlalchemy
 import flask_socketio
@@ -19,53 +20,86 @@ app = flask.Flask(__name__)
 socketio = flask_socketio.SocketIO(app)
 socketio.init_app(app, cors_allowed_origins="*")
 
-database_uri = os.getenv("DATABASE_URL")
+database_uri = os.environ["DATABASE_URL"]
 app.config["SQLALCHEMY_DATABASE_URI"] = database_uri
 
 db = flask_sqlalchemy.SQLAlchemy(app)
 db.init_app(app)
 db.app = app
+
 db.session.commit()
 
+import loader
 import tables
+import users
 
 ################################
 
-def get_user(userID):
-    user = tables.User.query.filter_by(user_id=userID).first()
-    response =  {"email": user.email, "user_id": user.user_id, "first_name": user.first_name, "last_name": user.last_name, "descr": user.descr, "user_type": user.user_type, "gen_link_1": user.gen_link_1, "gen_link_2": user.gen_link_2, "gen_link_3": user.gen_link_3, "image": user.image, "doc": user.doc}
+# got rid of user ID for users
+# TODO: change filter_by
+def get_user(query_user_id):
+    user = tables.User.query.filter_by(user_id=query_user_id).first()
+    response = {
+        "email": user.email,
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "organization": user.organization,
+        "descr": user.descr,
+        "user_type": user.user_type,
+        "gen_link_1": user.gen_link_1,
+        "gen_link_2": user.gen_link_2,
+        "gen_link_3": user.gen_link_3,
+        "image": user.image,
+        "doc": user.doc,
+    }
     return response
-    
+
 @socketio.on("new connection")
 def on_new_connection(data):
     for connection in db.session.query(tables.Connection).all():
-        if connection.userID1 == data["userID1"] and connection.userID2 == data["userID2"]:
+        if (
+            connection.user_id1 == data["user_id1"]
+            and connection.user_id2 == data["user_id2"]
+        ):
             return
-        elif connection.userID1 == data["userID2"] or connection.userID2 == data["userID1"]:
+        elif (
+            connection.user_id1 == data["user_id2"]
+            or connection.user_id2 == data["user_id1"]
+        ):
             return
-    
-    db.session.add(tables.Connection(data["userID1"], data["userID2"]))
+
+    db.session.add(tables.Connection(data["user_id1"], data["user_id2"]))
     db.session.commit()
-    
+
+
 @socketio.on("query connections")
 def on_query_connections(data):
     result = []
     response = []
     for connection in db.session.query(tables.Connection).all():
-        if connection.userID1 == data["queryUser"] or connection.userID2 == data["queryUser"]:
+        if (
+            connection.user_id1 == data["queryUser"]
+            or connection.user_id2 == data["queryUser"]
+        ):
             result.append(connection)
-    
+
     for connection in result:
-        if data["queryUser"] == connection.userID1:
+        if data["queryUser"] == connection.user_id1:
             pass
         else:
             pass
-        response.append({}) #UserID, Name, Description, Email, User Typ
+    response.append({})  # UserID, Name, Description, Email, User Typ
+
 
 @app.route("/")
 def index():
-    # emit_all_addresses(ADDRESSES_RECEIVED_CHANNEL)
-    return "Hello World"
+    return tables.Connection.query.filter_by(user_id1="test1").first().userID2
 
-if __name__ == '__main__':
-    app.run(port=8080)
+
+if __name__ == "__main__":
+    socketio.run(
+        app,
+        host=os.getenv("IP", "0.0.0.0"),
+        port=int(os.getenv("PORT", 8080)),
+        debug=True,
+    )
