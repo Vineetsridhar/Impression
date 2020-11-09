@@ -1,12 +1,22 @@
 import React from "react";
-import "../Contact/ContactsStyle.tsx";
-import { View, Text } from "react-native";
+import styles from "../Contact/ContactsStyle.tsx";
+import { View, Text, Image, ScrollView } from "react-native";
+import { Avatar } from 'react-native-elements';
+import avatar from '../../config/avatar';
 
 function Contact({ name }: { name: string }) {
    return (
-      <View>
-         <Text>{name}</Text>
-      </View>
+	
+	<ScrollView style={styles.container} contentContainerStyle={{ alignItems:'flex-start' }}>
+	<View style={styles.rowContainer}>
+		<Image style={styles.avatarStyle} source={{ uri: avatar }} />
+		<View style={{flexDirection: 'column'}}>
+			<Text>{name}</Text>
+			<Text>{name}</Text>
+			<Text>{name}</Text>	
+		</View>
+	</View>
+	</ScrollView>
    );
 }
 
