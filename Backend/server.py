@@ -54,6 +54,7 @@ def get_user(query_user_id):
     }
     return response
 
+# TODO: change filter_by
 @socketio.on("new connection")
 def on_new_connection(data):
     for connection in db.session.query(tables.Connection).all():
@@ -71,7 +72,7 @@ def on_new_connection(data):
     db.session.add(tables.Connection(data["user_id1"], data["user_id2"]))
     db.session.commit()
 
-
+# TODO: change filter_by
 @socketio.on("query connections")
 def on_query_connections(data):
     result = []
@@ -94,7 +95,6 @@ def on_query_connections(data):
 @app.route("/")
 def index():
     return tables.Connection.query.filter_by(user_id1="test1").first().userID2
-
 
 if __name__ == "__main__":
     socketio.run(
