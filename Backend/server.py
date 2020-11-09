@@ -42,6 +42,7 @@ def get_user(user_id):
         "email": user.email,
         "first_name": user.first_name,
         "last_name": user.last_name,
+        "organization": user.organization,
         "descr": user.descr,
         "user_type": user.user_type,
         "gen_link_1": user.gen_link_1,
