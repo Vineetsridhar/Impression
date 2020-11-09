@@ -4,7 +4,6 @@ from server import db
 
 class User(db.Model):
     email = db.Column(db.String(120), primary_key=True)
-    user_id = db.Column(db.Integer)
     first_name = db.Column(db.String(120))
     last_name = db.Column(db.String(120))
     descr = db.Column(db.String(250))
@@ -15,9 +14,8 @@ class User(db.Model):
     image = db.Column(db.String(250))
     doc = db.Column(db.String(250))
 
-    def __init__(self, e, u_id, fname, lname, des, u_type, gl1, gl2, gl3, img, d):
+    def __init__(self, e, fname, lname, des, u_type, gl1, gl2, gl3, img, d):
         self.email = e
-        self.user_id = u_id
         self.first_name = fname
         self.last_name = lname
         self.descr = des
