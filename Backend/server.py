@@ -92,7 +92,7 @@ def on_query_connections(data):
 
 @app.route("/")
 def index():
-    return tables.Connection.query.filter_by(user1_email="test1").first().user2_email
+    return tables.Connection.query.filter_by(user2_email="test2").first().user1_email
 
 if __name__ == "__main__":
     socketio.run(
