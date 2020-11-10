@@ -2,8 +2,8 @@ import flask_sqlalchemy
 from server import db
 import tables
 
-def new_user(email, fname, lname, org, des, usertype, gl1, gl2, gl3, image, doc):
-    db.session.add(tables.Users(email, fname, lname, org, des, usertype, gl1, gl2, gl3, image, doc))
+def new_user(email, fname, lname, image):
+    db.session.add(tables.Users(email, fname, lname, None, None, None, None, None, None, image, None))
     db.session.commit()
 
 def edit_user(account):

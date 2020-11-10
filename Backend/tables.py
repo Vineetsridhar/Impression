@@ -28,7 +28,7 @@ class Users(db.Model):
         self.image = img
         self.doc = d
 
-class Connection(db.Model):
+class Connections(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user1_email = db.Column(db.String(128))
     user2_email = db.Column(db.String(128))

@@ -37,7 +37,7 @@ import tables
 ####
 @socketio.on("new user")
 def on_new_user(data):
-    ImpUtil.Users.new_user(data["email"], data["fname"], data["lname"], data["org"], data["des"], data["usertype"], data["gl1"], data["gl2"], data["gl3"], data["image"], data["doc"])
+    ImpUtil.Users.new_user(data["email"], data["given_name"], data["family_name"], data["picture"])
     
 #### Given an email, returns a dictionary with the data of the user with such an email
 def get_user(query_user_email):
