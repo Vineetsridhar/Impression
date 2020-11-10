@@ -29,9 +29,8 @@ db.app = app
 
 db.session.commit()
 
-import loader
-import tables
 import users
+import tables
 
 ################################
 
@@ -57,7 +56,7 @@ def get_user(query_user_id):
 # TODO: change filter_by
 @socketio.on("new connection")
 def on_new_connection(data):
-    for connection in db.session.query(tables.Connection).all():
+    for connection in db.session.query(tables.Connection) .all():
         if (
             connection.user_id1 == data["user_id1"]
             and connection.user_id2 == data["user_id2"]
@@ -91,10 +90,9 @@ def on_query_connections(data):
             pass
     response.append({})  # UserID, Name, Description, Email, User Typ
 
-
 @app.route("/")
 def index():
-    return tables.Connection.query.filter_by(user_id1="test1").first().userID2
+    return tables.Connection.query.filter_by(user1_email="test1").first().user2_email
 
 if __name__ == "__main__":
     socketio.run(

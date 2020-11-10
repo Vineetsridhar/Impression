@@ -30,11 +30,11 @@ class User(db.Model):
 
 class Connection(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id1 = db.Column(db.String(128))
-    user_id2 = db.Column(db.String(128))
+    user1_email = db.Column(db.String(128))
+    user2_email = db.Column(db.String(128))
 
     def __init__(self, user1, user2):
-        self.user_id1 = user1
-        self.user_id2 = user2
+        self.user1_email = user1
+        self.user2_email = user2
 
 db.create_all()
