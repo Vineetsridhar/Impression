@@ -11,6 +11,9 @@ import flask_socketio
 ################################
 
 # Configuration and Variables
+
+SERVER_PREFIX = '\033[96m' + "[SERVER]" + '\033[0m' + " "
+
 dotenv_path = join(dirname(__file__), "secret.env")
 load_dotenv(dotenv_path)
 
@@ -31,7 +34,7 @@ db.session.commit()
 import ImpUtil
 import tables
 
-sessionIDS = {}
+clients = []
 
 ################################
 
@@ -45,6 +48,11 @@ def on_new_user(data):
 def on_edit(data):
     ImpUtil.Users.edit_user(data)
 
+@socketio.on("login")
+def on_login(data):
+    clients.append({"email": data["user_email"], "room": flask.session.get('room'), "sid": flask.request.sid}) 
+    print(SERVER_PREFIX + str(clients[0]))
+
 #### Given an email, returns a dictionary with the data of the user with such an email
 def get_user(query_user_email):
     ImpUtil.Connections.get_user(query_user_email)
@@ -54,7 +62,6 @@ def get_user(query_user_email):
 @socketio.on("new connection")
 def on_new_connection(data):
     ImpUtil.Connections.on_new_connection(data)
-    
     
 #### Given 2 user emails, remove the exisiting connection between them if it exists.
 #### Returns -1 if such a connection does not exist, and 0 if the connection existed and was deleted.
