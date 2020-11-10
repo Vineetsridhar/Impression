@@ -8,7 +8,7 @@ class Users(db.Model):
     last_name = db.Column(db.String(120))
     organization = db.Column(db.String(120), nullable=True)
     descr = db.Column(db.String(250), nullable=True)
-    user_type = db.Column(db.String(120))
+    user_type = db.Column(db.String(120), nullable=True)
     gen_link_1 = db.Column(db.String(250), nullable=True)
     gen_link_2 = db.Column(db.String(250), nullable=True)
     gen_link_3 = db.Column(db.String(250), nullable=True)
