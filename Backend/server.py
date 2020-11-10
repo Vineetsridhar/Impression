@@ -32,6 +32,8 @@ db.session.commit()
 import ImpUtil
 import tables
 
+sessionIDS = {}
+
 ################################
 
 ####
@@ -48,7 +50,8 @@ def get_user(query_user_email):
 @socketio.on("new connection")
 def on_new_connection(data):
     ImpUtil.Connections.on_new_connection(data)
-
+    
+    
 #### Given 2 user emails, remove the exisiting connection between them if it exists.
 #### Returns -1 if such a connection does not exist, and 0 if the connection existed and was deleted.
 @socketio.on("delete connection")
