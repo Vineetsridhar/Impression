@@ -11,3 +11,7 @@ export function getCallParams(body: any) {
 export function newUser(data: any) {
   return fetch(`${url}/new_user`, getCallParams(data));
 }
+
+export function getUserInfo(email: string) {
+  return fetch(`${url}/get_user`, getCallParams({ email }));
+}

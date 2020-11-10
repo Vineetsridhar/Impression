@@ -4,14 +4,26 @@ import styles from "./loginstyles";
 import avatar from "../config/avatar";
 import * as Google from "expo-google-app-auth";
 import { newUser } from "./helpers/network";
+import user from "../config/user";
 
 interface props {
   setLoggedIn: Dispatch<SetStateAction<boolean>>;
 }
 export default function Login({ setLoggedIn }: props) {
   const login = (userInfo: any) => {
-    newUser(userInfo);
-    setLoggedIn(true);
+    newUser(userInfo)
+      .then((response) => response.json())
+      .then((json) => {
+        if (json["success"]) {
+          user.email = json["email"];
+          setLoggedIn(true);
+        } else {
+          console.log("failed?", json);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const initiateGoogleLogin = async () => {
