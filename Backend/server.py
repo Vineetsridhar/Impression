@@ -35,11 +35,16 @@ sessionIDS = {}
 
 ################################
 
-####
+#### Given info from a user login, creates new user
 @socketio.on("new user")
 def on_new_user(data):
     ImpUtil.Users.new_user(data["email"], data["given_name"], data["family_name"], data["picture"])
-    
+
+#### Given info from a user input, changes info of user on database
+@socketio.on("edit user")
+def on_edit(data):
+    ImpUtil.Users.edit_user(data)
+
 #### Given an email, returns a dictionary with the data of the user with such an email
 def get_user(query_user_email):
     ImpUtil.Connections.get_user(query_user_email)
