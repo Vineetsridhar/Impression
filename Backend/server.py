@@ -7,7 +7,6 @@ import requests
 import flask
 import flask_sqlalchemy
 import flask_socketio
-from flask_restful import Resource, Api
 
 ################################
 
