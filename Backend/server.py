@@ -34,6 +34,8 @@ import tables
 
 ################################
 
+
+
 #### Given an email, returns a dictionary with the data of the user with such an email
 def get_user(query_user_email):
     ImpUtil.Connections.get_user(query_user_email)
@@ -54,7 +56,13 @@ def on_delete_connection(data):
 #### Used to query for all connections involving a given user.
 @socketio.on("query connections")
 def on_query_connections(data):
-    ImpUtil.Connections.on_query_connections(data)
+    socketio.emit(
+        "query connections response",
+        {
+            "status": 0,
+            "response": ImpUtil.Connections.on_query_connections(data),
+        },
+    )
 
 @app.route("/")
 def index():
