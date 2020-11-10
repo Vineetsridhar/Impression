@@ -13,7 +13,6 @@ Companies will be able to attach any important documents about their mission sta
 Impression will allow for a seamless exhcange of information between users and will reduce the amount of paper often used during career fairs and/or interviews,
 as all the information will be stored virtually for the users to revisit if need be.
 
-
 # Setup
 NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete these steps if not needed.
 
@@ -35,19 +34,12 @@ NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete t
 # Setup Expo
 1. Install expo by running the command `npm install -g expo-cli`.
 
-# View on web browser
-1. Change directories with `cd ~/Impression`.
-2. Run the application with `npm run start`.
-3. A web browser should open up with the Metro Bundler. If not press `?` in the terminal to display a list of commands for help.
-4. Select the `connection` setting `LAN`.
-5. Click `Run in web browser`.
-6. A debugging page may pop up and overlay the web page, simply close it out with `escape` key or click the `x` on the top right of the web page.
-
 # View on android application
-1. Download and open the `Expo` android application on the `Google Play Store`. 
-2. Change directories with `cd ~/Impression`.
-3. Run the application `npm run start`.
-4. A web browser should open up with the Metro Bundler. If not press `?` in the terminal to display a list of commands for help.
-5. Select the `connection` setting `Tunnel`.
-   NOTE: `Tunnel` may take some time to load. Refer to the terminal output and/or `Metro Bundler` output to know when tunneling is complete.
-6. When `Tunnel` connection is complete, use the `Expo` app to scan the QR code that appears in the terminal or web page. The app should should now appear on your android devices screen.
+1. On an android mobile device download and open the `Expo` app on the `Google Play Store`. 
+2. Back on your pc, open a terminal and change directories with `cd ~/Impression/Backend`.
+3. Run the command `python server.py` to start the server.
+4. In another terminal, change directories with `cd ~/Impression`.
+5. Run the application `npm run start`.
+6. A web browser should open up with the Metro Bundler. If not press `?` in the terminal to display a list of commands for help.
+7. Select the `connection` setting `LAN`.
+8. When the connection is complete, use the `Expo` app to scan the QR code that appears in the terminal or web page. The app should should now appear on your android devices screen.
