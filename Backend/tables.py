@@ -2,7 +2,7 @@
 import flask_sqlalchemy
 from server import db
 
-class User(db.Model):
+class Users(db.Model):
     email = db.Column(db.String(120), primary_key=True)
     first_name = db.Column(db.String(120))
     last_name = db.Column(db.String(120))

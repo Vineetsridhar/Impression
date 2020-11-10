@@ -3,11 +3,11 @@ from server import db
 import tables
 
 def new_user(email, fname, lname, org, des, usertype, gl1, gl2, gl3, image, doc):
-    db.session.add(tables.User(email, fname, lname, org, des, usertype, gl1, gl2, gl3, image, doc))
+    db.session.add(tables.Users(email, fname, lname, org, des, usertype, gl1, gl2, gl3, image, doc))
     db.session.commit()
 
 def edit_user(account):
-    user = tables.User.query.filter_by(email=account.email).first()
+    user = tables.Users.query.filter_by(email=account.email).first()
     user.email = account.email
     user.first_name = account.first_name
     user.last_name = account.last_name
