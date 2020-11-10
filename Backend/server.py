@@ -63,8 +63,10 @@ def on_login(data):
     print(SERVER_PREFIX + str(clients[0]))
 
 #### Given an email, returns a dictionary with the data of the user with such an email
-def get_user(query_user_email):
-    ImpUtil.Connections.get_user(query_user_email)
+@app.route("/get_user", methods=["POST"])
+def get_user():
+    query_user_email = flask.request.json
+    return ImpUtil.Users.get_user(query_user_email["email"])
     
 #### Given 2 user emails, adds them as a new connection to the DB if such a connection does not already exist.
 #### Returns -1 if such a connection already exists, and 0 if the connection was added.

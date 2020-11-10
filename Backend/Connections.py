@@ -2,24 +2,6 @@ import flask_sqlalchemy
 from server import db
 import tables
 
-#### Given an email, returns a dictionary with the data of the user with such an email
-def get_user(query_user_email):
-    user = db.session.query(tables.Users).filter(tables.Connections.user_email == query_user_email).first()
-    response = {
-        "email": user.email,
-        "first_name": user.first_name,
-        "last_name": user.last_name,
-        "organization": user.organization,
-        "descr": user.descr,
-        "user_type": user.user_type,
-        "gen_link_1": user.gen_link_1,
-        "gen_link_2": user.gen_link_2,
-        "gen_link_3": user.gen_link_3,
-        "image": user.image,
-        "doc": user.doc,
-    }
-    return response
-
 #### Given 2 user emails, adds them as a new connection to the DB if such a connection does not already exist.
 #### Returns -1 if such a connection already exists, and 0 if the connection was added.
 def on_new_connection(data):
