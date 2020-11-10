@@ -92,6 +92,8 @@ def on_query_connections(data):
 
 @app.route("/")
 def index():
+    db.session.add(tables.Connection("test1", "test2"))
+    db.session.commit()
     return tables.Connection.query.filter_by(user2_email="test2").first().user1_email
 
 if __name__ == "__main__":
