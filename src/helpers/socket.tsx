@@ -1,5 +1,7 @@
-import { io } from "socket.io-client";
+import socketIO from "socket.io-client";
 
-const socket = io("http://localhost:8080");
+const socket = socketIO("http://192.168.2.15:8080", {
+  transports: ["websocket"],
+});
 
 export default socket;

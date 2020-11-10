@@ -41,6 +41,7 @@ clients = []
 #### Given info from a user login, creates new user
 @socketio.on("new user")
 def on_new_user(data):
+    print(data)
     ImpUtil.Users.new_user(data["email"], data["given_name"], data["family_name"], data["picture"])
 
 #### Given info from a user input, changes info of user on database
