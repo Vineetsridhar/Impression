@@ -69,10 +69,10 @@ def on_query_connections(data):
 
 @app.route("/")
 def index():
-    db.session.add(tables.Connection("test1", "test2"))
-    db.session.add(tables.Connection("test3", "test4"))
+    db.session.add(tables.Connections("test1", "test2"))
+    db.session.add(tables.Connections("test3", "test4"))
     db.session.commit()
-    return tables.Connection.query.filter_by(user2_email="test4").first().user1_email
+    return tables.Connections.query.filter_by(user2_email="test4").first().user1_email
 
 if __name__ == "__main__":
     socketio.run(
