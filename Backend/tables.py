@@ -6,14 +6,14 @@ class Users(db.Model):
     email = db.Column(db.String(120), primary_key=True)
     first_name = db.Column(db.String(120))
     last_name = db.Column(db.String(120))
-    organization = db.Column(db.String(120))
-    descr = db.Column(db.String(250))
-    user_type = db.Column(db.String(120))
-    gen_link_1 = db.Column(db.String(250))
-    gen_link_2 = db.Column(db.String(250))
-    gen_link_3 = db.Column(db.String(250))
+    organization = db.Column(db.String(120), nullable=True)
+    descr = db.Column(db.String(250), nullable=True)
+    user_type = db.Column(db.String(120), nullable=True)
+    gen_link_1 = db.Column(db.String(250), nullable=True)
+    gen_link_2 = db.Column(db.String(250), nullable=True)
+    gen_link_3 = db.Column(db.String(250), nullable=True)
     image = db.Column(db.String(250))
-    doc = db.Column(db.String(250))
+    doc = db.Column(db.String(250), nullable=True)
 
     def __init__(self, e, fname, lname, org, des, u_type, gl1, gl2, gl3, img, d):
         self.email = e
