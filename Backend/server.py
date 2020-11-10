@@ -39,10 +39,18 @@ clients = []
 ################################
 
 #### Given info from a user login, creates new user
-@socketio.on("new user")
-def on_new_user(data):
-    print(data)
-    ImpUtil.Users.new_user(data["email"], data["given_name"], data["family_name"], data["picture"])
+@app.route("/new_user", methods=["POST"])
+def on_new_user():
+    data = flask.request.json
+    try:
+        fields = ["email", "given_name", "family_name", "picture"]
+        for field in fields:
+            if field not in data:
+                data[field] = ""
+        ImpUtil.Users.new_user(data["email"], data["given_name"], data["family_name"], data["picture"])
+        return {"success":True, "email":data["email"]}
+    except:
+        return {"success": False}
 
 #### Given info from a user input, changes info of user on database
 @socketio.on("edit user")
@@ -72,16 +80,15 @@ def on_delete_connection(data):
 
 #### Given a user X's email, returns a list of users X has a connection with. Specifically, it returns a list of dictionaries where each dictionary is the data of a user X has a connection with.
 #### Used to query for all connections involving a given user.
-@socketio.on("query connections")
-def on_query_connections(data):
-    socketio.emit(
-        "query connections response",
-        {
-            "status": 0,
-            "response": ImpUtil.Connections.on_query_connections(data),
-        },
-    )
-
+@app.route("/query_connections")
+def on_query_connections():
+    data = flask.request.json
+    return {
+        "success":True,
+        "status": 0,
+        "response": ImpUtil.Connections.on_query_connections(data), #Make sure you add error checking to this
+    },
+    
 @app.route("/")
 def index():
     db.session.add(tables.Connections("test1", "test2"))

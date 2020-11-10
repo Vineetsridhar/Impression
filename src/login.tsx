@@ -3,14 +3,14 @@ import { Text, View, Image, TouchableOpacity } from "react-native";
 import styles from "./loginstyles";
 import avatar from "../config/avatar";
 import * as Google from "expo-google-app-auth";
-import socket from "./helpers/socket";
+import { newUser } from "./helpers/network";
 
 interface props {
   setLoggedIn: Dispatch<SetStateAction<boolean>>;
 }
 export default function Login({ setLoggedIn }: props) {
   const login = (userInfo: any) => {
-    socket.emit("new user", userInfo);
+    newUser(userInfo);
     setLoggedIn(true);
   };
 
