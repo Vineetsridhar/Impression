@@ -1,4 +1,12 @@
 # tables.py
+# pylint: disable=too-many-instance-attributes
+# pylint: disable=missing-function-docstring
+# pylint: disable=no-member
+# pylint: disable=too-many-arguments
+# pylint: disable=missing-class-docstring
+# pylint: disable=too-few-public-methods
+# pylint: disable=missing-module-docstring
+
 import flask_sqlalchemy
 from server import db
 
@@ -28,6 +36,7 @@ class Users(db.Model):
         self.image = img
         self.doc = d
 
+
 class Connections(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user1_email = db.Column(db.String(128))
@@ -36,5 +45,6 @@ class Connections(db.Model):
     def __init__(self, user1, user2):
         self.user1_email = user1
         self.user2_email = user2
+
 
 db.create_all()
