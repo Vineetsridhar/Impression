@@ -15,3 +15,10 @@ export function newUser(data: any) {
 export function getUserInfo(email: string) {
   return fetch(`${url}/get_user`, getCallParams({ email }));
 }
+
+export function getConnections(email: string) {
+  return fetch(
+    `${url}/query_connections`,
+    getCallParams({ user_email: email })
+  );
+}

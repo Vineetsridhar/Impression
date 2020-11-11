@@ -1,45 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import styles from "./ContactsStyle";
 import Contact from "../components/Contact";
 import ContactList from "../components/ContactList";
-
-interface ContactI {
-  id: number;
-  name: string;
-  email: string;
-}
-interface RecruiterI {
-  id: number;
-  company: string;
-  name: string;
-}
-const contacts: ContactI[] = [
-  { id: 1, name: "Chris Mazzei", email: "" },
-  { id: 2, name: "Stephanie Nieve-Silva", email: "" },
-  { id: 3, name: "Rami Bazoqa", email: "" },
-  { id: 4, name: "Vineet Sridhar", email: "" },
-  { id: 5, name: "Jeff Bezos", email: "" },
-  { id: 6, name: "Bill Gates", email: "" },
-];
-const recruiters: RecruiterI[] = [
-  { id: 1, name: "Recruiter Chris", company: "" },
-  { id: 2, name: "Recruiter Stephanie", company: "" },
-  { id: 3, name: "Recruiter Rami", company: "" },
-  { id: 4, name: "Recruiter Vineet", company: "" },
-  { id: 5, name: "Recruiter Jeff", company: "" },
-  { id: 6, name: "Recruiter Bill", company: "" },
-];
+import { User } from "../helpers/interfaces";
+import { getConnections } from "../helpers/network";
+import user from "../../config/user";
+import { TouchableOpacity } from "react-native-gesture-handler";
 export default function ContactScreen() {
+  //Add on tab focus listener to refresh data
+  const [userConnections, setUserConnections] = useState<User[]>([]);
+  const [companyConnections, setCompanyConnections] = useState<User[]>([]);
+  const refreshData = () => {
+    const parseConnections = (allConnections: User[]) => {
+      setUserConnections(
+        allConnections.filter(
+          (connection) => connection.user_type === "Student"
+        )
+      );
+      setCompanyConnections(
+        allConnections.filter(
+          (connection) => connection.user_type === "Recruiter"
+        )
+      );
+    };
+
+    getConnections(user.email)
+      .then((response) => response.json())
+      .then((data) => parseConnections(data["connections"]));
+  };
+  useEffect(() => {
+    refreshData();
+  }, []);
   return (
     <View style={styles.container}>
       <View style={{ flex: 2 }}>
         <Text style={styles.contactLabel}>Companies</Text>
-        <ContactList contacts={recruiters} />
+        <ContactList contacts={companyConnections} />
       </View>
       <View style={{ flex: 2 }}>
         <Text style={styles.contactLabel}>People</Text>
-        <ContactList contacts={contacts} />
+        <ContactList contacts={userConnections} />
       </View>
     </View>
   );

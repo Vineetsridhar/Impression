@@ -1,17 +1,14 @@
 import React from "react";
 import Contact from "./Contact";
 import { View, ScrollView, StyleSheet } from "react-native";
+import { User } from "../helpers/interfaces";
 
-interface ContactI {
-  id: number;
-  name: string;
-}
-function ContactList({ contacts }: { contacts: ContactI[] }) {
+function ContactList({ contacts }: { contacts: User[] }) {
   return (
     <ScrollView contentContainerStyle={{ alignItems: "flex-start" }}>
       <View style={styles.contactContainer}>
         {contacts.map((c) => (
-          <Contact key={c.id} name={c.name} />
+          <Contact key={c.email} name={c.first_name} />
         ))}
       </View>
     </ScrollView>
