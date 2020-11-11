@@ -109,18 +109,11 @@ def on_delete_connection():
 #### Specifically, it returns a list of dictionaries
 #### where each dictionary is the data of a user X has a connection with.
 #### Used to query for all connections involving a given user.
-@app.route("/query_connections")
+@app.route("/query_connections", methods=["POST"])
 def on_query_connections():
     data = flask.request.json
-    return (
-        {
-            "success": True,
-            "status": 0,
-            "response": ImpUtil.Connections.on_query_connections(
-                data
-            ),  # Make sure you add error checking to this
-        },
-    )
+    return {"success":True, "connections":ImpUtil.Connections.on_query_connections(data)}
+    
 
 
 @app.route("/")

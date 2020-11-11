@@ -71,21 +71,18 @@ def on_delete_connection(data):
 def on_query_connections(data):
     result = []
     response = []
-
-    for connection in (
-        db.session.query(tables.Connections)
+    try:
+        result = db.session.query(tables.Connections) \
         .filter(
             (tables.Connections.user1_email == data["user_email"])
             | (tables.Connections.user2_email == data["user_email"])
-        )
+        ) \
         .all()
-    ):
-        result.append(connection)
-
-    for connection in result:
-        if connection.user1_email == data["user_email"]:
-            response.append(Users.get_user(connection.user1_email))
-        elif connection.user2_email == data["user_email"]:
-            response.append(Users.get_user(connection.user1_email))
-
-    return response
+        for connection in result:
+            if connection.user1_email == data["user_email"]:
+                response.append(Users.get_user(connection.user1_email))
+            elif connection.user2_email == data["user_email"]:
+                response.append(Users.get_user(connection.user1_email))
+        return response
+    except Exception as e:
+        print(e)
