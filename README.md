@@ -43,3 +43,13 @@ NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete t
 6. A web browser should open up with the Metro Bundler. If not press `?` in the terminal to display a list of commands for help.
 7. Select the `connection` setting `LAN`.
 8. When the connection is complete, use the `Expo` app to scan the QR code that appears in the terminal or web page. The app should should now appear on your android devices screen.
+ 
+# Linting
+For linting, we decided to ignore these errors/warnings:
+1. E1101 (no-member) for all python files that have to do with the SQLAlchemy instances
+2. R0902 (too-many-instance-attributes) because we need that many instances for our project
+3. R0903 (too-few-public-methods) because we just need these classes to store data
+4. R0913 (too-many-arguments) because our table needs those specific arguments for the users information
+5. C0114 (missing-module-docstring)/C0115 (missing-class-docstring)/C0116 (missing-function-docstring) because
+we do not have docstrings for our modules/classes/functions
+6. C0413 (wrong-import-position) because we need the import statements after the 'db.session.commit()' in server.py
