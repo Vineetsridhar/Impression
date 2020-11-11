@@ -19,7 +19,7 @@ def on_new_connection(data):
         )
         .all()
     ):
-        return -1
+        return {"exists":True}
     for connection in (
         db.session.query(tables.Connections)
         .filter(
@@ -28,11 +28,11 @@ def on_new_connection(data):
         )
         .all()
     ):
-        return -1
+        return {"exists":True}
 
     db.session.add(tables.Connections(data["user1_email"], data["user2_email"]))
     db.session.commit()
-    return 0
+    return {"exists": False}
 
 
 #### Given 2 user emails,

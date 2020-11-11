@@ -7,12 +7,22 @@ import { User } from "../helpers/interfaces";
 import { getConnections } from "../helpers/network";
 import user from "../../config/user";
 import { TouchableOpacity } from "react-native-gesture-handler";
-export default function ContactScreen() {
+export default function ContactScreen({ navigation }: any) {
   //Add on tab focus listener to refresh data
   const [userConnections, setUserConnections] = useState<User[]>([]);
   const [companyConnections, setCompanyConnections] = useState<User[]>([]);
+
+  let focusListener: () => {};
+
+  const makeListeners = () => {
+    focusListener = navigation.addListener("focus", () => {
+      refreshData();
+    });
+  };
+
   const refreshData = () => {
     const parseConnections = (allConnections: User[]) => {
+      console.log(allConnections);
       setUserConnections(
         allConnections.filter(
           (connection) => connection.user_type === "Student"
@@ -27,10 +37,12 @@ export default function ContactScreen() {
 
     getConnections(user.email)
       .then((response) => response.json())
-      .then((data) => parseConnections(data["connections"]));
+      .then((data) => parseConnections(data["connections"]))
+      .catch((err) => console.log(err));
   };
   useEffect(() => {
     refreshData();
+    makeListeners();
   }, []);
   return (
     <View style={styles.container}>

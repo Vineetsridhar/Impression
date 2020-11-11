@@ -1,3 +1,5 @@
+import user from "../../config/user";
+
 const url = "http://192.168.2.15:8080";
 
 export function getCallParams(body: any) {
@@ -20,5 +22,12 @@ export function getConnections(email: string) {
   return fetch(
     `${url}/query_connections`,
     getCallParams({ user_email: email })
+  );
+}
+
+export function newConnection(email: string) {
+  return fetch(
+    `${url}/new_connection`,
+    getCallParams({ user1_email: user.email, user2_email: email })
   );
 }
