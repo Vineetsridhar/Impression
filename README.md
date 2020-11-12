@@ -33,7 +33,6 @@ NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete t
 
 # Setup Expo
 1. Install expo by running the command `npm install -g expo-cli`.
-2. Install QRCode for expo by running the command `npm  install react-native-custom-qr-codes-expo`.
 
 # View on android application
 1. On an android mobile device download and open the `Expo` app on the `Google Play Store`.
