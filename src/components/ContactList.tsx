@@ -8,7 +8,7 @@ function ContactList({ contacts }: { contacts: User[] }) {
     <ScrollView contentContainerStyle={{ alignItems: "flex-start" }}>
       <View style={styles.contactContainer}>
         {contacts.map((c) => (
-          <Contact key={c.email} name={c.first_name} />
+          <Contact key={c.email} contact={c} />
         ))}
       </View>
     </ScrollView>

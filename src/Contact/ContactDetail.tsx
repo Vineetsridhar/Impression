@@ -2,11 +2,14 @@ import React from "react";
 import { User } from "../helpers/interfaces";
 import { View, Text } from "react-native";
 
-export default function ContactDetail({ user }: { user: User }) {
+export default function ContactDetail({ route }: { route: any }) {
+  const { user } = route.params;
   return (
     <View>
       {Object.keys(user).map((key) => (
-        <Text>{user[key]}</Text>
+        <Text>
+          {key}: {user[key]}
+        </Text>
       ))}
     </View>
   );
