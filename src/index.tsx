@@ -1,15 +1,30 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProfileScreen from "./Profile/ProfileScreen";
 import Contact from "./Contact";
 import { Ionicons } from "@expo/vector-icons";
 import Scan from "./Scan";
 import Login from "./login";
+import { AsyncStorage } from "react-native";
+import user from "../config/user";
 
 const Tab = createBottomTabNavigator();
 
 export default function Tabs() {
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const checkLogin = async () => {
+    //Never actually implement persistance like this im sorry
+    const email = await AsyncStorage.getItem("email");
+    if (email) {
+      user.email = email;
+      setLoggedIn(true);
+    }
+  };
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
 
   if (!loggedIn) return <Login setLoggedIn={setLoggedIn} />;
 

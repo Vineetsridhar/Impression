@@ -1,5 +1,11 @@
 import React, { useEffect, Dispatch, SetStateAction } from "react";
-import { Text, View, Image, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  AsyncStorage,
+} from "react-native";
 import styles from "./loginstyles";
 import avatar from "../config/avatar";
 import * as Google from "expo-google-app-auth";
@@ -16,6 +22,7 @@ export default function Login({ setLoggedIn }: props) {
       .then((json) => {
         if (json["success"]) {
           user.email = json["email"];
+          AsyncStorage.setItem("email", json["email"]);
           setLoggedIn(true);
         } else {
           console.log("failed?", json);
