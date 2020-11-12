@@ -80,9 +80,9 @@ def on_query_connections(data):
         .all()
         for connection in result:
             if connection.user1_email == data["user_email"]:
-                response.append(Users.get_user(connection.user1_email))
-            elif connection.user2_email == data["user_email"]:
                 response.append(Users.get_user(connection.user2_email))
+            elif connection.user2_email == data["user_email"]:
+                response.append(Users.get_user(connection.user1_email))
         return response
     except Exception as e:
         print(e)
