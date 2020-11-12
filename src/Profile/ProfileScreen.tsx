@@ -15,11 +15,18 @@ import { getUserInfo } from "../helpers/network";
 import user from "../../config/user";
 
 export default function ProfileScreen() {
+  const [email, setEmail] = useState('email@email');
+  const [firstName, setFirstName] = useState('First Name');
+  const [lastName, setLastName] = useState('Last Name');
+
   useEffect(() => {
     getUserInfo(user.email)
       .then((response) => response.json())
       .then((json) => {
         console.log(json);
+        setFirstName(json['first_name'])
+        setLastName(json['last_name'])
+        setEmail(json['email'])
       });
   });
   return (
@@ -36,15 +43,17 @@ export default function ProfileScreen() {
         <TextInput
           style={[styles.nameStyle, { marginRight: 4 }]}
           placeholder="First Name"
+          value={firstName}
         />
         <TextInput
           style={[styles.nameStyle, { marginLeft: 4 }]}
           placeholder="Last Name"
+          value={lastName}
         />
       </View>
 
       <FormItem title="School/Organization" placeholder="NJIT" />
-      <FormItem title="Email" placeholder="email@email.com" />
+      <FormItem title="Email" value={email} placeholder="email@email.com" />
 
       <FormItem
         title="About you"
