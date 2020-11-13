@@ -14,6 +14,7 @@ import avatar from "../../config/avatar";
 import FormItem from "../components/FormItem";
 import { getUserInfo, editUser } from "../helpers/network";
 import user from "../../config/user";
+import { User } from "../helpers/interfaces";
 
 export default function ProfileScreen() {
   const [email, setEmail] = useState("");
@@ -23,11 +24,12 @@ export default function ProfileScreen() {
   const [description, setDescription] = useState("");
   const [github, setGithub] = useState("");
   const [linkedin, setLinkedin] = useState("");
+  const [image, setImage] = useState("");
 
   useEffect(() => {
     getUserInfo(user.email)
       .then((response) => response.json())
-      .then((json) => {
+      .then((json: User) => {
         setFirstName(json["first_name"] ?? "");
         setLastName(json["last_name"] ?? "");
         setEmail(json["email"] ?? "");
@@ -35,6 +37,7 @@ export default function ProfileScreen() {
         setDescription(json["descr"] ?? "");
         setGithub(json["gen_link_1"] ?? "");
         setLinkedin(json["gen_link_2"] ?? "");
+        setImage(json["image"] ?? "");
       });
   }, []);
 
@@ -51,7 +54,7 @@ export default function ProfileScreen() {
       contentContainerStyle={{ alignItems: "center" }}
     >
       <TouchableOpacity onPress={() => {}}>
-        <Image style={styles.avatarStyle} source={{ uri: avatar }} />
+        <Image style={styles.avatarStyle} source={{ uri: image || avatar }} />
       </TouchableOpacity>
 
       <Text style={styles.title}>Name</Text>

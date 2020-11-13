@@ -87,9 +87,13 @@ def on_query_connections(data):
         )
         for connection in result:
             if connection.user1_email == data["user_email"]:
-                response.append(users.get_user(connection.user2_email))
+                connected_user = users.get_user(connection.user2_email)
+                if connected_user != None:
+                    response.append(connected_user)
             elif connection.user2_email == data["user_email"]:
-                response.append(users.get_user(connection.user1_email))
+                connected_user = users.get_user(connection.user1_email)
+                if connected_user != None:
+                    response.append(connected_user)
         return response
     except Exception as err:
         print(err)

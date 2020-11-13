@@ -10,6 +10,8 @@ import tables
 #### Given an email, returns a dictionary with the data of the user with such an email
 def get_user(query_user_email):
     user = db.session.query(tables.Users).filter_by(email=query_user_email).first()
+    if user:
+        return None
     response = {
         "email": user.email,
         "first_name": user.first_name,
@@ -31,7 +33,7 @@ def new_user(email, fname, lname, image):
     if not user:
         db.session.add(
             tables.Users(
-                email, fname, lname, None, None, None, None, None, None, image, None
+                email, fname, lname, None, None, "Student", None, None, None, image, None
             )
         )
         db.session.commit()
