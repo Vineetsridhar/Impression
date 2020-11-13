@@ -1,8 +1,9 @@
 import React from "react";
 import { User } from "../helpers/interfaces";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import avatar from "../../config/avatar";
 
 export default function ContactDetail({ route }: { route: any }) {
   const { user } = route.params;
@@ -19,9 +20,10 @@ export default function ContactDetail({ route }: { route: any }) {
         }}
       />
       <View style={styles.infoContainer}>
-          <Text>
-          Image here
-          </Text>
+      <Image
+        style={{width: 150, height: 150}}
+        source={{ uri: user["image"] || avatar }}
+      />
       </View>
       <View style={styles.infoContainer}>
           <Text style={{ fontSize: 30 }}>
@@ -37,27 +39,24 @@ export default function ContactDetail({ route }: { route: any }) {
           </View>
           <View style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center'}}>
           <Text style={{textAlign: 'center'}}>
-          testorg/school{user["organization"]}
+          {user["organization"] || (user["first_name"] + " is currently not enrolled in a University or involved in any Organizations.")}
           </Text>
           </View>
       </View>
       <View style={styles.infoContainer}>
           <Text style={{textAlign: 'center'}}>
-          This is just a holder for now.
-          The actual description is here but is blank because it has no value yet.
-          So this is here for now. This is the same for the school/org and links.
           {user["descr"]}
           </Text>
       </View>
       <View style={styles.infoContainer}>
       <Text style={{textAlign: 'center'}}>
-      Link1 goes here: {user["gen_link_1"]}
+      {user["gen_link_1"]}
       </Text>
       <Text style={{textAlign: 'center'}}>
-      Link2 goes here: {user["gen_link_2"]}
+      {user["gen_link_2"]}
       </Text>
       <Text style={{textAlign: 'center'}}>
-      Link3 goes here: {user["gen_link_3"]}
+      {user["gen_link_3"]}
       </Text>
       </View>
       {/**Object.keys(user).map((key) => (
