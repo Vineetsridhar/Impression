@@ -111,7 +111,7 @@ def on_query_connections():
 
 @app.route("/")
 def index():
-    return tables.Connections.query.filter_by(user2_email="test2").first().user1_email
+    return "Hello World"
 
 
 if __name__ == "__main__":
