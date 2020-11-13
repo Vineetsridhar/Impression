@@ -1,7 +1,9 @@
 # server.py
 # pylint: disable=missing-function-docstring
+# pylint: disable=missing-module-docstring
 # pylint: disable=no-member
 # pylint: disable=wrong-import-position
+# pylint: disable=broad-except
 
 import os
 from os.path import join, dirname
@@ -54,8 +56,8 @@ def on_new_user():
         )
         imp_util.qr.create_new_qr_code(data["email"])
         return {"success": True, "email": data["email"]}
-    except Exception as e:
-        print(e)
+    except Exception as err:
+        print(err)
         return {"success": False}
 
 
@@ -100,7 +102,10 @@ def on_delete_connection():
 @app.route("/query_connections", methods=["POST"])
 def on_query_connections():
     data = flask.request.json
-    return {"success":True, "connections":imp_util.connections.on_query_connections(data)}
+    return {
+        "success": True,
+        "connections": imp_util.connections.on_query_connections(data),
+    }
 
 
 @app.route("/")

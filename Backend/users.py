@@ -1,6 +1,7 @@
 # pylint: disable=missing-function-docstring
 # pylint: disable=no-member
 # pylint: disable=missing-module-docstring
+# pylint: disable=unused-import
 
 import flask_sqlalchemy
 from server import db
@@ -35,6 +36,7 @@ def new_user(email, fname, lname, image):
         )
         db.session.commit()
 
+
 def edit_user(account):
     user = tables.Users.query.filter_by(email=account["email"]).first()
     user.email = account["email"]
@@ -46,4 +48,4 @@ def edit_user(account):
     user.gen_link_1 = account["gen_link_1"]
     user.gen_link_2 = account["gen_link_2"]
     db.session.commit()
-    return {"success":True}
+    return {"success": True}

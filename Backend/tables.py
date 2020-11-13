@@ -6,9 +6,11 @@
 # pylint: disable=missing-class-docstring
 # pylint: disable=too-few-public-methods
 # pylint: disable=missing-module-docstring
+# pylint: disable=unused-import
 
 import flask_sqlalchemy
 from server import db
+
 
 class Users(db.Model):
     email = db.Column(db.String(120), primary_key=True)
