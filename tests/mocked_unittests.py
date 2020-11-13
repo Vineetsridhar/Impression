@@ -16,6 +16,7 @@ import flask_socketio
 KEY_INPUT = "input"
 KEY_EXPECTED = "expected"
 
+#doesn't work yet without the query.filterby section
 class MockedUser():
     def __init__(self, email, fname, lname, org, des, utype, gl1, gl2, gl3, im, doc):
         self.email = email
