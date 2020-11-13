@@ -22,6 +22,11 @@ import tables
 KEY_INPUT = "input"
 KEY_EXPECTED = "expected"
 
+KEY_EMAIL = "email"
+KEY_FNAME = "fname"
+KEY_LNAME = "lname"
+KEY_IMAGE = "image"
+
 dummyUser = tables.Users(
     "dummy@gmail.com",
     "John",
@@ -88,7 +93,7 @@ class GetUser(unittest.TestCase):
             self.assertDictEqual(response, expected)
 
 class EditUser(unittest.TestCase):
-    
+
     def mocked_user_query_first(self, email):
         mocked_user = mock.Mock()
         mocked_user.first.return_value = dummyUser
@@ -106,8 +111,49 @@ class EditUser(unittest.TestCase):
         for test in self.success_test_params:
             try:
                 with mock.patch('sqlalchemy.orm.query.Query.filter_by', self.mocked_user_query_first):
-                    # test = pseudoapp.edit_user(test[KEY_INPUT])
+                    # testing = pseudoapp.edit_user(test[KEY_INPUT])
                     test = imp_util.users.edit_user(test[KEY_INPUT])
+                    response = "No errors"
+            except AttributeError:
+                response = "AttributeError"
+
+            expected = test[KEY_EXPECTED]
+            self.assertEqual(response, expected)
+
+class NewUser(unittest.TestCase):
+
+    def mocked_user_query_first(self, email):
+        mocked_user = mock.Mock()
+        mocked_user.all.return_value = dummyUser
+        return mocked_user
+
+    def setUp(self):
+        self.success_test_params = [
+            {
+                KEY_INPUT:{
+                    KEY_EMAIL: "something@njit.edu",
+                    KEY_FNAME: "Jane",
+                    KEY_LNAME: "Doe",
+                    KEY_IMAGE: "someimg",
+                },
+                KEY_EXPECTED: "No errors",
+            },
+        ]
+
+    def test_get_user_success(self):
+        for test in self.success_test_params:
+            try:
+                with mock.patch('sqlalchemy.orm.query.Query.filter_by', self.mocked_user_query_first):
+                    # testing = pseudoapp.new_user(
+                    #     test[KEY_INPUT][KEY_EMAIL], 
+                    #     test[KEY_INPUT][KEY_FNAME], 
+                    #     test[KEY_INPUT][KEY_LNAME], 
+                    #     test[KEY_INPUT][KEY_IMAGE])
+                    test = imp_util.users.new_user(
+                        test[KEY_INPUT][KEY_EMAIL], 
+                        test[KEY_INPUT][KEY_FNAME], 
+                        test[KEY_INPUT][KEY_LNAME], 
+                        test[KEY_INPUT][KEY_IMAGE])
                     response = "No errors"
             except AttributeError:
                 response = "AttributeError"
