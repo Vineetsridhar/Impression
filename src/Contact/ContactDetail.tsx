@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import avatar from "../../config/avatar";
 import { Icon } from "react-native-elements";
+import styles from "./ContactDetailStyle.tsx";
 
 export default function ContactDetail({ route }: { route: any }) {
   const { user } = route.params;
@@ -155,35 +156,3 @@ export default function ContactDetail({ route }: { route: any }) {
     </View>
   );
 }
-const styles = StyleSheet.create({
-  scrollView: {
-    height: "100%",
-    width: "100%",
-    alignSelf: "center",
-  },
-  infoContainer: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  rowContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  textStyle: {
-    fontSize: 20,
-    color: "white",
-  },
-  container: {
-    margin: 0,
-    flex: 1,
-    padding: 10,
-    backgroundColor: "#192879",
-  },
-  icon: {
-    marginVertical: 16,
-  },
-});
