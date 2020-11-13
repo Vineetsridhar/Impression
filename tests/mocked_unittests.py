@@ -3,8 +3,9 @@ import unittest.mock as mock
 import sys
 
 sys.path.insert(1, "../")
-# sys.path.insert(1, "../Backend")
-import pseudoapp
+sys.path.insert(1, "/home/ec2-user/environment/project3/Impression/Backend")
+sys.path.append('/home/ec2-user/environment/project3/Impression/Backend')
+#import pseudoapp
 
 import os
 from os.path import join, dirname
@@ -13,11 +14,30 @@ import flask
 import flask_sqlalchemy
 import flask_socketio
 
+import ImpUtil
+import Users
+import tables
+
 KEY_INPUT = "input"
 KEY_EXPECTED = "expected"
 
+dummyUser = tables.Users(
+    "dummy@gmail.com",
+    "John",
+    "Smith",
+    "Impression Co",
+    "Description",
+    "Type",
+    "link1",
+    "link2",
+    "link3",
+    "image",
+    "doc",
+)
+    
 #doesn't work yet without the query.filterby section
 class MockedUser():
+
     def __init__(self, email, fname, lname, org, des, utype, gl1, gl2, gl3, im, doc):
         self.email = email
         self.first_name = fname
@@ -32,48 +52,38 @@ class MockedUser():
         self.doc = doc
 
 class EditUser(unittest.TestCase):
+    
+    def mocked_user_query_first(self, email):
+        mocked_user = mock.Mock()
+        mocked_user.first.return_value = dummyUser
+        return mocked_user
+    
     def setUp(self):
         self.success_test_params = [
             {
-                KEY_INPUT: "something@njit.edu",
+                KEY_INPUT: "dummy@gmail.com",
                 KEY_EXPECTED: {
-                    "email": "something@njit.edu",
-                    "first_name": "FName",
-                    "last_name": "LName",
-                    "organization": "None",
-                    "descr": "None",
-                    "user_type": "None",
-                    "gen_link_1": "linkedin.com",
-                    "gen_link_2": "github.com",
-                    "gen_link_3": "None",
-                    "image": "someimage.jpg",
-                    "doc": "None"
+                    "email": "dummy@gmail.com",
+                    "first_name": "John",
+                    "last_name": "Smith",
+                    "organization": "Impression Co",
+                    "descr": "Description",
+                    "user_type": "Type",
+                    "gen_link_1": "link1",
+                    "gen_link_2": "link2",
+                    "gen_link_3": "link3",
+                    "image": "image",
+                    "doc": "doc",
                 }
             },
-        ]
-        
-    def mocked_query(self, email):
-        return [
-            MockedUser(
-                "something@njit.edu",
-                "FName",
-                "LName",
-                "None",
-                "None",
-                "None",
-                "linkedin.com",
-                "github.com",
-                "None",
-                "someimage.jpg",
-                "None",
-            )
         ]
 
     def test_edit_user_success(self):
         for test in self.success_test_params:
             #TODO: mock 'query.filter.by' for the database
-            with mock.patch('Users.query.filter_by', self.mocked_query):
-                response = pseudoapp.edit_user(test[KEY_INPUT])
+            with mock.patch('sqlalchemy.orm.query.Query.filter_by', self.mocked_user_query_first):
+                response = ImpUtil.Users.get_user(test[KEY_INPUT])
+                
                 expected = test[KEY_EXPECTED]
             
             self.assertDictEqual(response, expected)

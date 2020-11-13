@@ -9,6 +9,7 @@ import tables
 #### Given an email, returns a dictionary with the data of the user with such an email
 def get_user(query_user_email):
     user = db.session.query(tables.Users).filter_by(email=query_user_email).first()
+    print(user)
     response = {
         "email": user.email,
         "first_name": user.first_name,
@@ -35,7 +36,6 @@ def new_user(email, fname, lname, image):
         )
         db.session.commit()
 
-
 def edit_user(account):
     user = tables.Users.query.filter_by(email=account.email).first()
     user.email = account.email
@@ -50,3 +50,5 @@ def edit_user(account):
     user.image = account.image
     user.doc = account.doc
     db.session.commit()
+    
+print(get_user("vineets1600@gmail.com"))

@@ -29,7 +29,9 @@ NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete t
 5. Run `python -m pip install requests` inside of the project directory to install Requests.
 6. Run `[sudo] pip[3] install psycopg2` inside of the project directory to install Psycopg.
     NOTE: If errors occur try running `[sudo] pip[3] install psycopg2-binary` instead.
-6. Run `sudo yum install postgresql postgresql-server postgresql-devel postgresql-contrib postgresql-docs` inside of the project directory to install PostGreSQL.
+7. Run `[sudo] pip[3] install pyqrcode` inside of the project directory to install pyqrcode.
+8. Run `[sudo] pip[3] install boto3` inside of the project directory to install boto3.
+9. Run `sudo yum install postgresql postgresql-server postgresql-devel postgresql-contrib postgresql-docs` inside of the project directory to install PostGreSQL.
 
 # Setup Expo
 1. Install expo by running the command `npm install -g expo-cli`.

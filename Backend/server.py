@@ -120,6 +120,7 @@ def index():
     db.session.commit()
     return tables.Connections.query.filter_by(user2_email="test2").first().user1_email
 
+
 if __name__ == "__main__":
     socketio.run(
         app,
