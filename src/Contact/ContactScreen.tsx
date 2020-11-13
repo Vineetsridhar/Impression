@@ -7,6 +7,8 @@ import { User } from "../helpers/interfaces";
 import { getConnections } from "../helpers/network";
 import user from "../../config/user";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Icon } from "react-native-elements";
+
 export default function ContactScreen({ navigation }: any) {
   //Add on tab focus listener to refresh data
   const [userConnections, setUserConnections] = useState<User[]>([]);
@@ -46,11 +48,11 @@ export default function ContactScreen({ navigation }: any) {
   return (
     <View style={styles.container}>
       <View style={{ flex: 2 }}>
-        <Text style={styles.contactLabel}>Companies</Text>
+        <Icon name="building" type="font-awesome" size={60} color="white" />
         <ContactList contacts={companyConnections} />
       </View>
       <View style={{ flex: 2 }}>
-        <Text style={styles.contactLabel}>People</Text>
+        <Icon name="users" type="font-awesome" size={60} color="white" />
         <ContactList contacts={userConnections} />
       </View>
     </View>
