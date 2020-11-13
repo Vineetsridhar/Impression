@@ -1,4 +1,5 @@
 import user from "../../config/user";
+import { User } from "./interfaces";
 
 const url = "http://192.168.2.15:8080";
 
@@ -30,4 +31,8 @@ export function newConnection(email: string) {
     `${url}/new_connection`,
     getCallParams({ user1_email: user.email, user2_email: email })
   );
+}
+
+export function editUser(user: any) {
+  return fetch(`${url}/edit_user`, getCallParams(user));
 }

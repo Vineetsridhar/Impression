@@ -54,7 +54,8 @@ def on_new_user():
         )
         imp_util.qr.create_new_qr_code(data["email"])
         return {"success": True, "email": data["email"]}
-    except:
+    except Exception as e:
+        print(e)
         return {"success": False}
 
 
@@ -62,7 +63,7 @@ def on_new_user():
 @app.route("/edit_user", methods=["POST"])
 def on_edit():
     data = flask.request.json
-    return imp_util.users.get_user(data)
+    return imp_util.users.edit_user(data)
 
 
 #### Given an email, returns a dictionary with the data of the user with such an email

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, SetStateAction, Dispatch } from "react";
 import {
   View,
   Text,
@@ -6,29 +6,45 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  AsyncStorage,
 } from "react-native";
 import { Avatar } from "react-native-elements";
 import styles from "./ProfileStyle";
 import avatar from "../../config/avatar";
 import FormItem from "../components/FormItem";
-import { getUserInfo } from "../helpers/network";
+import { getUserInfo, editUser } from "../helpers/network";
 import user from "../../config/user";
 
 export default function ProfileScreen() {
-  const [email, setEmail] = useState('email@email');
-  const [firstName, setFirstName] = useState('First Name');
-  const [lastName, setLastName] = useState('Last Name');
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [school, setSchool] = useState("");
+  const [description, setDescription] = useState("");
+  const [github, setGithub] = useState("");
+  const [linkedin, setLinkedin] = useState("");
 
   useEffect(() => {
     getUserInfo(user.email)
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
-        setFirstName(json['first_name'])
-        setLastName(json['last_name'])
-        setEmail(json['email'])
+        setFirstName(json["first_name"] ?? "");
+        setLastName(json["last_name"] ?? "");
+        setEmail(json["email"] ?? "");
+        setSchool(json["organization"] ?? "");
+        setDescription(json["descr"] ?? "");
+        setGithub(json["gen_link_1"] ?? "");
+        setLinkedin(json["gen_link_2"] ?? "");
       });
-  });
+  }, []);
+
+  const onChange = (
+    text: string,
+    callback: Dispatch<SetStateAction<string>>
+  ) => {
+    callback(text);
+  };
+
   return (
     <ScrollView
       style={styles.container}
@@ -44,30 +60,68 @@ export default function ProfileScreen() {
           style={[styles.nameStyle, { marginRight: 4 }]}
           placeholder="First Name"
           value={firstName}
+          onChangeText={(text) => onChange(text, setFirstName)}
         />
         <TextInput
           style={[styles.nameStyle, { marginLeft: 4 }]}
           placeholder="Last Name"
           value={lastName}
+          onChangeText={(text) => onChange(text, setLastName)}
         />
       </View>
 
-      <FormItem title="School/Organization" placeholder="NJIT" />
-      <FormItem title="Email" value={email} placeholder="email@email.com" />
+      <FormItem
+        title="School/Organization"
+        placeholder="NJIT"
+        value={school}
+        onChangeText={(text) => onChange(text, setSchool)}
+      />
+      <FormItem
+        title="Email"
+        value={email}
+        placeholder="email@email.com"
+        onChangeText={(text) => onChange(text, setEmail)}
+      />
 
       <FormItem
         title="About you"
         placeholder="I am a..."
         style={{ height: 100 }}
+        value={description}
+        onChangeText={(text: string) => onChange(text, setDescription)}
       />
-      <FormItem title="GitHub" placeholder="https://www.github.com" />
+      <FormItem
+        title="GitHub"
+        placeholder="https://www.github.com"
+        value={github}
+        onChangeText={(text: string) => onChange(text, setGithub)}
+      />
       <FormItem
         title="LinkedIn"
         placeholder="https://www.linkedin.com"
+        value={linkedin}
         style={{ height: 100 }}
+        onChangeText={(text: string) => onChange(text, setLinkedin)}
       />
-      <TouchableOpacity onPress={() => {}}>
-        <Text style={styles.link}>Download Resume</Text>
+      {/* <TouchableOpacity>
+        <Text style={styles.link}>Upload Resume</Text>
+      </TouchableOpacity> */}
+
+      <TouchableOpacity
+        onPress={() => {
+          editUser({
+            email,
+            first_name: firstName,
+            last_name: lastName,
+            organization: school,
+            descr: description,
+            gen_link_1: github,
+            gen_link_2: linkedin,
+            user_type: "Student",
+          });
+        }}
+      >
+        <Text style={styles.link}>Submit</Text>
       </TouchableOpacity>
     </ScrollView>
   );

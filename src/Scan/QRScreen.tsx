@@ -1,6 +1,5 @@
 import React from "react";
 import { Image, View, Text, StyleSheet } from "react-native";
-import { QRCode } from "react-native-custom-qr-codes-expo";
 import FAB from "../components/FAB";
 import { Ionicons } from "@expo/vector-icons";
 import user from "../../config/user";
@@ -8,7 +7,13 @@ import user from "../../config/user";
 export default function QRScreen({ navigation }: any) {
   return (
     <View style={styles.container}>
-      <QRCode content={"impression://" + user.email} />
+      <Image
+        source={{
+          uri:
+            "https://impression-app.s3.amazonaws.com/testUser%40gmail.com/qr.png",
+        }}
+        style={styles.image}
+      />
 
       <FAB
         onPress={() => {
@@ -28,5 +33,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  image: {
+    height: 300,
+    width: 300,
   },
 });
