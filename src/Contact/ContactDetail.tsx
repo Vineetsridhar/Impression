@@ -1,6 +1,6 @@
 import React from "react";
 import { User } from "../helpers/interfaces";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { ScrollView, View, Text, StyleSheet, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import avatar from "../../config/avatar";
@@ -77,7 +77,9 @@ export default function ContactDetail({ route }: { route: any }) {
       </View>
 
       <View style={styles.infoContainer}>
-        <Text style={styles.textStyle}>{user["descr"]}</Text>
+        <ScrollView style={styles.scrollView}>
+          <Text style={{fontSize: 15, color: 'white'}}>{user["descr"]}</Text>
+        </ScrollView>
       </View>
 
       <View style={styles.rowContainer}>
@@ -154,6 +156,11 @@ export default function ContactDetail({ route }: { route: any }) {
   );
 }
 const styles = StyleSheet.create({
+  scrollView: {
+    height: "100%",
+    width: "100%",
+    alignSelf: "center",
+  },
   infoContainer: {
     flex: 1,
     flexDirection: "column",
@@ -173,7 +180,7 @@ const styles = StyleSheet.create({
   container: {
     margin: 0,
     flex: 1,
-    padding: 16,
+    padding: 10,
     backgroundColor: "#192879",
   },
   icon: {
