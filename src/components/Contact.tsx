@@ -24,12 +24,12 @@ function Contact({ contact }: { contact: User }) {
             source={{ uri: contact["image"] || avatar }}
           />
           <View style={{ width: 275, flexDirection: "column" }}>
-            <Text>{contact.first_name}</Text>
-            <Text>{contact.last_name}</Text>
-            <Text>{contact.email}</Text>
+            <Text style={styles.textStyle}>{contact.first_name}</Text>
+            <Text style={styles.textStyle}>{contact.last_name}</Text>
+            <Text style={styles.textStyle}>{contact.email}</Text>
           </View>
           <View style={{ alignItems: "flex-end" }}>
-            <Icon name="arrow-right" size={20} color="black" type="entypo" />
+            <Icon name="angle-right" type="font-awesome" size={50} color="white" />
           </View>
         </View>
       </TouchableOpacity>
