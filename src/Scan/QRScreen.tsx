@@ -9,8 +9,10 @@ export default function QRScreen({ navigation }: any) {
     <View style={styles.container}>
       <Image
         source={{
-          uri:
-            "https://impression-app.s3.amazonaws.com/testUser%40gmail.com/qr.png",
+          uri: `https://impression-app.s3.amazonaws.com/${user.email.replace(
+            "@",
+            "%40"
+          )}/qr.png`,
         }}
         style={styles.image}
       />
