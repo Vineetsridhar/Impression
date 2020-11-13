@@ -29,7 +29,12 @@ function Contact({ contact }: { contact: User }) {
             <Text style={styles.textStyle}>{contact.email}</Text>
           </View>
           <View style={{ alignItems: "flex-end" }}>
-            <Icon name="angle-right" type="font-awesome" size={50} color="white" />
+            <Icon
+              name="angle-right"
+              type="font-awesome"
+              size={50}
+              color="white"
+            />
           </View>
         </View>
       </TouchableOpacity>
