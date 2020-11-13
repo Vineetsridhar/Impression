@@ -17,7 +17,7 @@ as all the information will be stored virtually for the users to revisit if need
 NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete these steps if not needed.
 
 1. Run the commands `node -v` and `npm -v` to verify you have the latest versions of node and npm installed. If not updated, update with the commands `npm install -g npm`.
-   NOTE: The app may not run without up to date `node` and `npm` versions. App is confirmed to run on `node   v10.23.0` and `npm 6.14.8` 
+   NOTE: The app may not run without up to date `node` and `npm` versions. App is confirmed to run on `node   v10.23.0` and `npm 6.14.8`
 2. Add your PATH to your `~/.profile` with `echo "export PATH=$PATH:~/.npm-global/bin" >> ~/.profile`.
 3. To avoid having to source `~/.profile` upon terminal startup, run the command `echo "source ~/.profile" >> ~/.bashrc`
 
@@ -35,7 +35,7 @@ NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete t
 1. Install expo by running the command `npm install -g expo-cli`.
 
 # View on android application
-1. On an android mobile device download and open the `Expo` app on the `Google Play Store`. 
+1. On an android mobile device download and open the `Expo` app on the `Google Play Store`.
 2. Back on your pc, open a terminal and change directories with `cd ~/Impression/Backend`.
 3. Run the command `python server.py` to start the server.
 4. In another terminal, change directories with `cd ~/Impression`.
@@ -43,7 +43,7 @@ NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete t
 6. A web browser should open up with the Metro Bundler. If not press `?` in the terminal to display a list of commands for help.
 7. Select the `connection` setting `LAN`.
 8. When the connection is complete, use the `Expo` app to scan the QR code that appears in the terminal or web page. The app should should now appear on your android devices screen.
- 
+
 # Linting
 For linting, we decided to ignore these errors/warnings:
 1. E1101 (no-member) for all python files that have to do with the SQLAlchemy instances

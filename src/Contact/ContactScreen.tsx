@@ -22,7 +22,6 @@ export default function ContactScreen({ navigation }: any) {
 
   const refreshData = () => {
     const parseConnections = (allConnections: User[]) => {
-      console.log(allConnections);
       setUserConnections(
         allConnections.filter(
           (connection) => connection.user_type === "Student"

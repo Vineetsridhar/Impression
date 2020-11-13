@@ -6,3 +6,5 @@ import tables
 
 import Users
 import Connections
+import S3
+import QR

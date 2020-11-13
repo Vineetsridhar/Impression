@@ -52,13 +52,13 @@ def on_new_user():
         ImpUtil.Users.new_user(
             data["email"], data["given_name"], data["family_name"], data["picture"]
         )
+        ImpUtil.QR.create_new_qr_code(data["email"])
         return {"success": True, "email": data["email"]}
     except:
         return {"success": False}
 
 
 #### Given info from a user input, changes info of user on database
-
 @app.route("/edit_user", methods=["POST"])
 def on_edit():
     data = flask.request.json
@@ -75,7 +75,6 @@ def on_login():
             "sid": flask.request.sid,
         }
     )
-    print(SERVER_PREFIX + str(clients[0]))
 
 
 #### Given an email, returns a dictionary with the data of the user with such an email
@@ -113,16 +112,13 @@ def on_delete_connection():
 def on_query_connections():
     data = flask.request.json
     return {"success":True, "connections":ImpUtil.Connections.on_query_connections(data)}
-    
 
 
 @app.route("/")
 def index():
     db.session.add(tables.Connections("test1", "test2"))
-    db.session.add(tables.Connections("test3", "test4"))
     db.session.commit()
-    return tables.Connections.query.filter_by(user2_email="test4").first().user1_email
-
+    return tables.Connections.query.filter_by(user2_email="test2").first().user1_email
 
 if __name__ == "__main__":
     socketio.run(

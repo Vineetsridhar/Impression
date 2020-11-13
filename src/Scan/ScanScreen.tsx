@@ -69,10 +69,14 @@ export default function ScanScreen({ navigation }: any) {
   }) => {
     if (data.startsWith("impression://")) {
       const email = data.substr(13);
-      console.log(email);
       newConnection(email)
         .then((response) => response.json())
-        .then((json) => console.log(json));
+        .then((json) => {
+          navigation.navigate("Contacts", {
+            screen: "ContactDetail",
+            params: { user: json },
+          });
+        });
     }
   };
 
