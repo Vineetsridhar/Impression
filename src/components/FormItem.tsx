@@ -24,6 +24,7 @@ export default function FormItem({
         multiline
         style={[styles.inputStyle, style]}
         placeholder={placeholder}
+        placeholderTextColor="white"
         value={value}
         onChangeText={onChangeText}
       />
@@ -45,11 +46,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderRadius: 10,
     borderColor: colors.borderColor,
+    color: "white",
   },
   title: {
     fontSize: 20,
     fontWeight: "bold",
     width: "95%",
     marginVertical: 8,
+    color: 'white',
   },
 });
