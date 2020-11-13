@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Text, StyleSheet, InteractionManager } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  InteractionManager,
+  AsyncStorage,
+} from "react-native";
 import { Camera } from "expo-camera";
 import metrics from "../../config/metrics";
 import FAB from "../components/FAB";
