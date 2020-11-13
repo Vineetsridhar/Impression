@@ -11,28 +11,31 @@ import users
 #### adds them as a new connection to the DB if such a connection does not already exist.
 #### Returns -1 if such a connection already exists, and 0 if the connection was added.
 def on_new_connection(data):
-    for connection in (
-        db.session.query(tables.Connections)
-        .filter(
-            (tables.Connections.user1_email == data["user1_email"])
-            & (tables.Connections.user2_email == data["user2_email"])
-        )
-        .all()
-    ):
+    try:
+        for connection in (
+            db.session.query(tables.Connections)
+            .filter(
+                (tables.Connections.user1_email == data["user1_email"])
+                & (tables.Connections.user2_email == data["user2_email"])
+            )
+            .all()
+        ):
+            return users.get_user(data["user2_email"])
+        for connection in (
+            db.session.query(tables.Connections)
+            .filter(
+                (tables.Connections.user1_email == data["user2_email"])
+                & (tables.Connections.user2_email == data["user1_email"])
+            )
+            .all()
+        ):
+            return users.get_user(data["user2_email"])
+    
+        db.session.add(tables.Connections(data["user1_email"], data["user2_email"]))
+        db.session.commit()
         return users.get_user(data["user2_email"])
-    for connection in (
-        db.session.query(tables.Connections)
-        .filter(
-            (tables.Connections.user1_email == data["user2_email"])
-            & (tables.Connections.user2_email == data["user1_email"])
-        )
-        .all()
-    ):
-        return users.get_user(data["user2_email"])
-
-    db.session.add(tables.Connections(data["user1_email"], data["user2_email"]))
-    db.session.commit()
-    return users.get_user(data["user2_email"])
+    except:
+        return {"success": False}
 
 
 #### Given 2 user emails,
