@@ -3,7 +3,7 @@ import unittest.mock as mock
 import sys
 
 # hardcoded directory-- fix possibly
-sys.path.insert(1, "../")
+# sys.path.insert(1, "../")
 sys.path.insert(1, "/home/ec2-user/environment/project3/Impression/Backend")
 sys.path.append("/home/ec2-user/environment/project3/Impression/Backend")
 # import pseudoapp
@@ -36,7 +36,21 @@ dummyUser = tables.Users(
     "doc",
 )
 
-class EditUser(unittest.TestCase):
+# dummyUser = pseudoapp.Users(
+#     "dummy@gmail.com",
+#     "John",
+#     "Smith",
+#     "Impression Co",
+#     "Description",
+#     "Type",
+#     "link1",
+#     "link2",
+#     "link3",
+#     "image",
+#     "doc",
+# )
+
+class GetUser(unittest.TestCase):
 
     def mocked_user_query_first(self, email):
         mocked_user = mock.Mock()
@@ -63,14 +77,43 @@ class EditUser(unittest.TestCase):
             },
         ]
 
-    def test_edit_user_success(self):
+    def test_get_user_success(self):
         for test in self.success_test_params:
             with mock.patch('sqlalchemy.orm.query.Query.filter_by', self.mocked_user_query_first):
                 response = imp_util.users.get_user(test[KEY_INPUT])
+                # response = pseudoapp.get_user(test[KEY_INPUT])
 
                 expected = test[KEY_EXPECTED]
 
             self.assertDictEqual(response, expected)
+
+class EditUser(unittest.TestCase):
+    
+    def mocked_user_query_first(self, email):
+        mocked_user = mock.Mock()
+        mocked_user.first.return_value = dummyUser
+        return mocked_user
+
+    def setUp(self):
+        self.success_test_params = [
+            {
+                KEY_INPUT: "",
+                KEY_EXPECTED: "AttributeError",
+            },
+        ]
+
+    def test_get_user_success(self):
+        for test in self.success_test_params:
+            try:
+                with mock.patch('sqlalchemy.orm.query.Query.filter_by', self.mocked_user_query_first):
+                    # test = pseudoapp.edit_user(test[KEY_INPUT])
+                    test = imp_util.users.edit_user(test[KEY_INPUT])
+                    response = "No errors"
+            except AttributeError:
+                response = "AttributeError"
+
+            expected = test[KEY_EXPECTED]
+            self.assertEqual(response, expected)
 
 if __name__ == '__main__':
     unittest.main()
