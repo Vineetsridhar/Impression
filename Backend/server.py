@@ -33,7 +33,7 @@ db.app = app
 
 db.session.commit()
 
-import ImpUtil
+import imp_util
 import tables
 
 clients = []
@@ -49,10 +49,10 @@ def on_new_user():
         for field in fields:
             if field not in data:
                 data[field] = ""
-        ImpUtil.Users.new_user(
+        imp_util.users.new_user(
             data["email"], data["given_name"], data["family_name"], data["picture"]
         )
-        ImpUtil.QR.create_new_qr_code(data["email"])
+        imp_util.qr.create_new_qr_code(data["email"])
         return {"success": True, "email": data["email"]}
     except:
         return {"success": False}
@@ -62,7 +62,7 @@ def on_new_user():
 @app.route("/edit_user", methods=["POST"])
 def on_edit():
     data = flask.request.json
-    return ImpUtil.Users.get_user(data)
+    return imp_util.users.get_user(data)
 
 
 @app.route("/login", methods=["POST"])
@@ -81,7 +81,7 @@ def on_login():
 @app.route("/get_user", methods=["POST"])
 def get_user():
     query_user_email = flask.request.json
-    return ImpUtil.Users.get_user(query_user_email["email"])
+    return imp_util.users.get_user(query_user_email["email"])
 
 
 #### Given 2 user emails, adds them as a new connection
@@ -91,7 +91,7 @@ def get_user():
 @app.route("/new_connection", methods=["POST"])
 def on_new_connection():
     data = flask.request.json
-    return ImpUtil.Connections.on_new_connection(data)
+    return imp_util.connections.on_new_connection(data)
 
 
 #### Given 2 user emails,
@@ -101,7 +101,7 @@ def on_new_connection():
 @app.route("/delete_connection", methods=["POST"])
 def on_delete_connection():
     data = flask.request.json
-    return ImpUtil.Connections.on_delete_connection(data)
+    return imp_util.connections.on_delete_connection(data)
 
 
 #### Given a user X's email, returns a list of users X has a connection with.
@@ -111,7 +111,7 @@ def on_delete_connection():
 @app.route("/query_connections", methods=["POST"])
 def on_query_connections():
     data = flask.request.json
-    return {"success":True, "connections":ImpUtil.Connections.on_query_connections(data)}
+    return {"success":True, "connections":imp_util.connections.on_query_connections(data)}
 
 
 @app.route("/")

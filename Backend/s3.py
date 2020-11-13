@@ -29,6 +29,7 @@ def upload(filename, key):
     s3.Bucket('impression-app').upload_file(Filename=filename, Key=key)
     print(SERVER_PREFIX + "File uploaded to S3: " + filename + " as \'" + key + "\'")
 
+
 ####
 def s3_get_user_data(user_email, data):
     if data == "qr":

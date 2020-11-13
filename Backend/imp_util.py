@@ -4,7 +4,7 @@ import flask_sqlalchemy
 from server import db
 import tables
 
-import Users
-import Connections
-import S3
-import QR
+import users
+import connections
+import s3
+import qr
