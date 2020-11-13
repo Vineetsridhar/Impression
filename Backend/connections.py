@@ -85,6 +85,7 @@ def on_query_connections(data):
             )
             .all()
         )
+        db.session.close()
         for connection in result:
             if connection.user1_email == data["user_email"]:
                 connected_user = users.get_user(connection.user2_email)
