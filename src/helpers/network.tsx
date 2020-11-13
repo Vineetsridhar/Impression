@@ -1,7 +1,7 @@
 import user from "../../config/user";
 import { User } from "./interfaces";
 
-const url = "http://192.168.2.15:8080";
+const url = "https://njit-cs490-project3-impression.herokuapp.com";
 
 export function getCallParams(body: any) {
   return {

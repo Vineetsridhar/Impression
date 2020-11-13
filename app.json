@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -24,7 +22,13 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package":"com.impression"
+      "config": {
+        "googleSignIn": {
+          "apiKey": "AIzaSyC9niOAeax7bmZzF215V4_760ZoonfD41A",
+          "certificateHash": "9F78ADE751EE2762EB3004108BE397B0A895AD3D"
+        }
+      },
+      "package": "com.impression"
     },
     "web": {
       "favicon": "./assets/favicon.png"
