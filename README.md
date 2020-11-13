@@ -52,6 +52,8 @@ For linting, we decided to ignore these errors/warnings:
 2. R0902 (too-many-instance-attributes) because we need that many instances for our project
 3. R0903 (too-few-public-methods) because we just need these classes to store data
 4. R0913 (too-many-arguments) because our table needs those specific arguments for the users information
+5. R1710: (inconsistent-return-statements) because we need to return that specific statement there for upload
 5. C0114 (missing-module-docstring)/C0115 (missing-class-docstring)/C0116 (missing-function-docstring) because
 we do not have docstrings for our modules/classes/functions
 6. C0413 (wrong-import-position) because we need the import statements after the 'db.session.commit()' in server.py
+7. W0611 (unused-import) because we need the imports for SQL Alchemy in those separate python files

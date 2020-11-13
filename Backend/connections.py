@@ -1,6 +1,8 @@
 # pylint: disable=missing-function-docstring
 # pylint: disable=no-member
 # pylint: disable=missing-module-docstring
+# pylint: disable=unused-import
+# pylint: disable=broad-except
 
 import flask_sqlalchemy
 from server import db
@@ -30,7 +32,7 @@ def on_new_connection(data):
             .all()
         ):
             return users.get_user(data["user2_email"])
-    
+
         db.session.add(tables.Connections(data["user1_email"], data["user2_email"]))
         db.session.commit()
         return users.get_user(data["user2_email"])
@@ -75,12 +77,14 @@ def on_query_connections(data):
     result = []
     response = []
     try:
-        result = db.session.query(tables.Connections) \
-        .filter(
-            (tables.Connections.user1_email == data["user_email"])
-            | (tables.Connections.user2_email == data["user_email"])
-        ) \
-        .all()
+        result = (
+            db.session.query(tables.Connections)
+            .filter(
+                (tables.Connections.user1_email == data["user_email"])
+                | (tables.Connections.user2_email == data["user_email"])
+            )
+            .all()
+        )
         for connection in result:
             if connection.user1_email == data["user_email"]:
                 connected_user = users.get_user(connection.user2_email)
@@ -91,5 +95,5 @@ def on_query_connections(data):
                 if connected_user != None:
                     response.append(connected_user)
         return response
-    except Exception as e:
-        print(e)
+    except Exception as err:
+        print(err)
