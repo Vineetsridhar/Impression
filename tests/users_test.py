@@ -40,6 +40,7 @@ dummyUser = tables.Users(
     "doc",
 )
 
+#### unit test for getting a user
 class GetUser(unittest.TestCase):
 
     def mocked_user_query_first(self, email):
@@ -76,6 +77,7 @@ class GetUser(unittest.TestCase):
 
             self.assertDictEqual(response, expected)
 
+#### unit test for editing a user
 class EditUser(unittest.TestCase):
 
     def mocked_user_query_first(self, email):
@@ -103,9 +105,13 @@ class EditUser(unittest.TestCase):
             expected = test[KEY_EXPECTED]
             self.assertEqual(response, expected)
 
+#### unit test for making a new user
 class NewUser(unittest.TestCase):
 
-    def mocked_user_query_first(self, email):
+    def empty1(self, value):
+        pass
+    
+    def mocked_user_query_all(self, email):
         mocked_user = mock.Mock()
         mocked_user.all.return_value = dummyUser
         return mocked_user
@@ -126,13 +132,14 @@ class NewUser(unittest.TestCase):
     def test_get_user_success(self):
         for test in self.success_test_params:
             try:
-                with mock.patch('sqlalchemy.orm.query.Query.filter_by', self.mocked_user_query_first):
-                    testing = imp_util.users.new_user(
-                        test[KEY_INPUT][KEY_EMAIL], 
-                        test[KEY_INPUT][KEY_FNAME], 
-                        test[KEY_INPUT][KEY_LNAME], 
-                        test[KEY_INPUT][KEY_IMAGE])
-                    response = "No errors"
+                with mock.patch('sqlalchemy.orm.query.Query.filter_by', self.mocked_user_query_all):
+                    with mock.patch('sqlalchemy.orm.session.Session.add', self.empty1):
+                        testing = imp_util.users.new_user(
+                            test[KEY_INPUT][KEY_EMAIL], 
+                            test[KEY_INPUT][KEY_FNAME], 
+                            test[KEY_INPUT][KEY_LNAME], 
+                            test[KEY_INPUT][KEY_IMAGE])
+                        response = "No errors"
             except AttributeError:
                 response = "AttributeError"
 
