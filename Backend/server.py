@@ -65,18 +65,6 @@ def on_edit():
     return imp_util.users.get_user(data)
 
 
-@app.route("/login", methods=["POST"])
-def on_login():
-    data = flask.request.json
-    clients.append(
-        {
-            "email": data["user_email"],
-            "room": flask.session.get("room"),
-            "sid": flask.request.sid,
-        }
-    )
-
-
 #### Given an email, returns a dictionary with the data of the user with such an email
 @app.route("/get_user", methods=["POST"])
 def get_user():
