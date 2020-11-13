@@ -1,46 +1,58 @@
-import React from 'react';
-import { View, Text } from 'react-native'
-import styles from './ContactsStyle';
-import Contact from '../components/Contact';
-import ContactList from '../components/ContactList';
+import React, { useEffect, useState } from "react";
+import { View, Text } from "react-native";
+import styles from "./ContactsStyle";
+import Contact from "../components/Contact";
+import ContactList from "../components/ContactList";
+import { User } from "../helpers/interfaces";
+import { getConnections } from "../helpers/network";
+import user from "../../config/user";
+import { TouchableOpacity } from "react-native-gesture-handler";
+export default function ContactScreen({ navigation }: any) {
+  //Add on tab focus listener to refresh data
+  const [userConnections, setUserConnections] = useState<User[]>([]);
+  const [companyConnections, setCompanyConnections] = useState<User[]>([]);
 
-interface ContactI {
-  id: number,
-  name: string,
-  email: string
-}
-interface RecruiterI {
-  id: number,
-  company: string,
-  name: string
-}
-const contacts: ContactI[] = [
-  { id: 1, name: "Chris Mazzei" },
-  { id: 2, name: "Stephanie Nieve-Silva" },
-  { id: 3, name: "Rami Bazoqa" },
-  { id: 4, name: "Vineet Sridhar" },
-  { id: 5, name: "Jeff Bezos" },
-  { id: 6, name: "Bill Gates" },
-];
-const recruiters: RecruiterI[] = [
-  { id: 1, name: "Recruiter Chris" },
-  { id: 2, name: "Recruiter Stephanie" },
-  { id: 3, name: "Recruiter Rami" },
-  { id: 4, name: "Recruiter Vineet" },
-  { id: 5, name: "Recruiter Jeff" },
-  { id: 6, name: "Recruiter Bill" },
-];
-export default function ContactScreen() {
+  let focusListener: () => {};
+
+  const makeListeners = () => {
+    focusListener = navigation.addListener("focus", () => {
+      refreshData();
+    });
+  };
+
+  const refreshData = () => {
+    const parseConnections = (allConnections: User[]) => {
+      setUserConnections(
+        allConnections.filter(
+          (connection) => connection.user_type === "Student"
+        )
+      );
+      setCompanyConnections(
+        allConnections.filter(
+          (connection) => connection.user_type === "Recruiter"
+        )
+      );
+    };
+
+    getConnections(user.email)
+      .then((response) => response.json())
+      .then((data) => parseConnections(data["connections"]))
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    refreshData();
+    makeListeners();
+  }, []);
   return (
-      <View style={styles.container}> 
-		<View style={{flex:2}}>
-			<Text style={styles.contactLabel}>Companies</Text>	
-			<ContactList contacts={recruiters} />
-		</View>
-		<View style={{flex:2}}>
-			<Text style={styles.contactLabel}>People</Text>
-			<ContactList contacts={contacts} />
-		</View>
+    <View style={styles.container}>
+      <View style={{ flex: 2 }}>
+        <Text style={styles.contactLabel}>Companies</Text>
+        <ContactList contacts={companyConnections} />
       </View>
+      <View style={{ flex: 2 }}>
+        <Text style={styles.contactLabel}>People</Text>
+        <ContactList contacts={userConnections} />
+      </View>
+    </View>
   );
 }

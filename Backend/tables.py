@@ -1,20 +1,29 @@
 # tables.py
+# pylint: disable=too-many-instance-attributes
+# pylint: disable=missing-function-docstring
+# pylint: disable=no-member
+# pylint: disable=too-many-arguments
+# pylint: disable=missing-class-docstring
+# pylint: disable=too-few-public-methods
+# pylint: disable=missing-module-docstring
+# pylint: disable=unused-import
+
 import flask_sqlalchemy
 from server import db
 
 
-class User(db.Model):
+class Users(db.Model):
     email = db.Column(db.String(120), primary_key=True)
     first_name = db.Column(db.String(120))
     last_name = db.Column(db.String(120))
-    organization = db.Column(db.String(120))
-    descr = db.Column(db.String(250))
-    user_type = db.Column(db.String(120))
-    gen_link_1 = db.Column(db.String(250))
-    gen_link_2 = db.Column(db.String(250))
-    gen_link_3 = db.Column(db.String(250))
+    organization = db.Column(db.String(120), nullable=True)
+    descr = db.Column(db.String(250), nullable=True)
+    user_type = db.Column(db.String(120), nullable=True)
+    gen_link_1 = db.Column(db.String(250), nullable=True)
+    gen_link_2 = db.Column(db.String(250), nullable=True)
+    gen_link_3 = db.Column(db.String(250), nullable=True)
     image = db.Column(db.String(250))
-    doc = db.Column(db.String(250))
+    doc = db.Column(db.String(250), nullable=True)
 
     def __init__(self, e, fname, lname, org, des, u_type, gl1, gl2, gl3, img, d):
         self.email = e
@@ -30,14 +39,14 @@ class User(db.Model):
         self.doc = d
 
 
-class Connection(db.Model):
+class Connections(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id1 = db.Column(db.String(128))
-    user_id2 = db.Column(db.String(128))
+    user1_email = db.Column(db.String(128))
+    user2_email = db.Column(db.String(128))
 
     def __init__(self, user1, user2):
-        self.user_id1 = user1
-        self.user_id2 = user2
+        self.user1_email = user1
+        self.user2_email = user2
 
 
 db.create_all()

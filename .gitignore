@@ -16,3 +16,4 @@ web-build/
 
 secret.env
 __pycache__
+debug.py

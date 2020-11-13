@@ -1,0 +1,1 @@
+This text file is present so that the directory 'temp' will be uploaded in commits. This folder must be present or QR.py will run into issues not finding the path to this folder

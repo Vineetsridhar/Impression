@@ -1,20 +1,24 @@
 import React from "react";
-import styles from "../Contact/ContactsStyle";
 import Contact from "./Contact";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, StyleSheet } from "react-native";
+import { User } from "../helpers/interfaces";
 
-interface ContactI {
-	id:number,
-	name:string
+function ContactList({ contacts }: { contacts: User[] }) {
+  return (
+    <ScrollView contentContainerStyle={{ alignItems: "flex-start" }}>
+      <View style={styles.contactContainer}>
+        {contacts.map((c) => (
+          <Contact key={c.email} contact={c} />
+        ))}
+      </View>
+    </ScrollView>
+  );
 }
-function ContactList({contacts}:{contacts:ContactI[]}) {
-   return (
-	<ScrollView contentContainerStyle={{alignItems:'flex-start'}}>
-	<View style={styles.contactContainer}>
-	   {contacts.map(c => <Contact key={c.id} name={c.name} />)} 
-	</View>
-	</ScrollView>
-   );
-}
+
+const styles = StyleSheet.create({
+  contactContainer: {
+    flex: 1,
+  },
+});
 
 export default ContactList;

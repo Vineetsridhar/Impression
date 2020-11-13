@@ -1,6 +1,41 @@
-import React from 'react';
-import {Image, View, Text} from 'react-native';
+import React from "react";
+import { Image, View, Text, StyleSheet } from "react-native";
+import FAB from "../components/FAB";
+import { Ionicons } from "@expo/vector-icons";
+import user from "../../config/user";
 
-export default function QRScreen() {
-    return <View><Text>Mock QR</Text></View>
+export default function QRScreen({ navigation }: any) {
+  return (
+    <View style={styles.container}>
+      <Image
+        source={{
+          uri:
+            "https://impression-app.s3.amazonaws.com/testUser%40gmail.com/qr.png",
+        }}
+        style={styles.image}
+      />
+
+      <FAB
+        onPress={() => {
+          navigation.push("Scan");
+        }}
+      >
+        <Ionicons
+          name="md-qr-scanner"
+          style={{ color: "white", fontSize: 30 }}
+        />
+      </FAB>
+    </View>
+  );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  image: {
+    height: 300,
+    width: 300,
+  },
+});

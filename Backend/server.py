@@ -1,17 +1,23 @@
-# app.py
+# server.py
+# pylint: disable=missing-function-docstring
+# pylint: disable=missing-module-docstring
+# pylint: disable=no-member
+# pylint: disable=wrong-import-position
+# pylint: disable=broad-except
+
 import os
-import datetime
 from os.path import join, dirname
 from dotenv import load_dotenv
-import requests
 import flask
 import flask_sqlalchemy
 import flask_socketio
-from flask_restful import Resource, Api
 
 ################################
 
 # Configuration and Variables
+
+SERVER_PREFIX = "\033[96m" + "[SERVER]" + "\033[0m" + " "
+
 dotenv_path = join(dirname(__file__), "secret.env")
 load_dotenv(dotenv_path)
 
@@ -29,72 +35,83 @@ db.app = app
 
 db.session.commit()
 
-import loader
+import imp_util
 import tables
 import users
 
+clients = []
+
 ################################
 
-# got rid of user ID for users
-# TODO: change filter_by
-def get_user(query_user_id):
-    user = tables.User.query.filter_by(user_id=query_user_id).first()
-    response = {
-        "email": user.email,
-        "first_name": user.first_name,
-        "last_name": user.last_name,
-        "organization": user.organization,
-        "descr": user.descr,
-        "user_type": user.user_type,
-        "gen_link_1": user.gen_link_1,
-        "gen_link_2": user.gen_link_2,
-        "gen_link_3": user.gen_link_3,
-        "image": user.image,
-        "doc": user.doc,
+#### Given info from a user login, creates new user
+@app.route("/new_user", methods=["POST"])
+def on_new_user():
+    data = flask.request.json
+    try:
+        fields = ["email", "given_name", "family_name", "picture"]
+        for field in fields:
+            if field not in data:
+                data[field] = ""
+        imp_util.users.new_user(
+            data["email"], data["given_name"], data["family_name"], data["picture"]
+        )
+        imp_util.qr.create_new_qr_code(data["email"])
+        return {"success": True, "email": data["email"]}
+    except Exception as err:
+        print(err)
+        return {"success": False}
+
+
+#### Given info from a user input, changes info of user on database
+@app.route("/edit_user", methods=["POST"])
+def on_edit():
+    data = flask.request.json
+    return imp_util.users.edit_user(data)
+
+
+#### Given an email, returns a dictionary with the data of the user with such an email
+@app.route("/get_user", methods=["POST"])
+def get_user():
+    query_user_email = flask.request.json
+    return imp_util.users.get_user(query_user_email["email"])
+
+
+#### Given 2 user emails, adds them as a new connection
+#### to the DB if such a connection does not already exist.
+#### Returns -1 if such a connection already exists,
+#### and 0 if the connection was added.
+@app.route("/new_connection", methods=["POST"])
+def on_new_connection():
+    data = flask.request.json
+    return imp_util.connections.on_new_connection(data)
+
+
+#### Given 2 user emails,
+#### remove the exisiting connection between them if it exists.
+#### Returns -1 if such a connection does not exist,
+#### and 0 if the connection existed and was deleted.
+@app.route("/delete_connection", methods=["POST"])
+def on_delete_connection():
+    data = flask.request.json
+    return imp_util.connections.on_delete_connection(data)
+
+
+#### Given a user X's email, returns a list of users X has a connection with.
+#### Specifically, it returns a list of dictionaries
+#### where each dictionary is the data of a user X has a connection with.
+#### Used to query for all connections involving a given user.
+@app.route("/query_connections", methods=["POST"])
+def on_query_connections():
+    data = flask.request.json
+    return {
+        "success": True,
+        "connections": imp_util.connections.on_query_connections(data),
     }
-    return response
-
-
-@socketio.on("new connection")
-def on_new_connection(data):
-    for connection in db.session.query(tables.Connection).all():
-        if (
-            connection.user_id1 == data["user_id1"]
-            and connection.user_id2 == data["user_id2"]
-        ):
-            return
-        elif (
-            connection.user_id1 == data["user_id2"]
-            or connection.user_id2 == data["user_id1"]
-        ):
-            return
-
-    db.session.add(tables.Connection(data["user_id1"], data["user_id2"]))
-    db.session.commit()
-
-
-@socketio.on("query connections")
-def on_query_connections(data):
-    result = []
-    response = []
-    for connection in db.session.query(tables.Connection).all():
-        if (
-            connection.user_id1 == data["queryUser"]
-            or connection.user_id2 == data["queryUser"]
-        ):
-            result.append(connection)
-
-    for connection in result:
-        if data["queryUser"] == connection.user_id1:
-            pass
-        else:
-            pass
-    response.append({})  # UserID, Name, Description, Email, User Typ
 
 
 @app.route("/")
 def index():
-    return tables.Connection.query.filter_by(user_id1="test1").first().userID2
+    return tables.Connections.query.filter_by(user2_email="test2").first().user1_email
 
 
 if __name__ == "__main__":
@@ -102,5 +119,5 @@ if __name__ == "__main__":
         app,
         host=os.getenv("IP", "0.0.0.0"),
         port=int(os.getenv("PORT", 8080)),
-        debug=True,
+        debug=False,
     )

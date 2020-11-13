@@ -5,7 +5,8 @@ awscli==1.18.152
 axju-jokes==1.0.3
 backcall==0.2.0
 black==20.8b1
-botocore==1.18.11
+boto3==1.16.17
+botocore==1.19.17
 certifi==2020.6.20
 chardet==3.0.4
 click==7.1.2
@@ -54,8 +55,10 @@ pylint==2.6.0
 pylint-django==2.3.0
 pylint-flask==0.6
 pylint-plugin-utils==0.6
+pypng==0.0.20
+PyQRCode==1.2.1
 PySocks==1.7.1
-python-dateutil==1.5
+python-dateutil==2.8.1
 python-dotenv==0.14.0
 python-engineio==3.13.2
 python-socketio==4.6.0
