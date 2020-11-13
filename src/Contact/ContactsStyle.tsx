@@ -6,13 +6,14 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     padding: 10,
     display: "flex",
-    backgroundColor: "white",
+    backgroundColor: "#192879",
     flex: 1,
     flexDirection: "column",
   },
   contactLabel: {
     textAlign: "center",
     fontSize: 35,
+    color: 'white',
   },
   avatarStyle: {
     height: 50,
@@ -24,6 +25,10 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
   },
+  textStyle: {
+    fontSize: 15,
+    color: 'white',
+  }
 });
 
 export default styles;

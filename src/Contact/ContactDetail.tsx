@@ -14,7 +14,7 @@ export default function ContactDetail({ route }: { route: any }) {
       <Ionicons
         name="md-arrow-back"
         size={35}
-        color="black"
+        color="white"
         style={styles.icon}
         onPress={() => {
           navigation.navigate("Contacts");
