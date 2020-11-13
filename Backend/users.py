@@ -10,6 +10,7 @@ import tables
 #### Given an email, returns a dictionary with the data of the user with such an email
 def get_user(query_user_email):
     user = db.session.query(tables.Users).filter_by(email=query_user_email).first()
+    db.session.close()
     if not user:
         return {}
     response = {
@@ -37,6 +38,7 @@ def new_user(email, fname, lname, image):
             )
         )
         db.session.commit()
+    db.session.close()
 
 
 def edit_user(account):
@@ -50,4 +52,5 @@ def edit_user(account):
     user.gen_link_1 = account["gen_link_1"]
     user.gen_link_2 = account["gen_link_2"]
     db.session.commit()
+    db.session.close()
     return {"success": True}

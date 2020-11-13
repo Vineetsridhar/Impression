@@ -35,6 +35,7 @@ def on_new_connection(data):
 
         db.session.add(tables.Connections(data["user1_email"], data["user2_email"]))
         db.session.commit()
+        db.session.close()
         return users.get_user(data["user2_email"])
     except:
         return {"success": False}
@@ -65,7 +66,7 @@ def on_delete_connection(data):
     ):
         db.session.delete(connection)
         return 0
-
+    db.session.close()
     return -1
 
 
