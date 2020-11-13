@@ -15,6 +15,7 @@ import FormItem from "../components/FormItem";
 import { getUserInfo, editUser } from "../helpers/network";
 import user from "../../config/user";
 import { User } from "../helpers/interfaces";
+import { Icon } from "react-native-elements";
 
 export default function ProfileScreen() {
   const [email, setEmail] = useState("");
@@ -54,7 +55,14 @@ export default function ProfileScreen() {
       contentContainerStyle={{ alignItems: "center" }}
     >
       <TouchableOpacity onPress={() => {}}>
-        <Image style={styles.avatarStyle} source={{ uri: image || avatar }} />
+        {
+          image == "" &&
+          <Icon style={{marginTop: 50}} name="user" type="font-awesome" size={125} color="white"/>
+        }
+        {
+          image != "" &&
+          <Image style={styles.avatarStyle} source={{ uri: image}} />
+        }
       </TouchableOpacity>
 
       <Text style={styles.title}>Name</Text>
@@ -62,12 +70,14 @@ export default function ProfileScreen() {
         <TextInput
           style={[styles.nameStyle, { marginRight: 4 }]}
           placeholder="First Name"
+          placeholderTextColor="white"
           value={firstName}
           onChangeText={(text) => onChange(text, setFirstName)}
         />
         <TextInput
           style={[styles.nameStyle, { marginLeft: 4 }]}
           placeholder="Last Name"
+          placeholderTextColor="white"
           value={lastName}
           onChangeText={(text) => onChange(text, setLastName)}
         />

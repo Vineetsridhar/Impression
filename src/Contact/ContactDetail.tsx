@@ -22,10 +22,14 @@ export default function ContactDetail({ route }: { route: any }) {
         }}
       />
       <View style={styles.infoContainer}>
-        <Image
-          style={{ width: 100, height: 100 }}
-          source={{ uri: user["image"] || avatar }}
-        />
+      {
+        user["image"] == "" &&
+        <Icon name="user" type="font-awesome" size={100} color="white"/>
+      }
+      {
+        user["image"] != "" &&
+        <Image style={{ width: 100, height: 100 }} source={{ uri: user["image"] || avatar}} />
+      }
       </View>
       <View style={styles.infoContainer}>
         <Text style={{ fontSize: 30, color: "white" }}>
