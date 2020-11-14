@@ -1,0 +1,2 @@
+Hey, so Github has a max filesize of 25MB! Our apk is larger than that, so here is a Google Drive Direct Download Link: 
+https://drive.google.com/u/0/uc?export=download&confirm=bCsN&id=1mH6opbwf3uGx7mqBJnEw6X1vYVm0C7hV
