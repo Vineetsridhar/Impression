@@ -44,7 +44,7 @@ NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete t
 
 1. Install expo by running the command `npm install -g expo-cli`.
 
-# View on android application
+# View on Expo
 
 1. On an android mobile device download and open the `Expo` app on the `Google Play Store`.
 2. Back on your pc, open a terminal and change directories with `cd ~/Impression/Backend`.
