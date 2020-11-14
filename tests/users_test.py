@@ -96,7 +96,7 @@ class EditUser(unittest.TestCase):
         self.success_test_params = [
             {
                 KEY_INPUT: "",
-                KEY_EXPECTED: "AttributeError",
+                KEY_EXPECTED: "Expected Error",
             },
         ]
 
@@ -107,8 +107,8 @@ class EditUser(unittest.TestCase):
                         self.mocked_user_query_first):
                     testing = imp_util.users.edit_user(test[KEY_INPUT])
                     response = "No errors"
-            except AttributeError:
-                response = "AttributeError"
+            except:
+                response = "Expected Error"
 
             expected = test[KEY_EXPECTED]
             self.assertEqual(response, expected)
