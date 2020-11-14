@@ -5,10 +5,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import avatar from "../../config/avatar";
 import { Icon } from "react-native-elements";
-import styles from "./ContactDetailStyle.tsx";
+import styles from "./ContactDetailStyle";
 
 export default function ContactDetail({ route }: { route: any }) {
-  const { user } = route.params;
+  const { user }: { user: User } = route.params;
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -22,17 +22,18 @@ export default function ContactDetail({ route }: { route: any }) {
         }}
       />
       <View style={styles.infoContainer}>
-      {
-        user["image"] == "" &&
-        <Icon name="user" type="font-awesome" size={100} color="white"/>
-      }
-      {
-        user["image"] != "" &&
-        <Image style={{ width: 100, height: 100 }} source={{ uri: user["image"] || avatar}} />
-      }
+        {user["image"] == "" && (
+          <Icon name="user" type="font-awesome" size={100} color="white" />
+        )}
+        {user["image"] != "" && (
+          <Image
+            style={{ width: 100, height: 100, borderRadius: 50 }}
+            source={{ uri: user["image"] || avatar }}
+          />
+        )}
       </View>
       <View style={styles.infoContainer}>
-        <Text style={{ fontSize: 30, color: "white" }}>
+        <Text style={{ fontSize: 25, color: "white" }}>
           {user["first_name"]} {user["last_name"]}
         </Text>
       </View>
@@ -83,7 +84,7 @@ export default function ContactDetail({ route }: { route: any }) {
 
       <View style={styles.infoContainer}>
         <ScrollView style={styles.scrollView}>
-          <Text style={{fontSize: 15, color: 'white'}}>{user["descr"]}</Text>
+          <Text style={{ fontSize: 15, color: "white" }}>{user["descr"]}</Text>
         </ScrollView>
       </View>
 
