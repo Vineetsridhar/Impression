@@ -6,7 +6,6 @@ import sys
 sys.path.insert(1, "/home/ec2-user/environment/project3/Impression/Backend")
 sys.path.append("/home/ec2-user/environment/project3/Impression/Backend")
 
-from server import db
 import tables
 import s3
 
