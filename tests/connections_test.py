@@ -139,11 +139,18 @@ class connections_tests(unittest.TestCase):
                 KEY_EXPECTED: [self.get_mocked_user(0)]
             },
             {
-                KEY_ID: 1,
+                KEY_ID: 2,
                 KEY_INPUT: {
                     "user_email": "dummy@gmail.com",
                 },
                 KEY_EXPECTED: [self.get_mocked_user(0)]
+            },
+            {
+                KEY_ID: 3,
+                KEY_INPUT: {
+                    "": "",
+                },
+                KEY_EXPECTED: None
             },
         ]
         
@@ -212,6 +219,14 @@ class connections_tests(unittest.TestCase):
                 self.assertEqual(response, expected)
                 
             if test[KEY_ID] == 2:
+                with mock.patch('sqlalchemy.orm.query.Query.all', self.mocked_user_query_all_1):
+                    with mock.patch('users.get_user', self.get_mocked_user):
+                        response = imp_util.connections.on_query_connections(test[KEY_INPUT])
+                        expected = test[KEY_EXPECTED]
+        
+                self.assertEqual(response, expected)
+                
+            if test[KEY_ID] == 3:
                 with mock.patch('sqlalchemy.orm.query.Query.all', self.mocked_user_query_all_1):
                     with mock.patch('users.get_user', self.get_mocked_user):
                         response = imp_util.connections.on_query_connections(test[KEY_INPUT])
