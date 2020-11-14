@@ -1,10 +1,13 @@
+# pylint: disable=missing-function-docstring
+# pylint: disable=no-member
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=unused-import
+# pylint: disable=wrong-import-position
+
 import unittest
 import unittest.mock as mock
 import sys
-
-sys.path.insert(1, "../")
-import pseudoapp
-from pseudoapp import app
 
 import pathlib
 import boto3
@@ -13,10 +16,23 @@ import flask
 import flask_sqlalchemy
 import flask_socketio
 
+sys.path.insert(1, "/home/ec2-user/environment/project3/Impression/Backend")
+sys.path.append("/home/ec2-user/environment/project3/Impression/Backend")
+
+import imp_util
+import tables
+import users
+import server
+
 KEY_INPUT = "input"
 KEY_EXPECTED = "expected"
 
+#ERROR:
+# RuntimeError: Working outside of request context.
 
+# This typically means that you attempted to use functionality that needed
+# an active HTTP request.  Consult the documentation on testing for
+# information about how to avoid this problem.
 # class on_get_user_check(unittest.TestCase):
 
 #     def mocked_new_user_json(self):
@@ -36,7 +52,7 @@ KEY_EXPECTED = "expected"
 #         }
 #         mocked_request.json.return_value = mocked_json
 #         return mocked_request
-    
+#
 #     def setUp(self):
 #         self.success_test_params = [
 #             {
@@ -64,7 +80,7 @@ KEY_EXPECTED = "expected"
 
 #             self.assertEqual(response, expected)
 
-class index_check(unittest.TestCase):
+class IndexCheck(unittest.TestCase):
     def setUp(self):
         self.success_test_params = [
             {
@@ -74,7 +90,7 @@ class index_check(unittest.TestCase):
 
     def test_success(self):
         for test in self.success_test_params:
-            response = pseudoapp.index()
+            response = server.index()
             expected = test[KEY_EXPECTED]
 
             self.assertEqual(response, expected)
