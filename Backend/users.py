@@ -42,7 +42,7 @@ def new_user(email, fname, lname, image):
 
 
 def edit_user(account):
-    user = tables.Users.query(tables.Users).filter_by(email=account["email"]).first()
+    user = db.session.query(tables.Users).filter_by(email=account["email"]).first()
     user.email = account["email"]
     user.first_name = account["first_name"]
     user.last_name = account["last_name"]

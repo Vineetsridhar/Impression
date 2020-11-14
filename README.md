@@ -14,6 +14,10 @@ Companies will be able to attach any important documents about their mission sta
 Impression will allow for a seamless exhcange of information between users and will reduce the amount of paper often used during career fairs and/or interviews,
 as all the information will be stored virtually for the users to revisit if need be.
 
+# Disclaimer
+
+- Because Heroku takes a while to start up on the first launch, when the application is first launched, it might take a while to actually respond
+
 # Setup
 
 NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete these steps if not needed.
@@ -40,7 +44,7 @@ NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete t
 
 1. Install expo by running the command `npm install -g expo-cli`.
 
-# View on android application
+# View on Expo
 
 1. On an android mobile device download and open the `Expo` app on the `Google Play Store`.
 2. Back on your pc, open a terminal and change directories with `cd ~/Impression/Backend`.
@@ -64,3 +68,27 @@ For linting, we decided to ignore these errors/warnings:
    we do not have docstrings for our modules/classes/functions
 7. C0413 (wrong-import-position) because we need the import statements after the 'db.session.commit()' in server.py
 8. W0611 (unused-import) because we need the imports for SQL Alchemy in those separate python files
+
+# What we did
+
+## Vineet Sridhar
+
+- I built the structure of the application. [Frontend]
+  - I created the tabs, and all the pages on the screen
+  - I created the Scan screen
+  - I also implemented Google login
+  - I connected the frontend to the backend, and wrote the calls for the communication between the two.
+  
+## Chris
+- Done
+   - Created expo application to initialize the project.
+   - Created Profile page for a user.
+   - Created Contacts page for People and Organizations.
+   - Styled Profile page.
+   - Styled Contacts page.
+   - Styled Contact Detail page.
+   - Updated User’s Profile page based on backend data.
+- In Progress (extra features not needed for sprint 1)
+   - Add app bar / navigation bar to Contact Detail.
+   - Add search feature for a contact.
+
