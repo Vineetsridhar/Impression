@@ -121,7 +121,7 @@ For linting, we decided to ignore these errors/warnings:
 
 ## Rami Bazoqa
 
-- created sekeleton for server.py
+- created skeleton for server.py
 - created connections.py
 - created qr.py
 - created s3.py
@@ -130,3 +130,17 @@ For linting, we decided to ignore these errors/warnings:
    - worked on tables.py
 - Setup Heroku For Server hosting
 - Setup Amazon S3 Bucket for File Storage
+
+## Stephanie Nieve-Silva (backend)
+
+- created database for user's information
+- created the functions for users:
+   - making a new user
+   - editing user's personal information
+   - getting a user's information
+- created unit tests for:
+   - users.py
+   - server.py
+      - TODO: find a way to mock getting the flask.request.json for
+      the other functions because we kept running into an error
+- linting python files
