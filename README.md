@@ -18,9 +18,13 @@ as all the information will be stored virtually for the users to revisit if need
 
 - Because Heroku takes a while to start up on the first launch, when the application is first launched, it might take a while to actually respond
 
+
 # Setup
 
-NOTE: This was needed for me on `Ubuntu Linux`, proceed with caution. May ignore these steps if you have the latest versions of `node` and `npm` working.
+### Clone the Repo
+1. In your desired directory run the command `git clone https://github.com/Impression-App/Impression.git`
+
+NOTE: The steps below were needed for on `Ubuntu Linux` and may not be needed for everyone, proceed with caution. May ignore these steps if you have the latest versions of `node` and `npm` working.
 
 1. Run the commands `node -v` and `npm -v` to verify you have the latest versions of node and npm installed. If not updated, update with the commands `npm install -g npm`.
    NOTE: The app may not run without up to date `node` and `npm` versions. App is confirmed to run on `node v10.23.0` and `npm 6.14.8`
@@ -54,7 +58,15 @@ NOTE: This was needed for me on `Ubuntu Linux`, proceed with caution. May ignore
 
    `DATBASE_URL`
    `postgres://{user}:{password}@{hostname}:{port}/{database-name}`
-   
+    
+# Setup IP Address
+1. Navigate to the `helpers` folder `cd ~/Impression/src/helpers`.
+2. Open the file `network.tsx`.
+3. On line `4` you will see `const url = "http://XXX.XXX.X.XX:8080";`, replace the `X`'s with your IPV4 address.
+   Obtain your IP address through the Linux command `hostname -I` or Windows command `ipconfig`.
+4. Open the file `socket.tsx`.
+5. Repeat `step 3` except for the value `const socket` on line `3`.
+
 # Setup Expo
 
 1. Install expo by running the command `npm install -g expo-cli`.
