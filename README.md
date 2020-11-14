@@ -20,7 +20,7 @@ as all the information will be stored virtually for the users to revisit if need
 
 # Setup
 
-NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete these steps if not needed.
+NOTE: This was needed for me on `Ubuntu Linux`, proceed with caution. May ignore these steps if you have the latest versions of `node` and `npm` working.
 
 1. Run the commands `node -v` and `npm -v` to verify you have the latest versions of node and npm installed. If not updated, update with the commands `npm install -g npm`.
    NOTE: The app may not run without up to date `node` and `npm` versions. App is confirmed to run on `node v10.23.0` and `npm 6.14.8`
@@ -40,6 +40,19 @@ NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete t
 8. Run `[sudo] pip[3] install boto3` inside of the project directory to install boto3.
 9. Run `sudo yum install postgresql postgresql-server postgresql-devel postgresql-contrib postgresql-docs` inside of the project directory to install PostGreSQL.
 
+# Set Up Environment Variables (Windows 10)
+1. Press the `windows` key followed by the `r` key.
+2. When the window pops up click `OK`.
+3. Switch to the `Advanced` tab and navigate to the `Environment Variables`.
+4. All `Variable`'s and `Value`'s will be inserted in the `User variables for user` section.
+5. Refer to `https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html` to obtain your appropiate `Value` for each of the       `Variable`'s listed below.
+   `AWS_ACCESS_KEY_ID`
+   `AWS_DEFAULT_REGION`
+   `AWS_SECRET_ACCESS_KEY`
+6. Insert your `postgres url` `Variable` and `Value`
+   `DATBASE_URL`
+   `postgres://{user}:{password}@{hostname}:{port}/{database-name}`
+   
 # Setup Expo
 
 1. Install expo by running the command `npm install -g expo-cli`.
