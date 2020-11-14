@@ -78,3 +78,17 @@ For linting, we decided to ignore these errors/warnings:
   - I created the Scan screen
   - I also implemented Google login
   - I connected the frontend to the backend, and wrote the calls for the communication between the two.
+  
+## Chris
+- Done
+   - Created expo application to initialize the project.
+   - Created Profile page for a user.
+   - Created Contacts page for People and Organizations.
+   - Styled Profile page.
+   - Styled Contacts page.
+   - Styled Contact Detail page.
+   - Updated User’s Profile page based on backend data.
+- In Progress (extra features not needed for sprint 1)
+   - Add app bar / navigation bar to Contact Detail.
+   - Add search feature for a contact.
+
