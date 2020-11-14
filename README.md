@@ -46,10 +46,12 @@ NOTE: This was needed for me on `Ubuntu Linux`, proceed with caution. May ignore
 3. Switch to the `Advanced` tab and navigate to the `Environment Variables`.
 4. All `Variable`'s and `Value`'s will be inserted in the `User variables for user` section.
 5. Refer to `https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html` to obtain your appropiate `Value` for each of the       `Variable`'s listed below.
+
    `AWS_ACCESS_KEY_ID`
    `AWS_DEFAULT_REGION`
    `AWS_SECRET_ACCESS_KEY`
 6. Insert your `postgres url` `Variable` and `Value`
+
    `DATBASE_URL`
    `postgres://{user}:{password}@{hostname}:{port}/{database-name}`
    
