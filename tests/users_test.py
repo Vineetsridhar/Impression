@@ -9,9 +9,6 @@ import unittest
 import unittest.mock as mock
 import sys
 
-# hardcoded directory-- fix possibly
-sys.path.insert(1, "../")
-
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
@@ -88,35 +85,33 @@ class GetUser(unittest.TestCase):
 
 
 #### unit test for editing a user
-#### BaseQuery Error -- fix
-# class EditUser(unittest.TestCase):
+class EditUser(unittest.TestCase):
 
-#     def mocked_user_query_first(self, email):
-#         mocked_user = mock.Mock()
-#         mocked_user.first.return_value = dummyUser
-#         return mocked_user
+    def mocked_user_query_first(self, email):
+        mocked_user = mock.Mock()
+        mocked_user.first.return_value = dummyUser
+        return mocked_user
 
-#     def setUp(self):
-#         self.success_test_params = [
-#             {
-#                 KEY_INPUT: "",
-#                 KEY_EXPECTED: "AttributeError",
-#             },
-#         ]
+    def setUp(self):
+        self.success_test_params = [
+            {
+                KEY_INPUT: "",
+                KEY_EXPECTED: "AttributeError",
+            },
+        ]
 
-#     def test_get_user_success(self):
-#         for test in self.success_test_params:
-#             try:
-#                 with mock.patch('sqlalchemy.orm.query.Query.filter_by',
-                        #self.mocked_user_query_first):
-#                     # testing = imp_util.users.edit_user(test[KEY_INPUT])
-#                     testing = pseudoapp.edit_user(test[KEY_INPUT])
-#                     response = "No errors"
-#             except AttributeError:
-#                 response = "AttributeError"
+    def test_get_user_success(self):
+        for test in self.success_test_params:
+            try:
+                with mock.patch('sqlalchemy.orm.query.Query.filter_by',
+                        self.mocked_user_query_first):
+                    testing = imp_util.users.edit_user(test[KEY_INPUT])
+                    response = "No errors"
+            except AttributeError:
+                response = "AttributeError"
 
-#             expected = test[KEY_EXPECTED]
-#             self.assertEqual(response, expected)
+            expected = test[KEY_EXPECTED]
+            self.assertEqual(response, expected)
 
 #### unit test for making a new user
 class NewUser(unittest.TestCase):
