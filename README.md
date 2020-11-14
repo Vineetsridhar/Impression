@@ -119,3 +119,14 @@ For linting, we decided to ignore these errors/warnings:
    - Add app bar / navigation bar to Contact Detail.
    - Add search feature for a contact.
 
+## Rami Bazoqa
+
+- created sekeleton for server.py
+- created connections.py
+- created qr.py
+- created s3.py
+- created tests for:
+   - connections.py, qr.py, s3.py
+   - worked on tables.py
+- Setup Heroku For Server hosting
+- Setup Amazon S3 Bucket for File Storage
