@@ -75,6 +75,11 @@ def get_user():
     query_user_email = flask.request.json
     return imp_util.users.get_user(query_user_email["email"])
 
+@app.route("/upload_doc", methods=["POST"])
+def on_upload_doc():
+    data = flask.request.form
+    print(SERVER_PREFIX + str(type(data)))
+    # return imp_util.s3.upload(filename,key)
 
 #### Given 2 user emails, adds them as a new connection
 #### to the DB if such a connection does not already exist.
@@ -107,7 +112,6 @@ def on_query_connections():
         "success": True,
         "connections": imp_util.connections.on_query_connections(data),
     }
-
 
 @app.route("/")
 def index():
