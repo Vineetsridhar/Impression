@@ -45,6 +45,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-evenly'
+  },
+  link: {
+    fontSize: 20,
+    color: colors.main,
+    paddingVertical: 16
   }
 });
 

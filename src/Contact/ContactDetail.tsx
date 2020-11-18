@@ -1,6 +1,6 @@
 import React from "react";
 import { User } from "../helpers/interfaces";
-import { ScrollView, View, Text, Image } from "react-native";
+import { ScrollView, View, Text, Image, TouchableOpacity, Linking, Alert } from "react-native";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import avatar from "../../config/avatar";
@@ -35,6 +35,21 @@ export default function ContactDetail({ route }: { route: any }) {
     return (res !== null)
   }
 
+  const openResume = () => {
+    const link = `https://impression-app.s3.amazonaws.com/${user.email.replace(
+      "@",
+      "%40"
+    )}/resume.pdf`;
+
+    Linking.canOpenURL(link).then(canOpenURL => {
+      if (canOpenURL) {
+        Linking.openURL(link)
+      } else {
+        Alert.alert("Error", "Cannot open URL")
+      }
+    })
+  }
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
       <View style={{ width: '100%' }}>
@@ -60,6 +75,9 @@ export default function ContactDetail({ route }: { route: any }) {
       </Text>
 
       {wantedRows.map((key, i) => user[key] ? <ContactDetailRow itemKey={itemKeys[key] || "Some"} key={i} text={user[key]} /> : null)}
+      <TouchableOpacity style={{ width: '100%', height: 100 }} onPress={openResume}>
+        <Text style={styles.link}>Download Resume</Text>
+      </TouchableOpacity>
 
       <View style={styles.linksContainer}>
         {links.map((link, i) => <LinkImage position={i} link={user[link]} />)}
