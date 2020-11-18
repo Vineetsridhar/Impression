@@ -77,8 +77,8 @@ def get_user():
 
 @app.route("/upload_doc", methods=["POST"])
 def on_upload_doc():
-    data = flask.request.form
-    print(SERVER_PREFIX + str(type(data)))
+    data = flask.request.files["file"]
+    data.save("test.pdf")
     # return imp_util.s3.upload(filename,key)
 
 #### Given 2 user emails, adds them as a new connection
@@ -123,5 +123,5 @@ if __name__ == "__main__":
         app,
         host=os.getenv("IP", "0.0.0.0"),
         port=int(os.getenv("PORT", 8080)),
-        debug=False,
+        debug=True,
     )

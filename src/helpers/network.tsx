@@ -1,7 +1,7 @@
 import user from "../../config/user";
 import { User } from "./interfaces";
 
-const url = "https://njit-cs490-project3-impression.herokuapp.com";
+const url = "http://192.168.2.15:8080";
 
 export function getCallParams(body: any) {
   return {
@@ -37,18 +37,24 @@ export function editUser(user: any) {
   return fetch(`${url}/edit_user`, getCallParams(user));
 }
 
-export function uploadDocument(file: string) {
-  const data = new FormData();
-  data.append('file_attachment', file);
+export function uploadDocument(file: any) {
+  const body = new FormData();
+  body.append('file', {
+    uri: file.uri,
+    type: `application/pdf`,
+    name: file.name
+  });
 
   return fetch(
     `${url}/upload_doc`,
     {
       method: 'POST',
-      body: data,
-      headers: {
-        'Content-Type': 'multipart/form-data;',
-      },
+      body,
     }
-  ).then(res => res.json())
+  ).then(res => {
+    // console.log(res);
+    // if (res.ok) return res.json()
+  }).catch(err => {
+    console.log(err)
+  })
 }

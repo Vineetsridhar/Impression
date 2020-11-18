@@ -51,9 +51,9 @@ export default function ProfileScreen() {
     callback(text);
   };
 
-  let uploadDoc = async (file: any) => {
+  let uploadDoc = async (file: DocumentPicker.DocumentResult) => {
     if (file != null) {
-      uploadDocument(file.uri)
+      uploadDocument(file)
     } else {
       alert('Please Select File first');
     }
