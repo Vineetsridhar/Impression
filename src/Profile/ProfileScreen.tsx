@@ -11,12 +11,13 @@ import {
 import styles from "./ProfileStyle";
 import avatar from "../../config/avatar";
 import FormItem from "../components/FormItem";
-import { getUserInfo, editUser } from "../helpers/network";
+import { getUserInfo, editUser, uploadDocument } from "../helpers/network";
 import user from "../../config/user";
 import { User } from "../helpers/interfaces";
 import * as DocumentPicker from 'expo-document-picker';
 import colors from '../../config/colors'
 import { FontAwesome } from "@expo/vector-icons";
+
 
 export default function ProfileScreen() {
   const [email, setEmail] = useState("");
@@ -49,6 +50,23 @@ export default function ProfileScreen() {
   ) => {
     callback(text);
   };
+
+  let uploadDoc = async (file: any) => {
+    if (file != null) {
+      uploadDocument(file.uri)
+    } else {
+      alert('Please Select File first');
+    }
+  };
+
+  const documentFetch = () => {
+    DocumentPicker.getDocumentAsync({
+      type: 'application/pdf',
+      copyToCacheDirectory: true
+    }).then(data => {
+      uploadDoc(data)
+    })
+  }
 
   return (
     <ScrollView
@@ -117,9 +135,9 @@ export default function ProfileScreen() {
         style={{ height: 100 }}
         onChangeText={(text: string) => onChange(text, setLinkedin)}
       />
-      {/* <TouchableOpacity>
+      <TouchableOpacity onPress={documentFetch}>
         <Text style={styles.link}>Upload Resume</Text>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
 
       <TouchableOpacity
         onPress={() => {

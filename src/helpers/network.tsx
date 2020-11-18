@@ -36,3 +36,19 @@ export function newConnection(email: string) {
 export function editUser(user: any) {
   return fetch(`${url}/edit_user`, getCallParams(user));
 }
+
+export function uploadDocument(file: string) {
+  const data = new FormData();
+  data.append('file_attachment', file);
+
+  return fetch(
+    `${url}/upload_doc`,
+    {
+      method: 'POST',
+      body: data,
+      headers: {
+        'Content-Type': 'multipart/form-data;',
+      },
+    }
+  ).then(res => res.json())
+}
