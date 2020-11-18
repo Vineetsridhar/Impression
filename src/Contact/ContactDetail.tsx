@@ -1,11 +1,12 @@
 import React from "react";
 import { User } from "../helpers/interfaces";
-import { ScrollView, View, Text, StyleSheet, Image } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { ScrollView, View, Text, Image } from "react-native";
+import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import avatar from "../../config/avatar";
-import { Icon } from "react-native-elements";
 import styles from "./ContactDetailStyle";
+import colors from '../../config/colors';
+
 
 export default function ContactDetail({ route }: { route: any }) {
   const { user }: { user: User } = route.params;
@@ -15,7 +16,7 @@ export default function ContactDetail({ route }: { route: any }) {
       <Ionicons
         name="md-arrow-back"
         size={35}
-        color="white"
+        color={colors.text}
         style={styles.icon}
         onPress={() => {
           navigation.navigate("Contacts");
@@ -23,7 +24,7 @@ export default function ContactDetail({ route }: { route: any }) {
       />
       <View style={styles.infoContainer}>
         {user["image"] == "" && (
-          <Icon name="user" type="font-awesome" size={100} color="white" />
+          <FontAwesome name="user" type="font-awesome" size={100} color={colors.text} />
         )}
         {user["image"] != "" && (
           <Image
@@ -33,7 +34,7 @@ export default function ContactDetail({ route }: { route: any }) {
         )}
       </View>
       <View style={styles.infoContainer}>
-        <Text style={{ fontSize: 25, color: "white" }}>
+        <Text style={{ fontSize: 25, color: colors.text }}>
           {user["first_name"]} {user["last_name"]}
         </Text>
       </View>
@@ -46,7 +47,7 @@ export default function ContactDetail({ route }: { route: any }) {
             alignItems: "center",
           }}
         >
-          <Icon name="envelope" type="font-awesome" size={30} color="white" />
+          <FontAwesome name="envelope" type="font-awesome" size={30} color={colors.text} />
         </View>
 
         <View
@@ -68,7 +69,7 @@ export default function ContactDetail({ route }: { route: any }) {
             alignItems: "center",
           }}
         >
-          <Icon name="building" type="font-awesome" size={30} color="white" />
+          <FontAwesome name="building" type="font-awesome" size={30} color={colors.text} />
         </View>
 
         <View
@@ -84,7 +85,7 @@ export default function ContactDetail({ route }: { route: any }) {
 
       <View style={styles.infoContainer}>
         <ScrollView style={styles.scrollView}>
-          <Text style={{ fontSize: 15, color: "white" }}>{user["descr"]}</Text>
+          <Text style={{ fontSize: 15, color: colors.text }}>{user["descr"]}</Text>
         </ScrollView>
       </View>
 
@@ -96,7 +97,7 @@ export default function ContactDetail({ route }: { route: any }) {
             alignItems: "center",
           }}
         >
-          <Icon name="github" type="font-awesome" size={30} color="white" />
+          <FontAwesome name="github" type="font-awesome" size={30} color={colors.text} />
         </View>
 
         <View
@@ -118,7 +119,7 @@ export default function ContactDetail({ route }: { route: any }) {
             alignItems: "center",
           }}
         >
-          <Icon name="linkedin" type="font-awesome" size={30} color="white" />
+          <FontAwesome name="linkedin" type="font-awesome" size={30} color={colors.text} />
         </View>
 
         <View
@@ -140,7 +141,7 @@ export default function ContactDetail({ route }: { route: any }) {
             alignItems: "center",
           }}
         >
-          <Icon name="link" type="font-awesome" size={30} color="white" />
+          <FontAwesome name="link" type="font-awesome" size={30} color={colors.text} />
         </View>
 
         <View

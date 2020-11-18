@@ -1,10 +1,12 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
-import { Avatar, Icon, Button } from "react-native-elements";
 import avatar from "../../config/avatar";
 import styles from "../Contact/ContactsStyle";
+import colors from '../../config/colors'
 import { User } from "../helpers/interfaces";
 import { useNavigation } from "@react-navigation/native";
+import { FontAwesome } from "@expo/vector-icons";
+
 
 function Contact({ contact }: { contact: User }) {
   const navigation = useNavigation();
@@ -21,11 +23,11 @@ function Contact({ contact }: { contact: User }) {
         <View style={styles.rowContainer}>
           {
             contact["image"] == "" &&
-            <Icon name="user" type="font-awesome" size={30} color="white"/>
+            <FontAwesome name="user" type="font-awesome" size={30} color={colors.text} />
           }
           {
             contact["image"] != "" &&
-            <Image style={styles.avatarStyle} source={{ uri: contact["image"] || avatar}} />
+            <Image style={styles.avatarStyle} source={{ uri: contact["image"] || avatar }} />
           }
           <View style={{ width: 275, flexDirection: "column" }}>
             <Text style={styles.textStyle}>{contact.first_name}</Text>
@@ -33,11 +35,11 @@ function Contact({ contact }: { contact: User }) {
             <Text style={styles.textStyle}>{contact.email}</Text>
           </View>
           <View style={{ alignItems: "flex-end" }}>
-            <Icon
+            <FontAwesome
               name="angle-right"
               type="font-awesome"
+              color={colors.text}
               size={50}
-              color="white"
             />
           </View>
         </View>

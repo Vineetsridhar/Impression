@@ -7,7 +7,8 @@ import { User } from "../helpers/interfaces";
 import { getConnections } from "../helpers/network";
 import user from "../../config/user";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Icon } from "react-native-elements";
+import colors from '../../config/colors'
+import { FontAwesome } from "@expo/vector-icons";
 
 export default function ContactScreen({ navigation }: any) {
   //Add on tab focus listener to refresh data
@@ -48,11 +49,11 @@ export default function ContactScreen({ navigation }: any) {
   return (
     <View style={styles.container}>
       <View style={{ flex: 2 }}>
-        <Icon name="building" type="font-awesome" size={60} color="white" />
+        <FontAwesome name="building" size={60} color={colors.text} />
         <ContactList contacts={companyConnections} />
       </View>
       <View style={{ flex: 2 }}>
-        <Icon name="users" type="font-awesome" size={60} color="white" />
+        <FontAwesome name="users" size={60} color={colors.text} />
         <ContactList contacts={userConnections} />
       </View>
     </View>

@@ -10,6 +10,7 @@ import metrics from "../../config/metrics";
 import FAB from "../components/FAB";
 import { AntDesign } from "@expo/vector-icons";
 import { newConnection } from "../helpers/network";
+import colors from '../../config/colors'
 
 export default function ScanScreen({ navigation }: any) {
   const [hasPermission, setHasPermission] = useState(false);
@@ -104,7 +105,7 @@ export default function ScanScreen({ navigation }: any) {
           navigation.push("QRCode");
         }}
       >
-        <AntDesign name="qrcode" style={{ color: "white", fontSize: 45 }} />
+        <AntDesign name="qrcode" style={{ color: 'white', fontSize: 45 }} />
       </FAB>
     </Camera>
   );

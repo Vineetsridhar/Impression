@@ -3,6 +3,7 @@ import { Image, View, Text, StyleSheet } from "react-native";
 import FAB from "../components/FAB";
 import { Ionicons } from "@expo/vector-icons";
 import user from "../../config/user";
+import colors from '../../config/colors'
 
 export default function QRScreen({ navigation }: any) {
   return (
@@ -24,7 +25,7 @@ export default function QRScreen({ navigation }: any) {
       >
         <Ionicons
           name="md-qr-scanner"
-          style={{ color: "white", fontSize: 30 }}
+          style={{ color: 'white', fontSize: 30 }}
         />
       </FAB>
     </View>

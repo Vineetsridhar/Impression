@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from "../../config/colors";
 
 const styles = StyleSheet.create({
   container: {
@@ -6,14 +7,14 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     padding: 10,
     display: "flex",
-    backgroundColor: "#192879",
+    backgroundColor: "white",
     flex: 1,
     flexDirection: "column",
   },
   contactLabel: {
     textAlign: "center",
     fontSize: 35,
-    color: 'white',
+    color: colors.text,
   },
   avatarStyle: {
     height: 50,
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontSize: 15,
-    color: 'white',
+    color: colors.text,
   }
 });
 

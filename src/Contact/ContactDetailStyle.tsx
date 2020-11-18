@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from "../../config/colors";
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontSize: 20,
-    color: "white",
+    color: colors.text,
   },
   container: {
     margin: 0,

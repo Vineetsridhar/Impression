@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         margin: 0,
         flexDirection: 'column',
-        backgroundColor:"#192879",
+        backgroundColor:'white',
         flex:1
     },
     rowContainer: {
@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     },
     nameStyle: {
         flex:1,
-        color: 'white',
         height: 50,
         borderWidth: 1,
         paddingHorizontal: 8,
@@ -26,7 +25,6 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20,
-        color: 'white',
         fontWeight: 'bold',
         width:'95%',
         marginVertical: 8

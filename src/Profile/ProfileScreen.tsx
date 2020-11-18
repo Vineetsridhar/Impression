@@ -8,14 +8,15 @@ import {
   TouchableOpacity,
   AsyncStorage,
 } from "react-native";
-import { Avatar } from "react-native-elements";
 import styles from "./ProfileStyle";
 import avatar from "../../config/avatar";
 import FormItem from "../components/FormItem";
 import { getUserInfo, editUser } from "../helpers/network";
 import user from "../../config/user";
 import { User } from "../helpers/interfaces";
-import { Icon } from "react-native-elements";
+import * as DocumentPicker from 'expo-document-picker';
+import colors from '../../config/colors'
+import { FontAwesome } from "@expo/vector-icons";
 
 export default function ProfileScreen() {
   const [email, setEmail] = useState("");
@@ -54,14 +55,14 @@ export default function ProfileScreen() {
       style={styles.container}
       contentContainerStyle={{ alignItems: "center" }}
     >
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity onPress={() => { }}>
         {
           image == "" &&
-          <Icon style={{marginTop: 50}} name="user" type="font-awesome" size={125} color="white"/>
+          <FontAwesome style={{ marginTop: 50 }} name="user" size={125} color={colors.text} />
         }
         {
           image != "" &&
-          <Image style={styles.avatarStyle} source={{ uri: image}} />
+          <Image style={styles.avatarStyle} source={{ uri: image }} />
         }
       </TouchableOpacity>
 
@@ -70,14 +71,14 @@ export default function ProfileScreen() {
         <TextInput
           style={[styles.nameStyle, { marginRight: 4 }]}
           placeholder="First Name"
-          placeholderTextColor="white"
+          placeholderTextColor={colors.text}
           value={firstName}
           onChangeText={(text) => onChange(text, setFirstName)}
         />
         <TextInput
           style={[styles.nameStyle, { marginLeft: 4 }]}
           placeholder="Last Name"
-          placeholderTextColor="white"
+          placeholderTextColor={colors.text}
           value={lastName}
           onChangeText={(text) => onChange(text, setLastName)}
         />
