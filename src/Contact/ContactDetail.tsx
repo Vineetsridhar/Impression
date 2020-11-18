@@ -6,159 +6,64 @@ import { useNavigation } from "@react-navigation/native";
 import avatar from "../../config/avatar";
 import styles from "./ContactDetailStyle";
 import colors from '../../config/colors';
+import ContactDetailRow from "../components/ContactDetailRow";
+import LinkImage from "./LinkImage";
 
+const iconMap = {
+  "email": "envelope",
+  "organization": "building",
+  "descr": "pencil",
+  "gen_link_1": "github",
+  "gen_link_2": "linkedin",
+  "gen_link_3": "link"
+}
+const itemKeys = {
+  "email": "Email",
+  "organization": "School/Organization",
+  "descr": "About",
+}
+const wantedRows = ["email", "descr", "organization"]
+const links = ["gen_link_1", "gen_link_2", "gen_link_3"]
 
 export default function ContactDetail({ route }: { route: any }) {
   const { user }: { user: User } = route.params;
   const navigation = useNavigation();
+
+  const isUrl = (url: string) => {
+    //Got from https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
+    var res = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    return (res !== null)
+  }
+
   return (
-    <View style={styles.container}>
-      <Ionicons
-        name="md-arrow-back"
-        size={35}
-        color={colors.text}
-        style={styles.icon}
-        onPress={() => {
-          navigation.navigate("Contacts");
-        }}
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+      <View style={{ width: '100%' }}>
+        {/* Temp View. Make app bar */}
+        <Ionicons
+          name="md-arrow-back"
+          size={35}
+          color={colors.text}
+          style={styles.icon}
+          onPress={() => {
+            navigation.navigate("Contacts");
+          }}
+        />
+      </View>
+
+      <Image
+        style={{ width: 200, height: 200, borderRadius: 100 }}
+        source={{ uri: user["image"] || avatar }}
       />
-      <View style={styles.infoContainer}>
-        {user["image"] == "" && (
-          <FontAwesome name="user" type="font-awesome" size={100} color={colors.text} />
-        )}
-        {user["image"] != "" && (
-          <Image
-            style={{ width: 100, height: 100, borderRadius: 50 }}
-            source={{ uri: user["image"] || avatar }}
-          />
-        )}
+
+      <Text style={styles.title}>
+        {user["first_name"]} {user["last_name"]}
+      </Text>
+
+      {wantedRows.map((key, i) => user[key] ? <ContactDetailRow itemKey={itemKeys[key] || "Some"} key={i} text={user[key]} /> : null)}
+
+      <View style={styles.linksContainer}>
+        {links.map((link, i) => <LinkImage position={i} link={user[link]} />)}
       </View>
-      <View style={styles.infoContainer}>
-        <Text style={{ fontSize: 25, color: colors.text }}>
-          {user["first_name"]} {user["last_name"]}
-        </Text>
-      </View>
-
-      <View style={styles.rowContainer}>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
-        >
-          <FontAwesome name="envelope" type="font-awesome" size={30} color={colors.text} />
-        </View>
-
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
-        >
-          <Text style={styles.textStyle}>{user["email"]}</Text>
-        </View>
-      </View>
-
-      <View style={styles.rowContainer}>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
-        >
-          <FontAwesome name="building" type="font-awesome" size={30} color={colors.text} />
-        </View>
-
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
-        >
-          <Text style={styles.textStyle}>{user["organization"]}</Text>
-        </View>
-      </View>
-
-      <View style={styles.infoContainer}>
-        <ScrollView style={styles.scrollView}>
-          <Text style={{ fontSize: 15, color: colors.text }}>{user["descr"]}</Text>
-        </ScrollView>
-      </View>
-
-      <View style={styles.rowContainer}>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
-        >
-          <FontAwesome name="github" type="font-awesome" size={30} color={colors.text} />
-        </View>
-
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
-        >
-          <Text style={styles.textStyle}>{user["gen_link_1"]}</Text>
-        </View>
-      </View>
-
-      <View style={styles.rowContainer}>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
-        >
-          <FontAwesome name="linkedin" type="font-awesome" size={30} color={colors.text} />
-        </View>
-
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
-        >
-          <Text style={styles.textStyle}>{user["gen_link_2"]}</Text>
-        </View>
-      </View>
-
-      <View style={styles.rowContainer}>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
-        >
-          <FontAwesome name="link" type="font-awesome" size={30} color={colors.text} />
-        </View>
-
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
-        >
-          <Text style={styles.textStyle}>{user["gen_link_3"]}</Text>
-        </View>
-      </View>
-      {/**Object.keys(user).map((key) => (
-          <Text>
-          {key}: {user[key]}
-          </Text>
-      ))**/}
-    </View>
+    </ScrollView>
   );
 }

@@ -38,7 +38,7 @@ export default function ProfileScreen() {
         setEmail(json["email"] ?? "");
         setSchool(json["organization"] ?? "");
         setDescription(json["descr"] ?? "");
-        setGithub(json["gen_link_1"] ?? "");
+        setGithub(json["gen_link_1"].split("/")[3] ?? "");
         setLinkedin(json["gen_link_2"] ?? "");
         setImage(json["image"] ?? "");
       });
@@ -123,13 +123,13 @@ export default function ProfileScreen() {
         onChangeText={(text: string) => onChange(text, setDescription)}
       />
       <FormItem
-        title="GitHub"
-        placeholder="https://www.github.com"
+        title="GitHub Handle"
+        placeholder="SomeUsername"
         value={github}
         onChangeText={(text: string) => onChange(text, setGithub)}
       />
       <FormItem
-        title="LinkedIn"
+        title="LinkedIn URL"
         placeholder="https://www.linkedin.com"
         value={linkedin}
         style={{ height: 100 }}
@@ -147,7 +147,7 @@ export default function ProfileScreen() {
             last_name: lastName,
             organization: school,
             descr: description,
-            gen_link_1: github,
+            gen_link_1: github ? `https://github.com/${github}` : null,
             gen_link_2: linkedin,
             user_type: "Student",
           });

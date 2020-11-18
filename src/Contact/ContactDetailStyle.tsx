@@ -2,22 +2,17 @@ import { StyleSheet } from "react-native";
 import colors from "../../config/colors";
 
 const styles = StyleSheet.create({
-  scrollView: {
-    height: "100%",
-    width: "100%",
-    alignSelf: "center",
-  },
   infoContainer: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   },
-  rowContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+  colContainer: {
+    display: 'flex',
+    flexDirection: "column",
+    width: '100%',
+    margin: 16
   },
   textStyle: {
     fontSize: 20,
@@ -25,13 +20,32 @@ const styles = StyleSheet.create({
   },
   container: {
     margin: 0,
+    display: 'flex',
+    flexDirection: 'column',
     flex: 1,
     padding: 10,
-    backgroundColor: "#192879",
+    backgroundColor: colors.background,
+  },
+  contentContainer: {
+    alignItems: 'center'
   },
   icon: {
     marginVertical: 16,
   },
+  title: {
+    fontSize: 30,
+    color: colors.text,
+    fontWeight: 'bold'
+  },
+  iconStyle: {
+    width: 50
+  },
+  linksContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-evenly'
+  }
 });
 
 export default styles;

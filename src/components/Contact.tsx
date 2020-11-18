@@ -21,14 +21,9 @@ function Contact({ contact }: { contact: User }) {
     >
       <TouchableOpacity onPress={navigateToContactDetail}>
         <View style={styles.rowContainer}>
-          {
-            contact["image"] == "" &&
-            <FontAwesome name="user" type="font-awesome" size={30} color={colors.text} />
-          }
-          {
-            contact["image"] != "" &&
-            <Image style={styles.avatarStyle} source={{ uri: contact["image"] || avatar }} />
-          }
+
+          <Image style={styles.avatarStyle} source={{ uri: contact["image"] || avatar }} />
+
           <View style={{ width: 275, flexDirection: "column" }}>
             <Text style={styles.textStyle}>{contact.first_name}</Text>
             <Text style={styles.textStyle}>{contact.last_name}</Text>

@@ -52,10 +52,7 @@ export function uploadDocument(file: any) {
       method: 'POST',
       body,
     }
-  ).then(res => {
-    // console.log(res);
-    // if (res.ok) return res.json()
-  }).catch(err => {
+  ).catch(err => {
     console.log(err)
   })
 }
