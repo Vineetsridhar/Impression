@@ -77,9 +77,11 @@ def get_user():
 
 @app.route("/upload_doc", methods=["POST"])
 def on_upload_doc():
+    form = flask.request.form
     data = flask.request.files["file"]
-    data.save("test.pdf")
-    # return imp_util.s3.upload(filename,key)
+    data.save("temp/resume_%s.pdf" % form["email"])
+    imp_util.qr.upload_pdf(form["email"])
+    return {}
 
 #### Given 2 user emails, adds them as a new connection
 #### to the DB if such a connection does not already exist.

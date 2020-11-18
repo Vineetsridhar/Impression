@@ -1,5 +1,4 @@
 import user from "../../config/user";
-import { User } from "./interfaces";
 
 const url = "http://192.168.2.15:8080";
 
@@ -44,6 +43,8 @@ export function uploadDocument(file: any) {
     type: `application/pdf`,
     name: file.name
   });
+
+  body.append("email", user.email)
 
   return fetch(
     `${url}/upload_doc`,

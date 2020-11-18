@@ -3,3 +3,4 @@ const user = {
 };
 
 export default user;
+//Ideally we would be using redux for this
