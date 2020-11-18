@@ -18,9 +18,13 @@ as all the information will be stored virtually for the users to revisit if need
 
 - Because Heroku takes a while to start up on the first launch, when the application is first launched, it might take a while to actually respond
 
+
 # Setup
 
-NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete these steps if not needed.
+### Clone the Repo
+1. In your desired directory run the command `git clone https://github.com/Impression-App/Impression.git`
+
+NOTE: The steps below were needed for on `Ubuntu Linux` and may not be needed for everyone, proceed with caution. May ignore these steps if you have the latest versions of `node` and `npm` working.
 
 1. Run the commands `node -v` and `npm -v` to verify you have the latest versions of node and npm installed. If not updated, update with the commands `npm install -g npm`.
    NOTE: The app may not run without up to date `node` and `npm` versions. App is confirmed to run on `node v10.23.0` and `npm 6.14.8`
@@ -40,11 +44,34 @@ NOTE: This was needed for me on ubuntu linux, proceed with caution. May delete t
 8. Run `[sudo] pip[3] install boto3` inside of the project directory to install boto3.
 9. Run `sudo yum install postgresql postgresql-server postgresql-devel postgresql-contrib postgresql-docs` inside of the project directory to install PostGreSQL.
 
+# Set Up Environment Variables (Windows 10)
+1. Press the `windows` key followed by the `r` key.
+2. When the window pops up click `OK`.
+3. Switch to the `Advanced` tab and navigate to the `Environment Variables`.
+4. All `Variable`'s and `Value`'s will be inserted in the `User variables for user` section.
+5. Refer to `https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html` to obtain your appropiate `Value` for each of the       `Variable`'s listed below.
+
+   `AWS_ACCESS_KEY_ID`
+   `AWS_DEFAULT_REGION`
+   `AWS_SECRET_ACCESS_KEY`
+6. Insert your `postgres url` `Variable` and `Value`
+
+   `DATBASE_URL`
+   `postgres://{user}:{password}@{hostname}:{port}/{database-name}`
+    
+# Setup IP Address
+1. Navigate to the `helpers` folder `cd ~/Impression/src/helpers`.
+2. Open the file `network.tsx`.
+3. On line `4` you will see `const url = "http://XXX.XXX.X.XX:8080";`, replace the `X`'s with your IPV4 address.
+   Obtain your IP address through the Linux command `hostname -I` or Windows command `ipconfig`.
+4. Open the file `socket.tsx`.
+5. Repeat `step 3` except for the value `const socket` on line `3`.
+
 # Setup Expo
 
 1. Install expo by running the command `npm install -g expo-cli`.
 
-# View on android application
+# View on Expo
 
 1. On an android mobile device download and open the `Expo` app on the `Google Play Store`.
 2. Back on your pc, open a terminal and change directories with `cd ~/Impression/Backend`.
@@ -78,3 +105,42 @@ For linting, we decided to ignore these errors/warnings:
   - I created the Scan screen
   - I also implemented Google login
   - I connected the frontend to the backend, and wrote the calls for the communication between the two.
+  
+## Chris
+- Done
+   - Created expo application to initialize the project.
+   - Created Profile page for a user.
+   - Created Contacts page for People and Organizations.
+   - Styled Profile page.
+   - Styled Contacts page.
+   - Styled Contact Detail page.
+   - Updated User’s Profile page based on backend data.
+- In Progress (extra features not needed for sprint 1)
+   - Add app bar / navigation bar to Contact Detail.
+   - Add search feature for a contact.
+
+## Rami Bazoqa
+
+- created skeleton for server.py
+- created connections.py
+- created qr.py
+- created s3.py
+- created tests for:
+   - connections.py, qr.py, s3.py
+   - worked on tables.py
+- Setup Heroku For Server hosting
+- Setup Amazon S3 Bucket for File Storage
+
+## Stephanie Nieve-Silva (backend)
+
+- created database for user's information
+- created the functions for users:
+   - making a new user
+   - editing user's personal information
+   - getting a user's information
+- created unit tests for:
+   - users.py
+   - server.py
+      - TODO: find a way to mock getting the flask.request.json for
+      the other functions because we kept running into an error
+- linting python files
