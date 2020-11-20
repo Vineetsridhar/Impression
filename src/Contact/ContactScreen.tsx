@@ -15,22 +15,23 @@ export default function ContactScreen({ navigation }: any) {
   //Add on tab focus listener to refresh data
   const [userConnections, setUserConnections] = useState<User[]>([]);
   const [companyConnections, setCompanyConnections] = useState<User[]>([]);
-  const [searchResults, setSearchResults] = useState<User[]>([]);
 
   let focusListener: () => {};
 
   const totalConnected = "Total Contacts: " + (parseInt(userConnections.length) + parseInt(companyConnections.length));
 
-  const _handleSearch = () =>  {
-    console.log("TODO add user input to search for contact, see mock search test below for search key='Ra'");
+  const _handleSearch = () => {
+    console.log(
+      "TODO add user input to search for contact, see mock search test below for search key='Ra'"
+    );
 
     var keyword = "Ra";
     keyword = keyword.toLowerCase();
-    var names:string[] = [];
+    var names: string[] = [];
 
-    for(var user of userConnections) {
+    for (var user of userConnections) {
       var fname = user["first_name"].toLowerCase();
-      if(fname.includes(keyword)) names.push(user["first_name"]);
+      if (fname.includes(keyword)) names.push(user["first_name"]);
     }
 
     console.log(names);
