@@ -1,5 +1,4 @@
 import user from "../../config/user";
-import { User } from "./interfaces";
 
 const url = "http://192.168.2.15:8080";
 
@@ -35,4 +34,25 @@ export function newConnection(email: string) {
 
 export function editUser(user: any) {
   return fetch(`${url}/edit_user`, getCallParams(user));
+}
+
+export function uploadDocument(file: any) {
+  const body = new FormData();
+  body.append('file', {
+    uri: file.uri,
+    type: `application/pdf`,
+    name: file.name
+  });
+
+  body.append("email", user.email)
+
+  return fetch(
+    `${url}/upload_doc`,
+    {
+      method: 'POST',
+      body,
+    }
+  ).catch(err => {
+    console.log(err)
+  })
 }

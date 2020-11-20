@@ -38,6 +38,8 @@ export default function Login({ setLoggedIn }: props) {
       const result = await Google.logInAsync({
         androidClientId:
           "997021177023-e8fqpcgg4b7faas9iki043c0t76as4fj.apps.googleusercontent.com",
+        androidStandaloneAppClientId:
+          "997021177023-vv75tbs6vu4vvjt609jv7hkdpgmnlam6.apps.googleusercontent.com",
         scopes: ["profile", "email"],
       });
       if (result.type === "success") {

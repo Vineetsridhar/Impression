@@ -3,14 +3,17 @@ import { Image, View, Text, StyleSheet } from "react-native";
 import FAB from "../components/FAB";
 import { Ionicons } from "@expo/vector-icons";
 import user from "../../config/user";
+import colors from '../../config/colors'
 
 export default function QRScreen({ navigation }: any) {
   return (
     <View style={styles.container}>
       <Image
         source={{
-          uri:
-            "https://impression-app.s3.amazonaws.com/testUser%40gmail.com/qr.png",
+          uri: `https://impression-app.s3.amazonaws.com/${user.email.replace(
+            "@",
+            "%40"
+          )}/qr.png`,
         }}
         style={styles.image}
       />
@@ -22,7 +25,7 @@ export default function QRScreen({ navigation }: any) {
       >
         <Ionicons
           name="md-qr-scanner"
-          style={{ color: "white", fontSize: 30 }}
+          style={{ color: 'white', fontSize: 30 }}
         />
       </FAB>
     </View>

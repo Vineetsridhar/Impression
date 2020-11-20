@@ -37,6 +37,7 @@ db.session.commit()
 
 import imp_util
 import tables
+import users
 
 clients = []
 
@@ -74,6 +75,13 @@ def get_user():
     query_user_email = flask.request.json
     return imp_util.users.get_user(query_user_email["email"])
 
+@app.route("/upload_doc", methods=["POST"])
+def on_upload_doc():
+    form = flask.request.form
+    data = flask.request.files["file"]
+    data.save("temp/resume_%s.pdf" % form["email"])
+    imp_util.qr.upload_pdf(form["email"])
+    return {}
 
 #### Given 2 user emails, adds them as a new connection
 #### to the DB if such a connection does not already exist.
@@ -107,10 +115,9 @@ def on_query_connections():
         "connections": imp_util.connections.on_query_connections(data),
     }
 
-
 @app.route("/")
 def index():
-    return tables.Connections.query.filter_by(user2_email="test2").first().user1_email
+    return "Hello World"
 
 
 if __name__ == "__main__":
@@ -118,5 +125,5 @@ if __name__ == "__main__":
         app,
         host=os.getenv("IP", "0.0.0.0"),
         port=int(os.getenv("PORT", 8080)),
-        debug=False,
+        debug=True,
     )

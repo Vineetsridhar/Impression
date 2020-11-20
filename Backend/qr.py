@@ -28,3 +28,8 @@ def create_new_qr_code(user_email):
     )
     s3.upload(filename, user_email + "/qr.png")
     os.remove(filename)
+
+def upload_pdf(user_email):
+    filename = str(WORKING_DIR) + "/temp/resume_" + user_email + ".pdf"
+    s3.upload(filename, user_email + "/resume.pdf") 
+    os.remove(filename)

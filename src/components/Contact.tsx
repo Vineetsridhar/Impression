@@ -1,10 +1,12 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
-import { Avatar, Icon, Button } from "react-native-elements";
 import avatar from "../../config/avatar";
 import styles from "../Contact/ContactsStyle";
+import colors from '../../config/colors'
 import { User } from "../helpers/interfaces";
 import { useNavigation } from "@react-navigation/native";
+import { FontAwesome } from "@expo/vector-icons";
+
 
 function Contact({ contact }: { contact: User }) {
   const navigation = useNavigation();
@@ -17,21 +19,25 @@ function Contact({ contact }: { contact: User }) {
       style={styles.container}
       contentContainerStyle={{ alignItems: "flex-start" }}
     >
-      <TouchableOpacity onPress={navigateToContactDetail}>
-        <View style={styles.rowContainer}>
-          <Image
-            style={styles.avatarStyle}
-            source={{ uri: contact["image"] || avatar }}
-          />
-          <View style={{ width: 275, flexDirection: "column" }}>
-            <Text>{contact.first_name}</Text>
-            <Text>{contact.last_name}</Text>
-            <Text>{contact.email}</Text>
-          </View>
-          <View style={{ alignItems: "flex-end" }}>
-            <Icon name="arrow-right" size={20} color="black" type="entypo" />
+      <TouchableOpacity style={styles.rowContainer} onPress={navigateToContactDetail}>
+        <View style={styles.innerContainer}>
+          <Image style={styles.avatarStyle} source={{ uri: contact["image"] || avatar }} />
+
+          <View style={{ flexDirection: "column" }}>
+            <Text style={[styles.mainTextStyle]}>{contact.first_name} {contact.last_name}</Text>
+            <Text style={styles.textStyle}>{contact.email}</Text>
+            {contact.organization ? <Text style={styles.textStyle}>{contact.organization}</Text> : null}
           </View>
         </View>
+
+        <FontAwesome
+          name="angle-right"
+          type="font-awesome"
+          color={colors.main}
+          size={40}
+          style={{ marginRight: 8 }}
+        />
+
       </TouchableOpacity>
     </ScrollView>
   );

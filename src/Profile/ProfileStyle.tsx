@@ -1,33 +1,34 @@
 import { StyleSheet } from 'react-native';
 import colors from '../../config/colors';
-
+import font from '../../config/font'
 const styles = StyleSheet.create({
     container: {
         display: 'flex',
         margin: 0,
         flexDirection: 'column',
-        backgroundColor:'white',
-        flex:1
+        backgroundColor: colors.background,
+        flex: 1
     },
     rowContainer: {
-        width:'95%',
+        width: '95%',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
     nameStyle: {
-        flex:1,
+        flex: 1,
         height: 50,
         borderWidth: 1,
         paddingHorizontal: 8,
         borderRadius: 10,
+        fontFamily: font.regular,
         borderColor: colors.borderColor
     },
     title: {
         fontSize: 20,
-        fontWeight: 'bold',
-        width:'95%',
-        marginVertical: 8
+        width: '95%',
+        marginVertical: 8,
+        fontFamily: font.bold
     },
     avatarStyle: {
         height: 200,
@@ -37,6 +38,7 @@ const styles = StyleSheet.create({
     },
     link: {
         fontSize: 20,
+        fontFamily: font.regular,
         color: colors.main,
         paddingVertical: 16
     }
