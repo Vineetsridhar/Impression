@@ -48,7 +48,7 @@ class Connections(db.Model):
         self.user1_email = user1
         self.user2_email = user2
 
-class Groups(db.Model):
+class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     group_name = db.Column(db.String(120))
     user1_email = db.Column(db.String(120))
