@@ -7,6 +7,8 @@ import {
   ScrollView,
   TouchableOpacity,
   AsyncStorage,
+  Alert,
+  ToastAndroid,
 } from "react-native";
 import styles from "./ProfileStyle";
 import avatar from "../../config/avatar";
@@ -19,7 +21,7 @@ import colors from '../../config/colors'
 import { FontAwesome } from "@expo/vector-icons";
 
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ navigation }: any) {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -150,7 +152,12 @@ export default function ProfileScreen() {
             gen_link_1: github ? `https://github.com/${github}` : null,
             gen_link_2: linkedin,
             user_type: "Student",
-          });
+          }).then(() => {
+            ToastAndroid.show("Your changes have been saved", ToastAndroid.LONG);
+            navigation.navigate("Scan")
+          }).catch(err => {
+            Alert.alert("Error", "There was an error saving your changes. Please try again later.")
+          })
         }}
       >
         <Text style={styles.link}>Submit</Text>
