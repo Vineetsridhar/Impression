@@ -48,5 +48,21 @@ class Connections(db.Model):
         self.user1_email = user1
         self.user2_email = user2
 
+class Groups(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    group_name = db.Column(db.String(120))
+    user1_email = db.Column(db.String(120))
+    user2_email = db.Column(db.String(120))
+    user3_email = db.Column(db.String(120))
+    user4_email = db.Column(db.String(120))
+    user5_email = db.Column(db.String(120))
+
+    def __init__(self, gn, us1em, us2em, us3em, us4em, us5em):
+        self.group_name = gn
+        self.user1_email = us1em
+        self.user2_email = us2em
+        self.user3_email = us3em
+        self.user4_email = us4em
+        self.user5_email = us5em
 
 db.create_all()
