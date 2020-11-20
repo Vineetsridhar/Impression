@@ -12,7 +12,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: "column",
     width: '100%',
-    margin: 16
+    margin: 16,
+    paddingLeft: 16
   },
   textStyle: {
     fontSize: 20,
@@ -44,12 +45,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-evenly',
   },
   link: {
     fontSize: 20,
     color: colors.main,
-    paddingVertical: 16
+    paddingVertical: 16,
+    paddingLeft: 16
   }
 });
 

@@ -55,11 +55,11 @@ export default function ContactDetail({ route }: { route: any }) {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
       <View style={{ width: '100%', marginTop: 15 }}>
-      <Appbar.Header>
-        <Appbar.BackAction onPress={() => { navigation.navigate("Contacts"); }} />
-        <Appbar.Content title="Contact Details" />
-        <Appbar.Action icon="message" type="entypo" onPress={_handleMessage} />
-      </Appbar.Header>
+        <Appbar.Header>
+          <Appbar.BackAction onPress={() => { navigation.navigate("Contacts"); }} />
+          <Appbar.Content title="Contact Details" />
+          <Appbar.Action icon="message" type="entypo" onPress={_handleMessage} />
+        </Appbar.Header>
       </View>
 
       <Image
@@ -72,6 +72,7 @@ export default function ContactDetail({ route }: { route: any }) {
       </Text>
 
       {wantedRows.map((key, i) => user[key] ? <ContactDetailRow itemKey={itemKeys[key] || "Some"} key={i} text={user[key]} /> : null)}
+
       <TouchableOpacity style={{ width: '100%', height: 100 }} onPress={openResume}>
         <Text style={styles.link}>Download Resume</Text>
       </TouchableOpacity>

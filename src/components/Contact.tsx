@@ -19,25 +19,25 @@ function Contact({ contact }: { contact: User }) {
       style={styles.container}
       contentContainerStyle={{ alignItems: "flex-start" }}
     >
-      <TouchableOpacity onPress={navigateToContactDetail}>
-        <View style={styles.rowContainer}>
-
+      <TouchableOpacity style={styles.rowContainer} onPress={navigateToContactDetail}>
+        <View style={styles.innerContainer}>
           <Image style={styles.avatarStyle} source={{ uri: contact["image"] || avatar }} />
 
-          <View style={{ width: 275, flexDirection: "column" }}>
-            <Text style={styles.textStyle}>{contact.first_name}</Text>
-            <Text style={styles.textStyle}>{contact.last_name}</Text>
+          <View style={{ flexDirection: "column" }}>
+            <Text style={[styles.mainTextStyle]}>{contact.first_name} {contact.last_name}</Text>
             <Text style={styles.textStyle}>{contact.email}</Text>
-          </View>
-          <View style={{ alignItems: "flex-end" }}>
-            <FontAwesome
-              name="angle-right"
-              type="font-awesome"
-              color={colors.text}
-              size={50}
-            />
+            {contact.organization ? <Text style={styles.textStyle}>{contact.organization}</Text> : null}
           </View>
         </View>
+
+        <FontAwesome
+          name="angle-right"
+          type="font-awesome"
+          color={colors.main}
+          size={40}
+          style={{ marginRight: 8 }}
+        />
+
       </TouchableOpacity>
     </ScrollView>
   );
