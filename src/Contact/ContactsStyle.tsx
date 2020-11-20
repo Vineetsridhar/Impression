@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   container: {
     margin: 0,
     marginBottom: 0,
-    padding: 10,
+    marginTop: 10,
     display: "flex",
     backgroundColor: colors.background,
     flex: 1,
@@ -29,6 +29,12 @@ const styles = StyleSheet.create({
   textStyle: {
     fontSize: 15,
     color: colors.text,
+  },
+  title: {
+    width: '100%',
+    textAlign: 'center',
+    fontSize: 25,
+    fontWeight: 'bold'
   }
 });
 

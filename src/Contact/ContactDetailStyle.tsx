@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     flex: 1,
-    padding: 10,
+    paddingTop: 10,
     backgroundColor: colors.background,
   },
   contentContainer: {

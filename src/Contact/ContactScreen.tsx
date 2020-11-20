@@ -28,7 +28,7 @@ export default function ContactScreen({ navigation }: any) {
     );
     console.log(keyword);
 
-    if(keyword === "") return;
+    if (keyword === "") return;
     var kw = keyword;
     kw = kw.toLowerCase();
     var names: string[] = [];
@@ -72,30 +72,33 @@ export default function ContactScreen({ navigation }: any) {
   }, []);
   return (
     <View style={styles.container}>
-    <View style={{ width: '100%', marginTop: 15 }}>
-    <Appbar.Header>
-      <Appbar.Content title="Contacts" subtitle={totalConnected}/>
-      <View>
-        <TextInput
-          clearButtonMode="always"
-          placeholder="Search Connections"
-          placeholderTextColor='white'
-          style={{color: 'white'}}
-          onChangeText={(value) => setKeyword(value)}
-          value={keyword}
-          />
+      <View style={{ width: '100%', marginTop: 15 }}>
+        <Appbar.Header>
+          <Appbar.Content title="Contacts" subtitle={totalConnected} />
+          <View>
+            <TextInput
+              clearButtonMode="always"
+              placeholder="Search Connections"
+              placeholderTextColor='white'
+              style={{ color: 'white' }}
+              onChangeText={(value) => setKeyword(value)}
+              value={keyword}
+            />
+          </View>
+          <Appbar.Action icon="magnify" onPress={_handleSearch} />
+        </Appbar.Header>
       </View>
-      <Appbar.Action icon="magnify" onPress={_handleSearch} />
-    </Appbar.Header>
-    </View>
-      <View style={{ flex: 2 }}>
-        <FontAwesome name="building" size={60} color={colors.text} />
-        <ContactList contacts={companyConnections} />
-      </View>
-      <View style={{ flex: 2 }}>
-        <FontAwesome name="users" size={60} color={colors.text} />
-        <ContactList contacts={userConnections} />
-      </View>
+      {companyConnections.length > 0 &&
+        <View style={{ flex: 2 }}>
+          <Text style={styles.title}>Companies</Text>
+          <ContactList contacts={companyConnections} />
+        </View>}
+      {userConnections.length > 0 &&
+        <View style={{ flex: 2 }}>
+          <Text style={styles.title}>Students</Text>
+          <ContactList contacts={userConnections} />
+        </View>}
+      {!companyConnections.length && !userConnections && <Text style={styles.title}>You have no connections. Have someone scan your QR to create one</Text>}
     </View>
   );
 }
