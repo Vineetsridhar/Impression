@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import colors from "../../config/colors";
+import font from "../../config/font";
 
 const styles = StyleSheet.create({
   infoContainer: {
@@ -12,18 +13,20 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: "column",
     width: '100%',
-    margin: 16
+    margin: 16,
+    paddingLeft: 16
   },
   textStyle: {
     fontSize: 20,
     color: colors.text,
+    fontFamily: font.regular,
   },
   container: {
     margin: 0,
     display: 'flex',
     flexDirection: 'column',
     flex: 1,
-    padding: 10,
+    paddingTop: 10,
     backgroundColor: colors.background,
   },
   contentContainer: {
@@ -35,7 +38,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     color: colors.text,
-    fontWeight: 'bold'
+    fontFamily: font.bold
   },
   iconStyle: {
     width: 50
@@ -44,12 +47,14 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-evenly',
   },
   link: {
     fontSize: 20,
+    fontFamily: font.regular,
     color: colors.main,
-    paddingVertical: 16
+    paddingVertical: 16,
+    paddingLeft: 16
   }
 });
 

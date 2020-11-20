@@ -1,6 +1,7 @@
 import React from "react";
 import { User } from "../helpers/interfaces";
 import { ScrollView, View, Text, Image, TouchableOpacity, Linking, Alert } from "react-native";
+import { Appbar } from 'react-native-paper';
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import avatar from "../../config/avatar";
@@ -29,6 +30,7 @@ export default function ContactDetail({ route }: { route: any }) {
   const { user }: { user: User } = route.params;
   const navigation = useNavigation();
 
+  const _handleMessage = () => console.log('TODO message user');
   const isUrl = (url: string) => {
     //Got from https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
     var res = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
@@ -52,21 +54,16 @@ export default function ContactDetail({ route }: { route: any }) {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      <View style={{ width: '100%' }}>
-        {/* Temp View. Make app bar */}
-        <Ionicons
-          name="md-arrow-back"
-          size={35}
-          color={colors.text}
-          style={styles.icon}
-          onPress={() => {
-            navigation.navigate("Contacts");
-          }}
-        />
+      <View style={{ width: '100%', marginTop: 15 }}>
+        <Appbar.Header>
+          <Appbar.BackAction onPress={() => { navigation.navigate("Contacts"); }} />
+          <Appbar.Content title="Contact Details" />
+          <Appbar.Action icon="message" type="entypo" onPress={_handleMessage} />
+        </Appbar.Header>
       </View>
 
       <Image
-        style={{ width: 200, height: 200, borderRadius: 100 }}
+        style={{ width: 200, height: 200, borderRadius: 100, marginTop: 10 }}
         source={{ uri: user["image"] || avatar }}
       />
 
@@ -75,6 +72,7 @@ export default function ContactDetail({ route }: { route: any }) {
       </Text>
 
       {wantedRows.map((key, i) => user[key] ? <ContactDetailRow itemKey={itemKeys[key] || "Some"} key={i} text={user[key]} /> : null)}
+
       <TouchableOpacity style={{ width: '100%', height: 100 }} onPress={openResume}>
         <Text style={styles.link}>Download Resume</Text>
       </TouchableOpacity>

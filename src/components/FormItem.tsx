@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import colors from "../../config/colors";
+import font from "../../config/font";
 
 interface props {
   title: string;
@@ -47,11 +48,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     color: 'black',
     borderColor: colors.borderColor,
+    fontFamily: font.regular,
   },
   title: {
     fontSize: 20,
-    fontWeight: "bold",
     width: "95%",
     marginVertical: 8,
+    fontFamily: font.bold
   },
 });
