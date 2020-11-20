@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TextInput } from "react-native";
 import styles from "./ContactsStyle";
 import Contact from "../components/Contact";
 import ContactList from "../components/ContactList";
@@ -15,6 +15,7 @@ export default function ContactScreen({ navigation }: any) {
   //Add on tab focus listener to refresh data
   const [userConnections, setUserConnections] = useState<User[]>([]);
   const [companyConnections, setCompanyConnections] = useState<User[]>([]);
+  const [keyword, setKeyword] = useState("");
 
   let focusListener: () => {};
 
@@ -22,18 +23,21 @@ export default function ContactScreen({ navigation }: any) {
 
   const _handleSearch = () => {
     console.log(
-      "TODO add user input to search for contact, see mock search test below for search key='Ra'"
+      "TODO add drop down menu or some other feature that allows user to choose from contacts displayed, " +
+      "this will navigate them to the selected users Contact Details page"
     );
+    console.log(keyword);
 
-    var keyword = "Ra";
-    keyword = keyword.toLowerCase();
+    if(keyword === "") return;
+    var kw = keyword;
+    kw = kw.toLowerCase();
     var names: string[] = [];
 
     for (var user of userConnections) {
       var fname = user["first_name"].toLowerCase();
-      if (fname.includes(keyword)) names.push(user["first_name"]);
+      if (fname.includes(kw)) names.push(user["first_name"]);
     }
-
+    setKeyword("");
     console.log(names);
   };
 
@@ -71,6 +75,16 @@ export default function ContactScreen({ navigation }: any) {
     <View style={{ width: '100%', marginTop: 15 }}>
     <Appbar.Header>
       <Appbar.Content title="Contacts" subtitle={totalConnected}/>
+      <View>
+        <TextInput
+          clearButtonMode="always"
+          placeholder="Search Connections"
+          placeholderTextColor='white'
+          style={{color: 'white'}}
+          onChangeText={(value) => setKeyword(value)}
+          value={keyword}
+          />
+      </View>
       <Appbar.Action icon="magnify" onPress={_handleSearch} />
     </Appbar.Header>
     </View>
