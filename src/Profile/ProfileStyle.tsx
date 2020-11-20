@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import colors from '../../config/colors';
-
+import font from '../../config/font'
 const styles = StyleSheet.create({
     container: {
         display: 'flex',
@@ -21,13 +21,14 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         paddingHorizontal: 8,
         borderRadius: 10,
+        fontFamily: font.regular,
         borderColor: colors.borderColor
     },
     title: {
         fontSize: 20,
-        fontWeight: 'bold',
         width: '95%',
-        marginVertical: 8
+        marginVertical: 8,
+        fontFamily: font.bold
     },
     avatarStyle: {
         height: 200,
@@ -37,6 +38,7 @@ const styles = StyleSheet.create({
     },
     link: {
         fontSize: 20,
+        fontFamily: font.regular,
         color: colors.main,
         paddingVertical: 16
     }

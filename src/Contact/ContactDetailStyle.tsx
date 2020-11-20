@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import colors from "../../config/colors";
+import font from "../../config/font";
 
 const styles = StyleSheet.create({
   infoContainer: {
@@ -18,6 +19,7 @@ const styles = StyleSheet.create({
   textStyle: {
     fontSize: 20,
     color: colors.text,
+    fontFamily: font.regular,
   },
   container: {
     margin: 0,
@@ -36,7 +38,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     color: colors.text,
-    fontWeight: 'bold'
+    fontFamily: font.bold
   },
   iconStyle: {
     width: 50
@@ -49,6 +51,7 @@ const styles = StyleSheet.create({
   },
   link: {
     fontSize: 20,
+    fontFamily: font.regular,
     color: colors.main,
     paddingVertical: 16,
     paddingLeft: 16

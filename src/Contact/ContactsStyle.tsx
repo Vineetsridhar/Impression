@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import colors from "../../config/colors";
+import font from "../../config/font"
 
 const styles = StyleSheet.create({
   container: {
@@ -14,6 +15,7 @@ const styles = StyleSheet.create({
   contactLabel: {
     textAlign: "center",
     fontSize: 35,
+    fontFamily: font.regular,
     color: colors.text,
   },
   avatarStyle: {
@@ -33,17 +35,20 @@ const styles = StyleSheet.create({
   textStyle: {
     fontSize: 15,
     color: colors.text,
+    fontFamily: font.regular,
   },
   mainTextStyle: {
     fontSize: 20,
-    fontWeight: 'bold',
     color: colors.text,
+    fontFamily: font.bold,
+
   },
   title: {
     width: '100%',
     textAlign: 'center',
     fontSize: 25,
-    fontWeight: 'bold'
+    fontFamily: font.bold,
+
   },
   innerContainer: {
     display: 'flex',
