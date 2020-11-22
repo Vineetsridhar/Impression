@@ -10,6 +10,8 @@ import {
   Alert,
   ToastAndroid,
 } from "react-native";
+import { Picker } from '@react-native-picker/picker';
+
 import styles from "./ProfileStyle";
 import avatar from "../../config/avatar";
 import FormItem from "../components/FormItem";
@@ -19,6 +21,7 @@ import { User } from "../helpers/interfaces";
 import * as DocumentPicker from 'expo-document-picker';
 import colors from '../../config/colors'
 import { FontAwesome } from "@expo/vector-icons";
+import TypePicker from "../components/TypePicker";
 
 
 export default function ProfileScreen({ navigation }: any) {
@@ -30,7 +33,7 @@ export default function ProfileScreen({ navigation }: any) {
   const [github, setGithub] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [image, setImage] = useState("");
-
+  const [type, setType] = useState("student");
   useEffect(() => {
     getUserInfo(user.email)
       .then((response) => response.json())
@@ -140,6 +143,7 @@ export default function ProfileScreen({ navigation }: any) {
       <TouchableOpacity onPress={documentFetch}>
         <Text style={styles.link}>Upload Resume</Text>
       </TouchableOpacity>
+      <TypePicker value={type} onChange={(text) => setType(text.toString())} />
 
       <TouchableOpacity
         onPress={() => {

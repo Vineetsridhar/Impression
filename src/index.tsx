@@ -5,12 +5,14 @@ import Contact from "./Contact";
 import { Ionicons } from "@expo/vector-icons";
 import Scan from "./Scan";
 import Login from "./login";
-import { AsyncStorage } from "react-native";
+import { AsyncStorage, StatusBar } from "react-native";
 import user from "../config/user";
+import colors from "../config/colors";
 
 const Tab = createBottomTabNavigator();
 
 export default function Tabs() {
+
   const [loggedIn, setLoggedIn] = useState(false);
 
   const checkLogin = async () => {
@@ -23,6 +25,7 @@ export default function Tabs() {
   };
 
   useEffect(() => {
+    StatusBar.setBackgroundColor(colors.background)
     checkLogin();
   }, []);
 

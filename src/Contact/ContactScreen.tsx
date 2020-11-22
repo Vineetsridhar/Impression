@@ -89,12 +89,12 @@ export default function ContactScreen({ navigation }: any) {
         </Appbar.Header>
       </View>
       {companyConnections.length > 0 &&
-        <View style={{ flex: 2 }}>
+        <View style={{ flex: 2, marginTop: 16 }}>
           <Text style={styles.title}>Companies</Text>
           <ContactList contacts={companyConnections} />
         </View>}
       {userConnections.length > 0 &&
-        <View style={{ flex: 2 }}>
+        <View style={{ flex: 2, marginTop: 16 }}>
           <Text style={styles.title}>Students</Text>
           <ContactList contacts={userConnections} />
         </View>}
