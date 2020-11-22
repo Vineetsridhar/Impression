@@ -6,16 +6,14 @@ import { AppLoading } from 'expo';
 
 import {
   useFonts,
-  Montserrat_400Regular,
-  Montserrat_500Medium,
-  Montserrat_600SemiBold
-} from '@expo-google-fonts/montserrat';
+  Blinker_400Regular,
+  Blinker_600SemiBold
+} from '@expo-google-fonts/blinker';
 
 export default function App() {
   let [fontsLoaded] = useFonts({
-    Montserrat_400Regular,
-    Montserrat_500Medium,
-    Montserrat_600SemiBold
+    Blinker_400Regular,
+    Blinker_600SemiBold
   });
   if (!fontsLoaded) {
     return <AppLoading />;

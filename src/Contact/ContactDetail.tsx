@@ -55,7 +55,7 @@ export default function ContactDetail({ route }: { route: any }) {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
       <View style={{ width: '100%', marginTop: 15 }}>
-        <Appbar.Header>
+        <Appbar.Header style={{ backgroundColor: 'white' }} >
           <Appbar.BackAction onPress={() => { navigation.navigate("Contacts"); }} />
           <Appbar.Content title="Contact Details" />
           <Appbar.Action icon="message" type="entypo" onPress={_handleMessage} />

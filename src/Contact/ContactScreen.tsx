@@ -73,14 +73,14 @@ export default function ContactScreen({ navigation }: any) {
   return (
     <View style={styles.container}>
       <View style={{ width: '100%', marginTop: 15 }}>
-        <Appbar.Header>
+        <Appbar.Header style={{ backgroundColor: 'white' }}>
           <Appbar.Content title="Contacts" subtitle={totalConnected} />
           <View>
             <TextInput
               clearButtonMode="always"
               placeholder="Search Connections"
-              placeholderTextColor='white'
-              style={{ color: 'white' }}
+              placeholderTextColor='gray'
+              style={{ color: 'black' }}
               onChangeText={(value) => setKeyword(value)}
               value={keyword}
             />
