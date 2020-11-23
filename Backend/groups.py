@@ -20,7 +20,7 @@ def get_group(name):
         "user4_email": group.user4_email,
         "user5_email": group.user5_email,
     }
-    return resp
+    return {"success": True, "response": resp}
 
 def new_group(gr_name, usem1, usem2):
     group = db.session.query(tables.Group).filter_by(group_name=gr_name).all()
@@ -32,3 +32,4 @@ def new_group(gr_name, usem1, usem2):
         )
         db.session.commit()
     db.session.close()
+    return {"success": True}

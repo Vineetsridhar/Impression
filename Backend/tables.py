@@ -48,6 +48,7 @@ class Connections(db.Model):
         self.user1_email = user1
         self.user2_email = user2
 
+
 class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     group_name = db.Column(db.String(120))
@@ -64,5 +65,27 @@ class Group(db.Model):
         self.user3_email = us3em
         self.user4_email = us4em
         self.user5_email = us5em
+
+
+class Notifications(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_email = db.Column(db.String(120))
+    title = db.Column(db.String(128))
+    description = db.Column(db.String(128))
+    type = db.Column(db.String(128))
+    data1 = db.Column(db.String(256))
+    data2 = db.Column(db.String(256))
+    data3 = db.Column(db.String(256))
+    data4 = db.Column(db.String(256))
+    
+    def __init__(self, email, titl, desc, type, data1, data2, data3, data4):
+        self.user_email = email
+        self.title = titl
+        self.description = desc
+        self.type = type
+        self.data1 = data1
+        self.data1 = data2
+        self.data1 = data3
+        self.data1 = data4
 
 db.create_all()

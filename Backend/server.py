@@ -40,6 +40,7 @@ import tables
 import users
 
 clients = []
+print(SERVER_PREFIX + "Server started successfully")
 
 ################################
 
