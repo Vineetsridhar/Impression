@@ -7,5 +7,6 @@ import tables
 
 import users
 import connections
+import groups
 import s3
 import qr
