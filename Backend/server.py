@@ -38,11 +38,14 @@ db.session.commit()
 import imp_util
 import tables
 import users
+import groups
 
 clients = []
 print(SERVER_PREFIX + "Server started successfully")
 
 ################################
+
+#### USERS
 
 #### Given info from a user login, creates new user
 @app.route("/new_user", methods=["POST"])
@@ -76,6 +79,25 @@ def get_user():
     query_user_email = flask.request.json
     return imp_util.users.get_user(query_user_email["email"])
 
+#### GROUPS
+
+#### Makes new group given name and user email
+
+@app.route("/new_group", methods=["POST"])
+def new_group():
+    data = flask.request.json
+    imp_util.groups.new_group(
+        data["group_name"], data["user_id"]
+    )
+    return {"success": True, "group name": data["group_name"]}
+
+#### Given a group name, returns a dict with info on group
+@app.route("/get_group", methods=["POST"])
+def get_group():
+    name = flask.request.json
+    return imp_util.groups.get_group(name["group_name"])
+
+#### CONNECTIONS
 
 #### Given 2 user emails, adds them as a new connection
 #### to the DB if such a connection does not already exist.

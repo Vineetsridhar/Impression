@@ -50,21 +50,13 @@ class Connections(db.Model):
 
 
 class Group(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    group_name = db.Column(db.String(120))
-    user1_email = db.Column(db.String(120))
-    user2_email = db.Column(db.String(120))
-    user3_email = db.Column(db.String(120), nullable=True)
-    user4_email = db.Column(db.String(120), nullable=True)
-    user5_email = db.Column(db.String(120), nullable=True)
+    user_id = db.Column(ForeignKey("Users.email"), primary_key=True)
+    group_name = db.Column(db.String(128), primary_key=True)
+    group_id = db.Column(db.Integer)
 
-    def __init__(self, gn, us1em, us2em, us3em, us4em, us5em):
-        self.group_name = gn
-        self.user1_email = us1em
-        self.user2_email = us2em
-        self.user3_email = us3em
-        self.user4_email = us4em
-        self.user5_email = us5em
+    def __init__(self, u_id, g_name, g_id):
+        self.user_id = u_id
+        self.group_name = g_name
 
 
 class Notifications(db.Model):
