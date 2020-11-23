@@ -53,9 +53,9 @@ class Group(db.Model):
     group_name = db.Column(db.String(120))
     user1_email = db.Column(db.String(120))
     user2_email = db.Column(db.String(120))
-    user3_email = db.Column(db.String(120))
-    user4_email = db.Column(db.String(120))
-    user5_email = db.Column(db.String(120))
+    user3_email = db.Column(db.String(120), nullable=True)
+    user4_email = db.Column(db.String(120), nullable=True)
+    user5_email = db.Column(db.String(120), nullable=True)
 
     def __init__(self, gn, us1em, us2em, us3em, us4em, us5em):
         self.group_name = gn
