@@ -29,10 +29,11 @@ def get_notifications(user_query_email):
     response = []
     for notification in notifications:
         response.append({"id": notification.id, "email": notification.email, "title": notification.title, "description": notification.description})
-    return {"success": True, "response": response}
+    return response
 
 
-def resolve_notification(not_id, answer, data):
+#### resolve 
+def resolve_notification(not_id, answer):
     notification = db.session.query(tables.Notifications).filter_by(id=not_id).first()
     if notification.type == "connection_confirm":
         if answer["accept"] == True:
