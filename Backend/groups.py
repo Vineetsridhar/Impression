@@ -13,21 +13,18 @@ def get_group(name):
     if not group:
         return {}
     resp = {
+        "user_id": group.user_id,
         "group_name": group.group_name,
-        "user1_email": group.user1_email,
-        "user2_email": group.user2_email,
-        "user3_email": group.user3_email,
-        "user4_email": group.user4_email,
-        "user5_email": group.user5_email,
     }
     return resp
 
-def new_group(gr_name, usem1, usem2):
-    group = db.session.query(tables.Group).filter_by(group_name=gr_name).all()
+
+def new_group(name, email):
+    group = db.session.query(tables.Group).filter_by(group_name=name).all()
     if not group:
         db.session.add(
             tables.Group(
-                gr_name, usem1, usem2, None, None, None
+                name, email
             )
         )
         db.session.commit()
