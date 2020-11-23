@@ -11,6 +11,7 @@ import avatar from "../config/avatar";
 import * as Google from "expo-google-app-auth";
 import { newUser } from "./helpers/network";
 import user from "../config/user";
+import LinkedInModal from 'react-native-linkedin'
 
 interface props {
   setLoggedIn: Dispatch<SetStateAction<boolean>>;
@@ -59,6 +60,13 @@ export default function Login({ setLoggedIn }: props) {
     }
   };
 
+  const linkedInButton = () => {
+    return (
+      <Image source={require('./assets/img/linkedinsignin.png')} style={styles.loginbutton} />
+      // <Text>Login with linkedin</Text>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <Image source={{ uri: avatar }} style={styles.avatarStyle} />
@@ -68,6 +76,14 @@ export default function Login({ setLoggedIn }: props) {
           style={styles.loginbutton}
         />
       </TouchableOpacity>
+
+      <LinkedInModal
+        shouldGetAccessToken={false}
+        clientID="78awb6ngzwv3uc"
+        redirectUri="https://njit-cs490-project3-impression.herokuapp.com/"
+        onSuccess={authentication_code => console.log(authentication_code)}
+        renderButton={linkedInButton()}
+      />
     </View>
   );
 }

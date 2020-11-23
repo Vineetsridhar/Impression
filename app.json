@@ -3,6 +3,7 @@
     "name": "Impression",
     "slug": "Impression",
     "version": "1.0.0",
+    "scheme": "impression",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
