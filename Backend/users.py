@@ -7,6 +7,7 @@ import flask_sqlalchemy
 from server import db
 import tables
 
+
 #### Given an email, returns a dictionary with the data of the user with such an email
 def get_user(query_user_email):
     user = db.session.query(tables.Users).filter_by(email=query_user_email).first()
