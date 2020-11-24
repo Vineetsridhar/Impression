@@ -45,9 +45,8 @@ clients = []
 ################################
 
 #### Given info from a user login, creates new user
-@app.route("/new_user", methods=["POST"])
-def on_new_user():
-    data = flask.request.json
+
+def create_new_user(data):
     try:
         fields = ["email", "given_name", "family_name", "picture"]
         for field in fields:
@@ -61,6 +60,11 @@ def on_new_user():
     except Exception as err:
         print(err)
         return {"success": False}
+
+@app.route("/new_user", methods=["POST"])
+def on_new_user():
+    data = flask.request.json
+    return create_new_user(data)
 
 
 #### Given info from a user input, changes info of user on database
@@ -123,12 +127,12 @@ def on_linkedin_login():
     data = flask.request.json
     access_token = imp_util.linkedin.get_access_token(data["authorization_token"]["authentication_code"])
     #get user info 
-
+    profile_info = imp_util.linkedin.get_profile(access_token)
     #get email
-
+    email = imp_util.linkedin.get_user_email(access_token)
     #add to db
-
-    #return email
+    profile_info["email"] = email
+    return create_new_user(profile_info)
 
 @app.route("/")
 def index():
