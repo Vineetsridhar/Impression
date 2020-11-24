@@ -117,6 +117,19 @@ def on_query_connections():
         "connections": imp_util.connections.on_query_connections(data),
     }
 
+
+@app.route("/linkedin_login", methods=["POST"])
+def on_linkedin_login():
+    data = flask.request.json
+    access_token = imp_util.linkedin.get_access_token(data["authorization_token"]["authentication_code"])
+    #get user info 
+
+    #get email
+
+    #add to db
+
+    #return email
+
 @app.route("/")
 def index():
     return "Hello World"
