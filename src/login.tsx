@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   AsyncStorage,
+  ToastAndroid,
 } from "react-native";
 import styles from "./loginstyles";
 import avatar from "../config/avatar";
@@ -84,7 +85,15 @@ export default function Login({ setLoggedIn }: props) {
         onSuccess={authentication_code => {
           linkedinLogin(authentication_code)
             .then(data => data.json())
-            .then(json => console.log(json))
+            .then(json => {
+              if (json["success"]) {
+                user.email = json["email"];
+                AsyncStorage.setItem("email", json["email"]);
+                setLoggedIn(true);
+              } else {
+                ToastAndroid.show("Error occured", ToastAndroid.LONG)
+              }
+            })
         }}
         renderButton={linkedInButton()}
       />
