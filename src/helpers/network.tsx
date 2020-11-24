@@ -1,6 +1,7 @@
 import user from "../../config/user";
+import { LinkedInToken } from "react-native-linkedin";
 
-const url = "https://njit-cs490-project3-impression.herokuapp.com/";
+const url = "http://192.168.2.15:8080";
 
 export function getCallParams(body: any) {
   return {
@@ -12,6 +13,10 @@ export function getCallParams(body: any) {
 
 export function newUser(data: any) {
   return fetch(`${url}/new_user`, getCallParams(data));
+}
+
+export function linkedinLogin(authorizationCode: LinkedInToken) {
+  return fetch(`${url}/linkedin_login`, getCallParams({ authorization_token: authorizationCode }))
 }
 
 export function getUserInfo(email: string) {

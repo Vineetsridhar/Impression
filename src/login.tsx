@@ -9,7 +9,7 @@ import {
 import styles from "./loginstyles";
 import avatar from "../config/avatar";
 import * as Google from "expo-google-app-auth";
-import { newUser } from "./helpers/network";
+import { newUser, linkedinLogin } from "./helpers/network";
 import user from "../config/user";
 import LinkedInModal from 'react-native-linkedin'
 
@@ -81,7 +81,11 @@ export default function Login({ setLoggedIn }: props) {
         shouldGetAccessToken={false}
         clientID="78awb6ngzwv3uc"
         redirectUri="https://njit-cs490-project3-impression.herokuapp.com/"
-        onSuccess={authentication_code => console.log(authentication_code)}
+        onSuccess={authentication_code => {
+          linkedinLogin(authentication_code)
+            .then(data => data.json())
+            .then(json => console.log(json))
+        }}
         renderButton={linkedInButton()}
       />
     </View>
