@@ -1,4 +1,6 @@
 import requests
+import os
+import json
 from os.path import join, dirname
 from dotenv import load_dotenv
 

@@ -6,14 +6,11 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  AsyncStorage,
   Alert,
   ToastAndroid,
 } from "react-native";
-import { Picker } from '@react-native-picker/picker';
 
 import styles from "./ProfileStyle";
-import avatar from "../../config/avatar";
 import FormItem from "../components/FormItem";
 import { getUserInfo, editUser, uploadDocument } from "../helpers/network";
 import user from "../../config/user";
@@ -56,7 +53,7 @@ export default function ProfileScreen({ navigation }: any) {
     callback(text);
   };
 
-  let uploadDoc = async (file: DocumentPicker.DocumentResult) => {
+  const uploadDoc = async (file: DocumentPicker.DocumentResult) => {
     if (file != null) {
       uploadDocument(file)
     } else {
@@ -78,7 +75,7 @@ export default function ProfileScreen({ navigation }: any) {
       style={styles.container}
       contentContainerStyle={{ alignItems: "center" }}
     >
-      <TouchableOpacity onPress={() => { }}>
+      <TouchableOpacity>
         {
           image == "" &&
           <FontAwesome style={{ marginTop: 50 }} name="user" size={125} color={colors.text} />
@@ -160,6 +157,7 @@ export default function ProfileScreen({ navigation }: any) {
             ToastAndroid.show("Your changes have been saved", ToastAndroid.LONG);
             navigation.navigate("Scan")
           }).catch(err => {
+            console.log(err)
             Alert.alert("Error", "There was an error saving your changes. Please try again later.")
           })
         }}

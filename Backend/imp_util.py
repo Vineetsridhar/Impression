@@ -9,3 +9,4 @@ import users
 import connections
 import s3
 import qr
+import linkedin
