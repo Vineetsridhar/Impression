@@ -21,7 +21,7 @@ SERVER_PREFIX = "\033[96m" + "[SERVER]" + "\033[0m" + " "
 dotenv_path = join(dirname(__file__), "secret.env")
 load_dotenv(dotenv_path)
 
-app = flask.Flask(__name__)
+app = flask.Flask(__name__, template_folder="../LandingPage", static_folder="../LandingPage")
 
 socketio = flask_socketio.SocketIO(app)
 socketio.init_app(app, cors_allowed_origins="*")
@@ -136,7 +136,7 @@ def on_linkedin_login():
 
 @app.route("/")
 def index():
-    return "Hello World"
+    return flask.render_template("index.html")
 
 
 if __name__ == "__main__":

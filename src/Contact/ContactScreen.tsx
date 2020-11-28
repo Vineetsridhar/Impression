@@ -3,6 +3,7 @@ import { View, Text, TextInput } from "react-native";
 import styles from "./ContactsStyle";
 import Contact from "../components/Contact";
 import ContactList from "../components/ContactList";
+import GroupList from "../components/GroupList";
 import { User } from "../helpers/interfaces";
 import { getConnections } from "../helpers/network";
 import user from "../../config/user";
@@ -10,6 +11,83 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import colors from '../../config/colors'
 import { FontAwesome } from "@expo/vector-icons";
 import { Appbar } from 'react-native-paper';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+
+function ContactsScreen({ navigation }: any) {
+  const [userConnections, setUserConnections] = useState<User[]>([]);
+  const [companyConnections, setCompanyConnections] = useState<User[]>([]);
+  const [keyword, setKeyword] = useState("");
+
+  let focusListener: () => {};
+
+  const makeListeners = () => {
+    focusListener = navigation.addListener("focus", () => {
+      refreshData();
+    });
+  };
+
+  const refreshData = () => {
+    const parseConnections = (allConnections: User[]) => {
+      setUserConnections(
+        allConnections.filter(
+          (connection) => connection.user_type === "Student"
+        )
+      );
+      setCompanyConnections(
+        allConnections.filter(
+          (connection) => connection.user_type === "Recruiter"
+        )
+      );
+    };
+
+    getConnections(user.email)
+      .then((response) => response.json())
+      .then((data) => parseConnections(data["connections"]))
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    refreshData();
+    makeListeners();
+  }, []);
+  return (
+
+    <View style={styles.container}>
+      {companyConnections.length > 0 &&
+        <View style={{ flex: 2 }}>
+          <Text style={styles.title}>Companies</Text>
+          <ContactList contacts={companyConnections} />
+        </View>}
+      {userConnections.length > 0 &&
+        <View style={{ flex: 2 }}>
+          <Text style={styles.title}>Students</Text>
+          <ContactList contacts={userConnections} />
+        </View>}
+      {!companyConnections.length && !userConnections && <Text style={styles.title}>You have no connections. Have someone scan your QR to create one</Text>}
+    </View>
+  );
+}
+
+function GroupsScreen({ navigation }: any) {
+  const [groupConnections, setGroupConnections] = useState<Group[]>([]);
+  useEffect(() => {
+    setGroupConnections({ group_name: "group name -- click me to see people in group" })
+  }, []);
+  return (
+    <View style={styles.container}>
+      <View style={{ flex: 2 }}>
+        <Text style={styles.title}>Companies</Text>
+        <GroupList group={groupConnections} />
+      </View>
+      <View style={{ flex: 2 }}>
+        <Text style={styles.title}>Students</Text>
+        <GroupList group={groupConnections} />
+      </View>
+    </View>
+  );
+}
+
+const Tab = createMaterialTopTabNavigator();
 
 export default function ContactScreen({ navigation }: any) {
   //Add on tab focus listener to refresh data
@@ -88,17 +166,10 @@ export default function ContactScreen({ navigation }: any) {
           <Appbar.Action icon="magnify" onPress={_handleSearch} />
         </Appbar.Header>
       </View>
-      {companyConnections.length > 0 &&
-        <View style={{ flex: 2, marginTop: 16 }}>
-          <Text style={styles.title}>Companies</Text>
-          <ContactList contacts={companyConnections} />
-        </View>}
-      {userConnections.length > 0 &&
-        <View style={{ flex: 2, marginTop: 16 }}>
-          <Text style={styles.title}>Students</Text>
-          <ContactList contacts={userConnections} />
-        </View>}
-      {!companyConnections.length && !userConnections && <Text style={styles.title}>You have no connections. Have someone scan your QR to create one</Text>}
+      <Tab.Navigator>
+        <Tab.Screen name="Contacts" component={ContactsScreen} />
+        <Tab.Screen name="Groups" component={GroupsScreen} />
+      </Tab.Navigator>
     </View>
   );
 }

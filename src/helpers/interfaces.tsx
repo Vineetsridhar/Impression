@@ -11,3 +11,8 @@ export interface User {
   image: string;
   doc: string;
 }
+
+export interface Group {
+  user_id: number;
+  group_name: string;
+}
