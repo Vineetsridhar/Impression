@@ -31,10 +31,10 @@ def get_users(name):
 
 #### Make new group--
 #### given name of group and array of emails
-def new_group(name, email):
+def new_group(name, emails):
     group = db.session.query(tables.Groups).filter_by(group_name=name).all()
     if not group:
-        for each_email in email:
+        for each_email in emails:
             db.session.add(
                 tables.Group(
                     name, each_email

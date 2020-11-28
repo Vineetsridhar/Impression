@@ -51,11 +51,9 @@ class Connections(db.Model):
 
 class Groups(db.Model):
     group_id = db.Column(db.Integer, primary_key=True)
-    user_email = db.Column(db.ForeignKey("Users.email"), primary_key=True)
+    user_email = db.Column(db.String(120), db.ForeignKey("users.email"), primary_key=True)
     group_name = db.Column(db.String(128))
     
-    user = relationship("Users", foreign_keys=[user_email])
-
     def __init__(self, g_name, u_em):
         self.group_name = g_name
         self.user_email = u_em

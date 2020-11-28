@@ -91,7 +91,7 @@ def get_user():
 @app.route("/new_group", methods=["POST"])
 def new_group():
     data = flask.request.json
-    return imp_util.groups.new_group(data["group_name"], data["email"])
+    return imp_util.groups.new_group(data["group_name"], data["emails"])
 
 #### Given a group name, returns a list of users in the group
 @app.route("/get_users", methods=["POST"])
