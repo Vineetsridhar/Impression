@@ -10,7 +10,7 @@
 
 import flask_sqlalchemy
 from server import db
-
+from sqlalchemy.orm import relationship
 
 class Users(db.Model):
     email = db.Column(db.String(120), primary_key=True)
@@ -51,12 +51,14 @@ class Connections(db.Model):
 
 class Groups(db.Model):
     group_id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.ForeignKey("Users.email"), primary_key=True)
+    user_email = db.Column(db.ForeignKey("Users.email"), primary_key=True)
     group_name = db.Column(db.String(128))
+    
+    user = relationship("Users", foreign_keys=[user_email])
 
-    def __init__(self, u_id, g_name):
-        self.user_id = u_id
+    def __init__(self, g_name, u_em):
         self.group_name = g_name
+        self.user_email = u_em
 
 
 class Notifications(db.Model):

@@ -8,7 +8,7 @@ from server import db
 import tables
 
 def get_groups(email):
-    group = db.session.query(tables.Groups).filter_by(user_id=email).all()
+    group = db.session.query(tables.Groups).filter_by(user_email=email).all()
     db.session.close()
     resp = []
     if not group:
@@ -24,7 +24,7 @@ def get_users(name):
     if not group:
         return {"success": False}
     for each_group in group:
-        resp.append(each_group.user_id)
+        resp.append(each_group.user_email)
     return {"success": True, "response": resp}
 
 def new_group(name, email):
