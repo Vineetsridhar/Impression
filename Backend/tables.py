@@ -50,11 +50,11 @@ class Connections(db.Model):
 
 
 class Group(db.Model):
-    user_id = db.Column(db.ForeignKey("Users.email"), primary_key=True)
-    group_name = db.Column(db.String(128), primary_key=True)
-    group_id = db.Column(db.Integer)
+    group_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.ARRAY(db.ForeignKey("Users.email")), primary_key=True)
+    group_name = db.Column(db.String(128))
 
-    def __init__(self, u_id, g_name, g_id):
+    def __init__(self, u_id, g_name):
         self.user_id = u_id
         self.group_name = g_name
 
