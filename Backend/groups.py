@@ -8,7 +8,7 @@ from server import db
 import tables
 
 def get_group(name):
-    group = db.session.query(tables.Group).filter_by(group_name=name).first()
+    group = db.session.query(tables.Groups).filter_by(group_name=name).first()
     db.session.close()
     if not group:
         return {}
@@ -20,13 +20,14 @@ def get_group(name):
 
 
 def new_group(name, email):
-    group = db.session.query(tables.Group).filter_by(group_name=name).all()
+    group = db.session.query(tables.Groups).filter_by(group_name=name).all()
     if not group:
-        db.session.add(
-            tables.Group(
-                name, email
+        for each_email in email:
+            db.session.add(
+                tables.Group(
+                    name, each_email
+                )
             )
-        )
-        db.session.commit()
+            db.session.commit()
     db.session.close()
     return {"success": True}
