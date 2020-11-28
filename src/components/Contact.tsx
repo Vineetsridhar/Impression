@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import avatar from "../../config/avatar";
 import styles from "../Contact/ContactsStyle";
@@ -7,8 +7,13 @@ import { User } from "../helpers/interfaces";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 
-
-function Contact({ contact }: { contact: User }) {
+interface props {
+  contact: User,
+  toggleSelection: () => void;
+  isSelected: boolean;
+  isSelection: boolean
+}
+function Contact({ contact, isSelected, isSelection, toggleSelection }: props) {
   const navigation = useNavigation();
   const navigateToContactDetail = () => {
     navigation.navigate("ContactDetail", { user: contact });
@@ -19,7 +24,7 @@ function Contact({ contact }: { contact: User }) {
       style={styles.container}
       contentContainerStyle={{ alignItems: "flex-start" }}
     >
-      <TouchableOpacity style={styles.rowContainer} onPress={navigateToContactDetail}>
+      <TouchableOpacity style={styles.rowContainer} onPress={isSelection ? toggleSelection : navigateToContactDetail} onLongPress={toggleSelection}>
         <View style={styles.innerContainer}>
           <Image style={styles.avatarStyle} source={{ uri: contact["image"] || avatar }} />
 
@@ -31,7 +36,7 @@ function Contact({ contact }: { contact: User }) {
         </View>
 
         <FontAwesome
-          name="angle-right"
+          name={isSelected ? "check" : "angle-right"}
           type="font-awesome"
           color={colors.main}
           size={40}

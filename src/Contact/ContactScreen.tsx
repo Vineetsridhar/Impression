@@ -4,7 +4,7 @@ import styles from "./ContactsStyle";
 import Contact from "../components/Contact";
 import ContactList from "../components/ContactList";
 import GroupList from "../components/GroupList";
-import { User } from "../helpers/interfaces";
+import { User, Group } from "../helpers/interfaces";
 import { getConnections } from "../helpers/network";
 import user from "../../config/user";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -97,7 +97,7 @@ export default function ContactScreen({ navigation }: any) {
 
   let focusListener: () => {};
 
-  const totalConnected = "Total Contacts: " + (parseInt(userConnections.length) + parseInt(companyConnections.length));
+  const totalConnected = "Total Contacts: " + (userConnections.length + companyConnections.length);
 
   const _handleSearch = () => {
     console.log(

@@ -50,7 +50,7 @@ class Connections(db.Model):
 
 
 class Group(db.Model):
-    user_id = db.Column(ForeignKey("Users.email"), primary_key=True)
+    user_id = db.Column(db.ForeignKey("Users.email"), primary_key=True)
     group_name = db.Column(db.String(128), primary_key=True)
     group_id = db.Column(db.Integer)
 
