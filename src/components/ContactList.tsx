@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Contact from "./Contact";
-import { View, ScrollView, StyleSheet, Vibration } from "react-native";
+import { View, ScrollView, StyleSheet, Vibration, Text, TouchableOpacity } from "react-native";
 import { User } from "../helpers/interfaces";
 
-function ContactList({ contacts }: { contacts: User[] }) {
+function ContactList({ contacts, setButtonVisible }: { contacts: User[], setButtonVisible: React.Dispatch<React.SetStateAction<boolean>> }) {
   const [selected, setSelected] = useState(new Set<number>());
   const [isSelection, setIsSelection] = useState(false);
 
@@ -11,6 +11,7 @@ function ContactList({ contacts }: { contacts: User[] }) {
     if (selected.size == 0) {
       Vibration.vibrate(50)
       toggleIsSelected()
+      setButtonVisible(true)
     }
     const temp = new Set(selected);
     //Inefficient but mem address has to change for react to rerender
@@ -27,6 +28,7 @@ function ContactList({ contacts }: { contacts: User[] }) {
   }
   const toggleIsSelected = () => {
     setIsSelection(isSelected => !isSelected)
+    setButtonVisible(false)
   }
 
   return (

@@ -10,7 +10,7 @@ import user from "../../config/user";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import colors from '../../config/colors'
 import { FontAwesome } from "@expo/vector-icons";
-import { Appbar } from 'react-native-paper';
+import { Appbar, Button } from 'react-native-paper';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -18,6 +18,7 @@ function ContactsScreen({ navigation }: any) {
   const [userConnections, setUserConnections] = useState<User[]>([]);
   const [companyConnections, setCompanyConnections] = useState<User[]>([]);
   const [keyword, setKeyword] = useState("");
+  const [isButtonVisible, setButtonVisible] = useState(false);
 
   let focusListener: () => {};
 
@@ -56,14 +57,15 @@ function ContactsScreen({ navigation }: any) {
       {companyConnections.length > 0 &&
         <View style={{ flex: 2 }}>
           <Text style={styles.title}>Companies</Text>
-          <ContactList contacts={companyConnections} />
+          <ContactList contacts={companyConnections} setButtonVisible={setButtonVisible} />
         </View>}
       {userConnections.length > 0 &&
         <View style={{ flex: 2 }}>
           <Text style={styles.title}>Students</Text>
-          <ContactList contacts={userConnections} />
+          <ContactList contacts={userConnections} setButtonVisible={setButtonVisible} />
         </View>}
       {!companyConnections.length && !userConnections && <Text style={styles.title}>You have no connections. Have someone scan your QR to create one</Text>}
+      {isButtonVisible ? <Button>Create Group</Button> : null}
     </View>
   );
 }
@@ -71,7 +73,6 @@ function ContactsScreen({ navigation }: any) {
 function GroupsScreen({ navigation }: any) {
   const [groupConnections, setGroupConnections] = useState<Group[]>([]);
   useEffect(() => {
-    setGroupConnections({ group_name: "group name -- click me to see people in group" })
   }, []);
   return (
     <View style={styles.container}>
