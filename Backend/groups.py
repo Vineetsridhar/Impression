@@ -7,17 +7,25 @@ import flask_sqlalchemy
 from server import db
 import tables
 
-def get_group(name):
-    group = db.session.query(tables.Groups).filter_by(group_name=name).first()
+def get_groups(email):
+    group = db.session.query(tables.Groups).filter_by(user_id=email).all()
     db.session.close()
+    resp = []
     if not group:
-        return {}
-    resp = {
-        "user_id": group.user_id,
-        "group_name": group.group_name,
-    }
+        return {"success": False}
+    for each_group in group:
+        resp.append(each_group.group_name)
     return {"success": True, "response": resp}
 
+def get_users(name):
+    group = db.session.query(tables.Groups).filter_by(group_name=name).all()
+    db.session.close()
+    resp = []
+    if not group:
+        return {"success": False}
+    for each_group in group:
+        resp.append(each_group.user_id)
+    return {"success": True, "response": resp}
 
 def new_group(name, email):
     group = db.session.query(tables.Groups).filter_by(group_name=name).all()
