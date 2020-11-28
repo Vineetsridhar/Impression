@@ -91,16 +91,19 @@ def get_user():
 @app.route("/new_group", methods=["POST"])
 def new_group():
     data = flask.request.json
-    imp_util.groups.new_group(
-        data["group_name"], data["user_id"]
-    )
-    return {"success": True, "group name": data["group_name"]}
+    return imp_util.groups.new_group(data["name"], data["email"])
 
-#### Given a group name, returns a dict with info on group
-@app.route("/get_group", methods=["POST"])
-def get_group():
-    name = flask.request.json
-    return imp_util.groups.get_group(name["group_name"])
+#### Given a group name, returns a list of users in the group
+@app.route("/get_users", methods=["POST"])
+def get_users_list():
+    query_name = flask.request.json
+    return imp_util.groups.get_users(query_name["group_name"])
+
+#### Given a group name, returns a list of groups a user is in
+@app.route("/get_groups", methods=["POST"])
+def get_user_groups_list():
+    query_email = flask.request.json
+    return imp_util.groups.get_groups(query_email["email"])
 
 #### CONNECTIONS
 

@@ -7,6 +7,7 @@ import flask_sqlalchemy
 from server import db
 import tables
 
+#### Get list of groups a user is in
 def get_groups(email):
     group = db.session.query(tables.Groups).filter_by(user_email=email).all()
     db.session.close()
@@ -17,6 +18,7 @@ def get_groups(email):
         resp.append(each_group.group_name)
     return {"success": True, "response": resp}
 
+#### Get list of users' emails from a group
 def get_users(name):
     group = db.session.query(tables.Groups).filter_by(group_name=name).all()
     db.session.close()
@@ -27,6 +29,8 @@ def get_users(name):
         resp.append(each_group.user_email)
     return {"success": True, "response": resp}
 
+#### Make new group--
+#### given name of group and array of emails
 def new_group(name, email):
     group = db.session.query(tables.Groups).filter_by(group_name=name).all()
     if not group:
@@ -38,4 +42,3 @@ def new_group(name, email):
             )
             db.session.commit()
     db.session.close()
-    return {"success": True}
