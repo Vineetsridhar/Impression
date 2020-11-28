@@ -39,10 +39,14 @@ db.session.commit()
 import imp_util
 import tables
 import users
+import groups
 
 clients = []
+print(SERVER_PREFIX + "Server started successfully")
 
 ################################
+
+#### USERS
 
 #### Given info from a user login, creates new user
 
@@ -80,6 +84,25 @@ def get_user():
     query_user_email = flask.request.json
     return imp_util.users.get_user(query_user_email["email"])
 
+#### GROUPS
+
+#### Makes new group given name and user email
+
+@app.route("/new_group", methods=["POST"])
+def new_group():
+    data = flask.request.json
+    imp_util.groups.new_group(
+        data["group_name"], data["user_id"]
+    )
+    return {"success": True, "group name": data["group_name"]}
+
+#### Given a group name, returns a dict with info on group
+@app.route("/get_group", methods=["POST"])
+def get_group():
+    name = flask.request.json
+    return imp_util.groups.get_group(name["group_name"])
+
+#### CONNECTIONS
 
 @app.route("/upload_doc", methods=["POST"])
 def on_upload_doc():
@@ -119,6 +142,25 @@ def on_query_connections():
     return {
         "success": True,
         "connections": imp_util.connections.on_query_connections(data),
+    }
+
+#### creates a new notification meant for data["email"] with various related fields required
+#### title and description are meant to store what to display in the notifications tab
+#### type is the type of notifcation, which will specfiy how to handle the notification during various stages (see notifications.py for types)
+#### data1-data4 are generic string variables meant for storing data related to the notification
+@app.route("/new_notification", methods=["POST"])
+def on_new_notification():
+    data = flask.request.json
+    notification_data = {data["data1"], data["data2"], data["data3"], data["data4"]}
+    return {
+        "success": True,
+        "response": imp_util.notifications.new_notification(
+            data["email"],
+            data["titl"],
+            data["desc"],
+            data["type"],
+            notification_data,
+        ),
     }
 
 
