@@ -12,7 +12,7 @@ from sqlalchemy import desc
 def row2dict(row):
     d = {}
     for column in row.__table__.columns:
-        d[column.name] = str(getattr(row, column.name))
+        d[column.name] = str(getattr(row, column.name)) if getattr(row, column.name) else None
 
     return d
 
