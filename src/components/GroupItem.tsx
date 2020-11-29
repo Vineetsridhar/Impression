@@ -11,13 +11,11 @@ import { useNavigation } from "@react-navigation/native";
 export default function GroupItem({ group }: { group: Group }) {
   const navigation = useNavigation();
 
-  const [users, setUsers] = useState<User[]>([]);
 
   return (
     <TouchableOpacity style={styles.rowContainer} onPress={() => {
       getUserFromGroups(group.group_name).then(res => res.json()).then(json => {
-        setUsers(json["response"]);
-        // navigation.navigate("ContactDetail", { user: contact });
+        navigation.navigate("GroupDetail", { data: json["response"], name: group.group_name });
       })
     }}>
       <View style={styles.innerContainer}>

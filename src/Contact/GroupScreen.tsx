@@ -5,8 +5,10 @@ import GroupList from '../components/GroupList';
 import styles from "./ContactsStyle";
 import { getGroups } from '../helpers/network';
 import user from '../../config/user';
+import { createStackNavigator } from '@react-navigation/stack';
+import GroupDetail from './GroupDetail';
 
-export default function GroupsScreen() {
+function GroupScreen() {
     const [groupConnections, setGroupConnections] = useState<Group[]>([]);
     useEffect(() => {
         getGroups(user.email).then(response => response.json()).then(json => {
@@ -24,5 +26,21 @@ export default function GroupsScreen() {
         <View style={styles.container}>
             <GroupList group={groupConnections} />
         </View>
+    );
+}
+
+const Stack = createStackNavigator();
+
+export default function GroupsScreen() {
+    return (
+        <Stack.Navigator
+            screenOptions={{
+                headerShown: false
+            }}
+        >
+            <Stack.Screen name="GroupScreen" component={GroupScreen} />
+            <Stack.Screen name="GroupDetail" component={GroupDetail} />
+        </Stack.Navigator>
+
     );
 }
