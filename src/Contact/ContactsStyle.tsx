@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     marginBottom: 8,
+    paddingHorizontal: 8
   },
   textStyle: {
     fontSize: 15,

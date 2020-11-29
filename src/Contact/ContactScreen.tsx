@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, Alert } from "react-native";
+import { View, Text, TextInput, Alert, ToastAndroid } from "react-native";
 import styles from "./ContactsStyle";
 import ContactList from "../components/ContactList";
 import GroupList from "../components/GroupList";
@@ -8,6 +8,7 @@ import { getConnections, newGroup } from "../helpers/network";
 import user from "../../config/user";
 import { Appbar, Button } from 'react-native-paper';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import GroupsScreen from "./GroupScreen";
 
 function ContactsScreen({ navigation }: any) {
   const [userConnections, setUserConnections] = useState<User[]>([]);
@@ -15,7 +16,7 @@ function ContactsScreen({ navigation }: any) {
   const [keyword, setKeyword] = useState("");
   const [isButtonVisible, setButtonVisible] = useState(false);
   const [selected, setSelected] = useState(new Set<number>());
-
+  const [isSelection, setIsSelection] = useState(false);
 
   let focusListener: () => {};
 
@@ -51,14 +52,16 @@ function ContactsScreen({ navigation }: any) {
 
   const createGroup = () => {
     const emails: string[] = [];
-    selected.forEach(i => emails.push(userConnections[i].email))
-    emails.push(user.email)
+    selected.forEach(i => emails.push(userConnections[i].email));
+    emails.push(user.email);
     newGroup("Better name", emails)
       .then(result => result.json())
       .then(json => {
         if (json["success"]) {
           let temp = new Set<number>();
           setSelected(temp);
+          setIsSelection(false);
+          ToastAndroid.show("Group created", ToastAndroid.LONG)
         } else {
           Alert.alert("Error", "There was an error with your request")
         }
@@ -72,9 +75,11 @@ function ContactsScreen({ navigation }: any) {
           <Text style={styles.title}>Companies</Text>
           <ContactList
             contacts={companyConnections}
-            setButtonVisible={setButtonVisible}
-            selected={selected}
-            setSelected={setSelected} />
+            setButtonVisible={() => { }}
+            selected={new Set<number>()}
+            setSelected={() => { }}
+            isSelection={false}
+            setIsSelection={() => { }} />
         </View>}
       {userConnections.length > 0 &&
         <View style={{ flex: 2 }}>
@@ -83,7 +88,9 @@ function ContactsScreen({ navigation }: any) {
             contacts={userConnections}
             setButtonVisible={setButtonVisible}
             selected={selected}
-            setSelected={setSelected} />
+            setSelected={setSelected}
+            isSelection={isSelection}
+            setIsSelection={setIsSelection} />
 
         </View>}
       {!companyConnections.length && !userConnections && <Text style={styles.title}>You have no connections. Have someone scan your QR to create one</Text>}
@@ -92,23 +99,7 @@ function ContactsScreen({ navigation }: any) {
   );
 }
 
-function GroupsScreen({ navigation }: any) {
-  const [groupConnections, setGroupConnections] = useState<Group[]>([]);
-  useEffect(() => {
-  }, []);
-  return (
-    <View style={styles.container}>
-      <View style={{ flex: 2 }}>
-        <Text style={styles.title}>Companies</Text>
-        <GroupList group={groupConnections} />
-      </View>
-      <View style={{ flex: 2 }}>
-        <Text style={styles.title}>Students</Text>
-        <GroupList group={groupConnections} />
-      </View>
-    </View>
-  );
-}
+
 
 const Tab = createMaterialTopTabNavigator();
 
