@@ -54,7 +54,8 @@ class Groups(db.Model):
     user_email = db.Column(db.String(120), db.ForeignKey("users.email"), primary_key=True)
     group_name = db.Column(db.String(128))
     
-    def __init__(self, g_name, u_em):
+    def __init__(self, g_id, g_name, u_em):
+        self.group_id = g_id
         self.group_name = g_name
         self.user_email = u_em
 
