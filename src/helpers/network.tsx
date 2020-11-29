@@ -68,3 +68,10 @@ export function newGroup(groupName: string, emails: string[]) {
     getCallParams({ emails, group_name: groupName })
   );
 }
+
+export function getGroups(email: string) {
+  return fetch(
+    `${url}/get_groups`,
+    getCallParams({ email })
+  );
+}

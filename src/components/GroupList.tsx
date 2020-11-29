@@ -1,13 +1,13 @@
 import React from "react";
-import Group from "./Group";
+import GroupItem from "./GroupItem";
 import { View, ScrollView, StyleSheet, Text } from "react-native";
-import { User } from "../helpers/interfaces";
+import { Group } from "../helpers/interfaces";
 
 function GroupList({ group }: { group: Group[] }) {
   return (
     <ScrollView contentContainerStyle={{ alignItems: "flex-start" }}>
       <View style={styles.contactContainer}>
-        <Group group={group} />
+        {group.map(group => <GroupItem group={group} />)}
       </View>
     </ScrollView>
   );
