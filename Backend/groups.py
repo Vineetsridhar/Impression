@@ -16,7 +16,7 @@ def get_groups(email):
     if not group:
         return {"success": False}
     for each_group in group:
-        resp.append(each_group.group_name)
+        resp.append({"group_name": each_group.group_name, "group_id":each_group.group_id})
     return {"success": True, "response": resp}
 
 #### Get list of users' emails from a group
