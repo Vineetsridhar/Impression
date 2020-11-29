@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import Contact from "./Contact";
-import { View, ScrollView, StyleSheet, Vibration, Text, TouchableOpacity } from "react-native";
+import { View, ScrollView, StyleSheet, Vibration } from "react-native";
 import { User } from "../helpers/interfaces";
-
-function ContactList({ contacts, setButtonVisible }: { contacts: User[], setButtonVisible: React.Dispatch<React.SetStateAction<boolean>> }) {
-  const [selected, setSelected] = useState(new Set<number>());
+interface props {
+  contacts: User[],
+  setButtonVisible: React.Dispatch<React.SetStateAction<boolean>>,
+  selected: Set<number>;
+  setSelected: React.Dispatch<React.SetStateAction<Set<number>>>,
+}
+function ContactList({ contacts, setButtonVisible, selected, setSelected }: props) {
   const [isSelection, setIsSelection] = useState(false);
 
   const toggleSelection = (index: number) => {

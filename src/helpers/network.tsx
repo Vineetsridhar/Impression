@@ -61,3 +61,10 @@ export function uploadDocument(file: any) {
     console.log(err)
   })
 }
+
+export function newGroup(groupName: string, emails: string[]) {
+  return fetch(
+    `${url}/new_group`,
+    getCallParams({ emails, group_name: groupName })
+  );
+}
