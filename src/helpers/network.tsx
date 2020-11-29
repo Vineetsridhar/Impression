@@ -75,3 +75,10 @@ export function getGroups(email: string) {
     getCallParams({ email })
   );
 }
+
+export function getUserFromGroups(groupName: string) {
+  return fetch(
+    `${url}/get_users`,
+    getCallParams({ group_name: groupName })
+  );
+}
