@@ -8,6 +8,14 @@ from server import db
 import tables
 from sqlalchemy import desc
 
+#From https://stackoverflow.com/questions/1958219/convert-sqlalchemy-row-object-to-python-dict
+def row2dict(row):
+    d = {}
+    for column in row.__table__.columns:
+        d[column.name] = str(getattr(row, column.name))
+
+    return d
+
 #### Get list of groups a user is in
 def get_groups(email):
     group = db.session.query(tables.Groups).filter_by(user_email=email).all()
@@ -21,13 +29,13 @@ def get_groups(email):
 
 #### Get list of users' emails from a group
 def get_users(name):
-    group = db.session.query(tables.Groups).filter_by(group_name=name).all()
+    group = db.session.query(tables.Groups, tables.Users).filter_by(group_name=name, user_email=tables.Users.email).all()
     db.session.close()
     resp = []
     if not group:
         return {"success": False}
     for each_group in group:
-        resp.append(each_group.user_email)
+        resp.append(row2dict(each_group.Users))
     return {"success": True, "response": resp}
 
 #### Make new group--
