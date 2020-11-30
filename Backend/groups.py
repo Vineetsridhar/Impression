@@ -6,6 +6,7 @@
 import flask_sqlalchemy
 from server import db
 import tables
+import imp_util
 
 def get_group(name):
     group = db.session.query(tables.Group).filter_by(group_name=name).first()
@@ -30,3 +31,12 @@ def new_group(name, email):
         db.session.commit()
     db.session.close()
     return {"success": True}
+
+def group_share_doc(url, groupid):
+    group = db.session.query(tables.Group).filter_by(group_id=id).all()
+    members = []
+    for member in group:
+        members.append(db.session.query(tables.Users).filter_by(email=member.user_id))
+    for user in members:
+        imp_util.notifications.new_notification(user.email, "New Document From Group", "accept new document shared from your group?", "group_share_doc", [url,"","",""])
+        
