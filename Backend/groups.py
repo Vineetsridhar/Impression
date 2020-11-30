@@ -24,7 +24,7 @@ def new_group(name, email):
     if not group:
         db.session.add(
             tables.Group(
-                name, email
+                email, name, 
             )
         )
         db.session.commit()
