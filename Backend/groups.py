@@ -66,7 +66,7 @@ def group_share_doc(url, groupid):
     group = db.session.query(tables.Group).filter_by(group_id=id).all()
     members = []
     for member in group:
-        members.append(db.session.query(tables.Users).filter_by(email=member.user_id))
+        members.append(db.session.query(tables.Users).filter_by(email=member.user_email))
     for user in members:
         imp_util.notifications.new_notification(user.email, "New Document From Group", "accept new document shared from your group?", "group_share_doc", [url,"","",""])
         
