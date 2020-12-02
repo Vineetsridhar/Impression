@@ -8,7 +8,7 @@
         <div class="containers">
           <div class="header">
             <img src="{{ url_for('static', filename='logo.png') }}"alt="Impression Logo"></img>
-            <span>Grow your network with Impression</span>
+            <span>{{pageTitle}}</span>
           </div>
         </div>
 
@@ -18,67 +18,64 @@
 
         <div class="containers">
           <div class="column">
-            <p>Easily connect with classmates and recruiters during your Career Fair</p>
+            <p>{{pageHeader}}</p>
             <p>What</p>
             <p>Why</p>
             <p>Tech</p>
-            <div class="network_image">
-              <img src="{{ url_for('static', filename='networking_image.jpg') }}"alt="Networking Image"></img>
+            <div>
+              <p>Front-End Developers<p>
+            </div>
+            <div class="row_container">
+              <div>
+                {{developerNames["Chris"]}}
+                <p>
+                  {{aboutMe["Chris"]}}     <br>
+                  {{links["Chris"]}}        <br>
+                  {{contactInfo["Chris"]}}   <br>
+                  etc.          <br>
+                </p>
+              </div>
+              <div>
+                {{developerNames["Vineet"]}}
+                <p>
+                  {{aboutMe["Vineet"]}}     <br>
+                  {{links["Vineet"]}}        <br>
+                  {{contactInfo["Vineet"]}}   <br>
+                  etc.          <br>
+                </p>
+              </div>
+            </div>
+            <div>
+              <p>Back-End Developers<p>
+            </div>
+            <div class="row_container">
+              <div>
+                {{developerNames["Rami"]}}
+                <p>
+                  {{aboutMe["Rami"]}}     <br>
+                  {{links["Rami"]}}        <br>
+                  {{contactInfo["Rami"]}}   <br>
+                  etc.          <br>
+                </p>
+              </div>
+              <div>
+                {{developerNames["Stephanie"]}}
+                <p>
+                  {{aboutMe["Stephanie"]}}     <br>
+                  {{links["Stephanie"]}}        <br>
+                  {{contactInfo["Stephanie"]}}   <br>
+                  etc.          <br>
+                </p>
+              </div>
             </div>
           </div>
           <div class="column">
             <a href="https://play.google.com/store"><img src="{{ url_for('static', filename='google-play-badge.png') }}" width="250px" height="125px" alt="Download on the Gooogle Play Store"></a>
-            <div>
-              <h2>Developers</h2>
-            </div>
-            <div class="row_container">
-              <div>
-                Developer one
-                <p>
-                  About me.     <br>
-                  Links.        <br>
-                  Contact me.   <br>
-                  etc.          <br>
-                </p>
-              </div>
-              <div>
-                Developer two
-                <p>
-                  About me.     <br>
-                  Links.        <br>
-                  Contact me.   <br>
-                  etc.          <br>
-                </p>
-              </div>
-            </div>
-            <div class="row_container">
-              <div>
-                Developer three
-                <p>
-                  About me.     <br>
-                  Links.        <br>
-                  Contact me.   <br>
-                  etc.          <br>
-                </p>
-              </div>
-              <div>
-                Developer four
-                <p>
-                  About me.     <br>
-                  Links.        <br>
-                  Contact me.   <br>
-                  etc.          <br>
-                </p>
-              </div>
+            <div class="network_image">
+              <img src="{{ url_for('static', filename='networking_image.jpg') }}"alt="Networking Image"></img>
             </div>
           </div>
           </div>
         </div>
-
-
-        <div class="containers">
-
-
-      </div>
     </body>
 </html>

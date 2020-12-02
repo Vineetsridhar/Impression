@@ -13,11 +13,14 @@
 
 hr.solid {
   width: 50%;
+  border-top: 3px solid white;
 }
 
 .column {
   float: left;
   width: 50%;
+  font-size: 25px;
+  font-family: Sans-serif;
 }
 
 .header img {
@@ -58,6 +61,9 @@ hr.solid {
   width: 100%;
   text-align: center;
   vertical-align: middle;
+  font-size: 35px;
+  color: white;
+  font-family: Sans-serif;
 }
 
 .text {
@@ -67,8 +73,10 @@ hr.solid {
   vertical-align: middle;
   width: 50%;
 }
+
 body {
   margin: 0;
+  background-image: linear-gradient(to bottom right, #0F0137, #8AE2FF);
 }
 
 ul.topnav {
