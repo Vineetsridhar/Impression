@@ -4,11 +4,15 @@ import styles from "./ContactsStyle";
 import ContactList from "../components/ContactList";
 import GroupList from "../components/GroupList";
 import { User, Group } from "../helpers/interfaces";
-import { getConnections, newGroup } from "../helpers/network";
+import { getConnections, newGroup, getNearbyUsers } from "../helpers/network";
 import user from "../../config/user";
 import { Appbar, Button } from 'react-native-paper';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import GroupsScreen from "./GroupScreen";
+import FAB from "../components/FAB";
+import { Entypo } from "@expo/vector-icons";
+import * as Location from 'expo-location';
+
 
 function ContactsScreen({ navigation }: any) {
   const [userConnections, setUserConnections] = useState<User[]>([]);
@@ -68,6 +72,16 @@ function ContactsScreen({ navigation }: any) {
       })
   }
 
+  const requestLocation = async () => {
+    let { status } = await Location.requestPermissionsAsync();
+    if (status !== 'granted') {
+      ToastAndroid.show('Permission to access location was denied', ToastAndroid.LONG);
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    getNearbyUsers(user.email, location.coords)
+  }
+
   return (
     <View style={styles.container}>
       {companyConnections.length > 0 &&
@@ -95,6 +109,11 @@ function ContactsScreen({ navigation }: any) {
         </View>}
       {!companyConnections.length && !userConnections && <Text style={styles.title}>You have no connections. Have someone scan your QR to create one</Text>}
       {isButtonVisible ? <Button onPress={createGroup}>Create Group</Button> : null}
+      <FAB
+        onPress={requestLocation}
+      >
+        <Entypo name="map" style={{ color: 'white', fontSize: 35 }} />
+      </FAB>
     </View>
   );
 }
