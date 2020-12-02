@@ -4,14 +4,15 @@ import styles from "./ContactsStyle";
 import ContactList from "../components/ContactList";
 import GroupList from "../components/GroupList";
 import { User, Group } from "../helpers/interfaces";
-import { getConnections, newGroup, getNearbyUsers } from "../helpers/network";
+import { getConnections, newGroup, getNearbyUsers, batchNewUsers } from "../helpers/network";
 import user from "../../config/user";
 import { Appbar, Button } from 'react-native-paper';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import GroupsScreen from "./GroupScreen";
 import FAB from "../components/FAB";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, Feather } from "@expo/vector-icons";
 import * as Location from 'expo-location';
+import SelectionModal from '../components/SelectionModal'
 
 
 function ContactsScreen({ navigation }: any) {
@@ -21,6 +22,8 @@ function ContactsScreen({ navigation }: any) {
   const [isButtonVisible, setButtonVisible] = useState(false);
   const [selected, setSelected] = useState(new Set<number>());
   const [isSelection, setIsSelection] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+
 
   let focusListener: () => {};
 
@@ -62,13 +65,43 @@ function ContactsScreen({ navigation }: any) {
       .then(result => result.json())
       .then(json => {
         if (json["success"]) {
-          let temp = new Set<number>();
-          setSelected(temp);
-          setIsSelection(false);
           ToastAndroid.show("Group created", ToastAndroid.LONG)
+          resetList()
         } else {
           Alert.alert("Error", "There was an error with your request")
         }
+      })
+  }
+
+  const resetList = () => {
+    let temp = new Set<number>();
+    setSelected(temp);
+    setIsSelection(false);
+  }
+  const selectItem = () => {
+    setModalVisible(true)
+  }
+
+  const selectionCallback = (email: string) => {
+    setModalVisible(false)
+    let newConnections: { user1_email: string, user2_email: string }[] = [];
+    selected.forEach(i => {
+      newConnections.push({
+        user1_email: email,
+        user2_email: userConnections[i].email
+      })
+    })
+    resetList()
+    batchNewUsers(newConnections)
+      .then(response => {
+        if (response.ok) {
+          ToastAndroid.show("Successfully shared Contacts", ToastAndroid.LONG);
+        }
+        return response.json()
+      }).then(json => {
+        console.log(json)
+      }).catch(err => {
+        ToastAndroid.show("Failed to share Contacts", ToastAndroid.LONG);
       })
   }
 
@@ -105,14 +138,18 @@ function ContactsScreen({ navigation }: any) {
             setSelected={setSelected}
             isSelection={isSelection}
             setIsSelection={setIsSelection} />
-
         </View>}
+      <SelectionModal
+        selectionCallback={selectionCallback}
+        isVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        people={userConnections} />
       {!companyConnections.length && !userConnections && <Text style={styles.title}>You have no connections. Have someone scan your QR to create one</Text>}
       {isButtonVisible ? <Button onPress={createGroup}>Create Group</Button> : null}
       <FAB
-        onPress={requestLocation}
+        onPress={isSelection ? selectItem : requestLocation}
       >
-        <Entypo name="map" style={{ color: 'white', fontSize: 35 }} />
+        {isSelection ? <Feather name="send" style={{ color: 'white', fontSize: 35 }} /> : <Entypo name="map" style={{ color: 'white', fontSize: 35 }} />}
       </FAB>
     </View>
   );
