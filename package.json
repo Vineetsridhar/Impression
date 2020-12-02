@@ -38,7 +38,8 @@
     "react-native-svg": "^12.1.0",
     "react-native-tab-view": "^2.15.2",
     "react-native-web": "~0.13.12",
-    "socket.io-client": "^3.0.1"
+    "socket.io-client": "^3.0.1",
+    "expo-location": "~9.0.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
