@@ -11,10 +11,25 @@
   vertical-align: middle;
 }
 
+hr.solid {
+  width: 50%;
+}
+
+.column {
+  float: left;
+  width: 50%;
+}
+
 .header img {
   vertical-align: middle;
   width: 75px;
   height: 75px;
+}
+
+.network_image img {
+  vertical-align: middle;
+  width: 400px;
+  height: 400px;
 }
 
 .header2 img {
