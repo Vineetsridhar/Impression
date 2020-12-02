@@ -11,10 +11,28 @@
   vertical-align: middle;
 }
 
+hr.solid {
+  width: 50%;
+  border-top: 3px solid white;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  font-size: 25px;
+  font-family: Sans-serif;
+}
+
 .header img {
   vertical-align: middle;
   width: 75px;
   height: 75px;
+}
+
+.network_image img {
+  vertical-align: middle;
+  width: 400px;
+  height: 400px;
 }
 
 .header2 img {
@@ -43,6 +61,9 @@
   width: 100%;
   text-align: center;
   vertical-align: middle;
+  font-size: 35px;
+  color: white;
+  font-family: Sans-serif;
 }
 
 .text {
@@ -52,8 +73,10 @@
   vertical-align: middle;
   width: 50%;
 }
+
 body {
   margin: 0;
+  background-image: linear-gradient(to bottom right, #0F0137, #8AE2FF);
 }
 
 ul.topnav {

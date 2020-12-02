@@ -14,6 +14,41 @@ import flask_socketio
 
 ################################
 
+# Values for index.html
+
+pageTitle = "Grow your network with Impression"
+
+pageHeader = "Easily connect with classmates and recruiters at your schools Career Fair"
+
+developerNames = {
+    "Chris" : "Chris Mazzei",
+    "Vineet" : "Vineet Sridhar",
+    "Rami" : "Rami Bazoqa",
+    "Stephanie" : "Stephanie Nieve-Silva"
+}
+
+aboutMe = {
+    "Chris" : "About Me.",
+    "Vineet" : "About Me.",
+    "Rami" : "About Me.",
+    "Stephanie": "About Me."
+}
+
+links = {
+    "Chris" : "Links.",
+    "Vineet" : "Links.",
+    "Rami" : "Links.",
+    "Stephanie": "Links."
+}
+
+contactInfo = {
+    "Chris" : "Contact Info.",
+    "Vineet" : "Contact Info.",
+    "Rami" : "Contact Info.",
+    "Stephanie": "Contact Info."
+}
+################################
+
 # Configuration and Variables
 
 SERVER_PREFIX = "\033[96m" + "[SERVER]" + "\033[0m" + " "
@@ -182,7 +217,7 @@ def get_nearby_users():
 def on_linkedin_login():
     data = flask.request.json
     access_token = imp_util.linkedin.get_access_token(data["authorization_token"]["authentication_code"])
-    #get user info 
+    #get user info
     profile_info = imp_util.linkedin.get_profile(access_token)
     #get email
     email = imp_util.linkedin.get_user_email(access_token)
@@ -192,7 +227,15 @@ def on_linkedin_login():
 
 @app.route("/")
 def index():
-    return flask.render_template("index.html")
+    return flask.render_template(
+    "index.html",
+    pageTitle = pageTitle,
+    pageHeader = pageHeader,
+    developerNames = developerNames,
+    aboutMe = aboutMe,
+    links = links,
+    contactInfo = contactInfo
+    )
 
 
 if __name__ == "__main__":
