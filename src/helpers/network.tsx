@@ -36,6 +36,12 @@ export function newConnection(email: string) {
     getCallParams({ user1_email: user.email, user2_email: email })
   );
 }
+export function batchNewUsers(emails:{user1_email:string, user2_email:string}[]){
+  return fetch(
+    `${url}/batch_new_users`,
+    getCallParams(emails)
+  )
+}
 
 export function editUser(user: any) {
   return fetch(`${url}/edit_user`, getCallParams(user));
@@ -89,3 +95,4 @@ export function getNearbyUsers(email: string, coordinates: any) {
     getCallParams({ email, ...coordinates })
   )
 }
+
