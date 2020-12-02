@@ -7,6 +7,7 @@ import flask_sqlalchemy
 from server import db
 import tables
 from sqlalchemy import desc
+import imp_util
 
 #From https://stackoverflow.com/questions/1958219/convert-sqlalchemy-row-object-to-python-dict
 def row2dict(row):
@@ -59,4 +60,29 @@ def new_group(name, emails):
         db.session.close()
         return {"success":True}
     db.session.close()
-    return {"success":False}
+    return {"success": False}
+
+def group_share_doc(url, groupid):
+    group = db.session.query(tables.Group).filter_by(group_id=id).all()
+    members = []
+    for member in group:
+        members.append(db.session.query(tables.Users).filter_by(email=member.user_id))
+    for user in members:
+        imp_util.notifications.new_notification(user.email, "New Document From Group", "accept new document shared from your group?", "group_share_doc", [url,"","",""])
+        
+def group_contact_doc(groupid, shared_email):
+    group = db.session.query(tables.Group).filter_by(group_id=id).all()
+    members = []
+    for member in group:
+        members.append(db.session.query(tables.Users).filter_by(email=member.user_id))
+    
+    notification_data = {shared_email, "", "", ""}
+    for user in members:
+        imp_util.notifications.new_notification(
+            user.email,
+            "User From Your Group shared a contact",
+            "accept new document shared from your group?",
+            "group_shared_contact",
+            notification_data,
+        )
+        

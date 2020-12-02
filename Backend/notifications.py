@@ -8,6 +8,10 @@ from server import db
 import tables
 import imp_util
 
+#### creates a new notification meant for data["email"] with various related fields required
+#### title and description are meant to store what to display in the notifications tab
+#### type is the type of notifcation, which will specfiy how to handle the notification during various stages (see notifications.py for types)
+#### data1-data4 are generic string variables meant for storing data related to the notification
 def new_notification(email, titl, desc, type, data):
     db.session.add(
         tables.Notifications(
