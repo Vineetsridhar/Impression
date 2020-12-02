@@ -105,6 +105,13 @@ def on_new_user():
     data = flask.request.json
     return create_new_user(data)
 
+@app.route("/batch_new_user", methods=["POST"])
+def bach_new_users():
+    data = flask.request.json
+    for person in data:
+        create_new_user(person)
+    return {"success":True}
+
 
 #### Given info from a user input, changes info of user on database
 @app.route("/edit_user", methods=["POST"])
