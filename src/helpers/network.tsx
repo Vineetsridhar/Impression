@@ -82,3 +82,10 @@ export function getUserFromGroups(groupName: string) {
     getCallParams({ group_name: groupName })
   );
 }
+
+export function getNearbyUsers(email: string, coordinates: any) {
+  return fetch(
+    `${url}/get_nearby_users`,
+    getCallParams({ email, ...coordinates })
+  )
+}
