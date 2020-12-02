@@ -166,6 +166,17 @@ def on_new_notification():
         ),
     }
 
+@app.route("/get_nearby_users")
+def get_nearby_users():
+    data = flask.request.json
+    latitude = data["latitude"]
+    longitude = data["longitude"]
+    email = data["email"]
+    #Fetch all nearby users
+    #Add current user to nearby users
+    #Return nearby users
+    return []
+
 
 @app.route("/linkedin_login", methods=["POST"])
 def on_linkedin_login():
