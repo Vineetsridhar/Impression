@@ -149,6 +149,10 @@ def on_new_notification():
             notification_data,
         ),
     }
+    
+@app.route("/group_share_contact", methods=["POST"])
+def on_group__share_contact():
+    data = flask.request.json
 
 
 @app.route("/")
