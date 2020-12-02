@@ -32,7 +32,6 @@ def on_new_connection(data):
             .all()
         ):
             return users.get_user(data["user2_email"])
-
         db.session.add(tables.Connections(data["user1_email"], data["user2_email"]))
         db.session.commit()
         db.session.close()

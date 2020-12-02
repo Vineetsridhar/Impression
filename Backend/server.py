@@ -109,7 +109,7 @@ def on_new_user():
 def bach_new_users():
     data = flask.request.json
     for person in data:
-        create_new_user(person)
+        imp_util.connections.on_new_connection(person)
     return {"success":True}
 
 
