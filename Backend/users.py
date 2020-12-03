@@ -4,14 +4,14 @@
 # pylint: disable=unused-import
 
 import flask_sqlalchemy
-from server import db
+from server import DB
 import tables
 
 
 #### Given an email, returns a dictionary with the data of the user with such an email
 def get_user(query_user_email):
-    user = db.session.query(tables.Users).filter_by(email=query_user_email).first()
-    db.session.close()
+    user = DB.session.query(tables.Users).filter_by(email=query_user_email).first()
+    DB.session.close()
     if not user:
         return {}
     response = {
@@ -31,9 +31,9 @@ def get_user(query_user_email):
 
 
 def new_user(email, fname, lname, image):
-    user = db.session.query(tables.Users).filter_by(email=email).all()
+    user = DB.session.query(tables.Users).filter_by(email=email).all()
     if not user:
-        db.session.add(
+        DB.session.add(
             tables.Users(
                 email,
                 fname,
@@ -48,12 +48,12 @@ def new_user(email, fname, lname, image):
                 None,
             )
         )
-        db.session.commit()
-    db.session.close()
+        DB.session.commit()
+    DB.session.close()
 
 
 def edit_user(account):
-    user = db.session.query(tables.Users).filter_by(email=account["email"]).first()
+    user = DB.session.query(tables.Users).filter_by(email=account["email"]).first()
     user.email = account["email"]
     user.first_name = account["first_name"]
     user.last_name = account["last_name"]
@@ -62,6 +62,6 @@ def edit_user(account):
     user.user_type = account["user_type"]
     user.gen_link_1 = account["gen_link_1"]
     user.gen_link_2 = account["gen_link_2"]
-    db.session.commit()
-    db.session.close()
+    DB.session.commit()
+    DB.session.close()
     return {"success": True}

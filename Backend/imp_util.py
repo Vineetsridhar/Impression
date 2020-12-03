@@ -2,7 +2,7 @@
 # pylint: disable=unused-import
 
 import flask_sqlalchemy
-from server import db
+from server import DB
 import tables
 
 import users

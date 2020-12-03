@@ -4,7 +4,7 @@
 # pylint: disable=unused-import
 
 import flask_sqlalchemy
-from server import db
+from server import DB
 import tables
 import imp_util
 
@@ -14,13 +14,13 @@ import imp_util
 ### to handle the notification during various stages (see notifications.py for types)
 #### data1-data4 are generic string variables meant for storing data related to the notification
 def new_notification(email, titl, desc, type, data):
-    db.session.add(
+    DB.session.add(
         tables.Notifications(
             email, titl, desc, type, data[0], data[1], data[2], data[3]
         )
     )
-    db.session.commit()
-    db.session.close()
+    DB.session.commit()
+    DB.session.close()
     return {"success": True}
 
 
@@ -28,11 +28,11 @@ def new_notification(email, titl, desc, type, data):
 #### as a list of dictionaries
 def get_notifications(user_query_email):
     notifications = (
-        db.session.query(tables.Notifications)
+        DB.session.query(tables.Notifications)
         .filter_by(user_email=user_query_email)
         .all()
     )
-    db.session.close()
+    DB.session.close()
     if not notifications:
         return {"success": False, "response": {}}
     response = []
@@ -50,13 +50,13 @@ def get_notifications(user_query_email):
 
 #### resolve
 def resolve_notification(not_id, answer):
-    notification = db.session.query(tables.Notifications).filter_by(id=not_id).first()
+    notification = DB.session.query(tables.Notifications).filter_by(id=not_id).first()
     if notification.type == "connection_confirm":
         if answer["accept"] == True:
             imp_util.connections.on_new_connection(
                 {"user1_email": notification.data1, "user2_email": notification.data2}
             )
-    db.session.delete(notification)
-    db.session.commit()
-    db.session.close()
+    DB.session.delete(notification)
+    DB.session.commit()
+    DB.session.close()
     return {"success": True}

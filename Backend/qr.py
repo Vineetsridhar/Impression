@@ -8,7 +8,7 @@ import pathlib
 import flask_sqlalchemy
 import pyqrcode
 
-from server import db
+from server import DB
 import tables
 import s3
 

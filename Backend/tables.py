@@ -10,20 +10,20 @@
 
 import flask_sqlalchemy
 from sqlalchemy.orm import relationship
-from server import db
+from server import DB
 
-class Users(db.Model):
-    email = db.Column(db.String(120), primary_key=True)
-    first_name = db.Column(db.String(120))
-    last_name = db.Column(db.String(120))
-    organization = db.Column(db.String(120), nullable=True)
-    descr = db.Column(db.String(250), nullable=True)
-    user_type = db.Column(db.String(120), nullable=True)
-    gen_link_1 = db.Column(db.String(250), nullable=True)
-    gen_link_2 = db.Column(db.String(250), nullable=True)
-    gen_link_3 = db.Column(db.String(250), nullable=True)
-    image = db.Column(db.String(250))
-    doc = db.Column(db.String(250), nullable=True)
+class Users(DB.Model):
+    email = DB.Column(DB.String(120), primary_key=True)
+    first_name = DB.Column(DB.String(120))
+    last_name = DB.Column(DB.String(120))
+    organization = DB.Column(DB.String(120), nullable=True)
+    descr = DB.Column(DB.String(250), nullable=True)
+    user_type = DB.Column(DB.String(120), nullable=True)
+    gen_link_1 = DB.Column(DB.String(250), nullable=True)
+    gen_link_2 = DB.Column(DB.String(250), nullable=True)
+    gen_link_3 = DB.Column(DB.String(250), nullable=True)
+    image = DB.Column(DB.String(250))
+    doc = DB.Column(DB.String(250), nullable=True)
 
     def __init__(self, email, fname, lname, org, des, u_type, gl1, gl2, gl3, img, doc):
         self.email = email
@@ -39,22 +39,22 @@ class Users(db.Model):
         self.doc = doc
 
 
-class Connections(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user1_email = db.Column(db.String(128))
-    user2_email = db.Column(db.String(128))
+class Connections(DB.Model):
+    id = DB.Column(DB.Integer, primary_key=True)
+    user1_email = DB.Column(DB.String(128))
+    user2_email = DB.Column(DB.String(128))
 
     def __init__(self, user1, user2):
         self.user1_email = user1
         self.user2_email = user2
 
 
-class Groups(db.Model):
-    group_id = db.Column(db.Integer, primary_key=True)
-    user_email = db.Column(
-        db.String(120), db.ForeignKey("users.email"), primary_key=True
+class Groups(DB.Model):
+    group_id = DB.Column(DB.Integer, primary_key=True)
+    user_email = DB.Column(
+        DB.String(120), DB.ForeignKey("users.email"), primary_key=True
     )
-    group_name = db.Column(db.String(128))
+    group_name = DB.Column(DB.String(128))
 
     def __init__(self, g_id, g_name, u_em):
         self.group_id = g_id
@@ -62,16 +62,16 @@ class Groups(db.Model):
         self.user_email = u_em
 
 
-class Notifications(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_email = db.Column(db.String(120))
-    title = db.Column(db.String(128))
-    description = db.Column(db.String(128))
-    type = db.Column(db.String(128))
-    data1 = db.Column(db.String(256))
-    data2 = db.Column(db.String(256))
-    data3 = db.Column(db.String(256))
-    data4 = db.Column(db.String(256))
+class Notifications(DB.Model):
+    id = DB.Column(DB.Integer, primary_key=True)
+    user_email = DB.Column(DB.String(120))
+    title = DB.Column(DB.String(128))
+    description = DB.Column(DB.String(128))
+    type = DB.Column(DB.String(128))
+    data1 = DB.Column(DB.String(256))
+    data2 = DB.Column(DB.String(256))
+    data3 = DB.Column(DB.String(256))
+    data4 = DB.Column(DB.String(256))
 
     def __init__(self, email, titl, desc, type, data1, data2, data3, data4):
         self.user_email = email
@@ -84,4 +84,4 @@ class Notifications(db.Model):
         self.data1 = data4
 
 
-db.create_all()
+DB.create_all()

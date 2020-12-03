@@ -5,7 +5,7 @@
 
 import flask_sqlalchemy
 from sqlalchemy import desc
-from server import db
+from server import DB
 import tables
 import imp_util
 
@@ -22,8 +22,8 @@ def row2dict(row):
 
 #### Get list of groups a user is in
 def get_groups(email):
-    group = db.session.query(tables.Groups).filter_by(user_email=email).all()
-    db.session.close()
+    group = DB.session.query(tables.Groups).filter_by(user_email=email).all()
+    DB.session.close()
     resp = []
     if not group:
         return {"success": False}
@@ -37,11 +37,11 @@ def get_groups(email):
 #### Get list of users' emails from a group
 def get_users(name):
     group = (
-        db.session.query(tables.Groups, tables.Users)
+        DB.session.query(tables.Groups, tables.Users)
         .filter_by(group_name=name, user_email=tables.Users.email)
         .all()
     )
-    db.session.close()
+    DB.session.close()
     resp = []
     if not group:
         return {"success": False}
@@ -58,7 +58,7 @@ def new_group(name, emails):
     # Commented For testing so I can use the same group name
     if not group:
         last_id = (
-            db.session.query(tables.Groups)
+            DB.session.query(tables.Groups)
             .order_by(desc(tables.Groups.group_id))
             .first()
         )
@@ -67,20 +67,20 @@ def new_group(name, emails):
         else:
             last_id = last_id.group_id
         for each_email in emails:
-            db.session.add(tables.Groups(last_id + 1, name, each_email))
-            db.session.commit()
-        db.session.close()
+            DB.session.add(tables.Groups(last_id + 1, name, each_email))
+            DB.session.commit()
+        DB.session.close()
         return {"success": True}
-    db.session.close()
+    DB.session.close()
     return {"success": False}
 
 
 def group_share_doc(url, groupid):
-    group = db.session.query(tables.Group).filter_by(group_id=id).all()
+    group = DB.session.query(tables.Group).filter_by(group_id=id).all()
     members = []
     for member in group:
         members.append(
-            db.session.query(tables.Users).filter_by(email=member.user_email)
+            DB.session.query(tables.Users).filter_by(email=member.user_email)
         )
     for user in members:
         imp_util.notifications.new_notification(
@@ -93,10 +93,10 @@ def group_share_doc(url, groupid):
 
 
 def group_contact_doc(groupid, shared_email):
-    group = db.session.query(tables.Group).filter_by(group_id=id).all()
+    group = DB.session.query(tables.Group).filter_by(group_id=id).all()
     members = []
     for member in group:
-        members.append(db.session.query(tables.Users).filter_by(email=member.user_id))
+        members.append(DB.session.query(tables.Users).filter_by(email=member.user_id))
 
     notification_data = {shared_email, "", "", ""}
     for user in members:
