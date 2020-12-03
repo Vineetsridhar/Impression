@@ -20,8 +20,9 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./src/assets/logo.png",
+        "backgroundColor": "#FFFFFF",
+        "icon":"./src/assets/logo.png"
       },
       "config": {
         "googleSignIn": {

@@ -70,7 +70,7 @@ export default function Login({ setLoggedIn }: props) {
 
   return (
     <View style={styles.container}>
-      <Image source={{ uri: avatar }} style={styles.avatarStyle} />
+      <Image source={require('./assets/img/logo.png')} style={styles.avatarStyle} />
       <TouchableOpacity onPress={initiateGoogleLogin}>
         <Image
           source={require("./assets/img/signin.png")}

@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     avatarStyle: {
         height: 200,
         width: 200,
-        borderRadius: 100,
         marginTop: 50
     },
     loginbutton: {
