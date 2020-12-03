@@ -61,9 +61,13 @@ function ContactsScreen({ navigation }: any) {
 
   const createGroup = () => {
     const emails: string[] = [];
-    selected.forEach(i => emails.push(userConnections[i].email));
+    const names:string[]= []
+    selected.forEach(i => {
+      emails.push(userConnections[i].email)
+      names.push(userConnections[i].first_name)
+    });
     emails.push(user.email);
-    newGroup("Better name", emails)
+    newGroup(names.join(", "), emails)
       .then(result => result.json())
       .then(json => {
         if (json["success"]) {
@@ -206,6 +210,7 @@ function ContactsScreen({ navigation }: any) {
         isVisible={modalVisible}
         setModalVisible={setModalVisible}
         people={userConnections} />
+      
       {!companyConnections.length && !userConnections && <Text style={styles.title}>You have no connections. Have someone scan your QR to create one</Text>}
       {isButtonVisible ? <Button onPress={createGroup}>Create Group</Button> : null}
       <FAB
