@@ -1,7 +1,7 @@
 import user from "../../config/user";
 import { LinkedInToken } from "react-native-linkedin";
 
-const url = "http://192.168.2.15:8080";
+const url = "https://njit-cs490-project3-impression.herokuapp.com";
 
 export function getCallParams(body: any) {
   return {
@@ -36,6 +36,14 @@ export function newConnection(email: string) {
     getCallParams({ user1_email: user.email, user2_email: email })
   );
 }
+
+export function deleteConnection(email: string) {
+  return fetch(
+    `${url}/delete_connection`,
+    getCallParams({ user1_email: user.email, user2_email: email })
+  );
+}
+
 export function batchNewUsers(emails:{user1_email:string, user2_email:string}[]){
   return fetch(
     `${url}/batch_new_users`,
@@ -95,4 +103,3 @@ export function getNearbyUsers(email: string, coordinates: any) {
     getCallParams({ email, ...coordinates })
   )
 }
-

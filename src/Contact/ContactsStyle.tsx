@@ -4,9 +4,8 @@ import font from "../../config/font"
 
 const styles = StyleSheet.create({
   container: {
-    margin: 0,
     marginBottom: 0,
-    marginTop: 10,
+    marginTop: 30,
     display: "flex",
     backgroundColor: colors.background,
     flex: 1,

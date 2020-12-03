@@ -14,6 +14,9 @@ import { Entypo, Feather } from "@expo/vector-icons";
 import * as Location from 'expo-location';
 import SelectionModal from '../components/SelectionModal'
 import { SearchBar } from 'react-native-elements';
+import colors from "../../config/colors";
+import font from "../../config/font";
+
 
 function ContactsScreen({ navigation }: any) {
   const [userConnections, setUserConnections] = useState<User[]>([]);
@@ -58,9 +61,13 @@ function ContactsScreen({ navigation }: any) {
 
   const createGroup = () => {
     const emails: string[] = [];
-    selected.forEach(i => emails.push(userConnections[i].email));
+    const names:string[]= []
+    selected.forEach(i => {
+      emails.push(userConnections[i].email)
+      names.push(userConnections[i].first_name)
+    });
     emails.push(user.email);
-    newGroup("Better name", emails)
+    newGroup(names.join(", "), emails)
       .then(result => result.json())
       .then(json => {
         if (json["success"]) {
@@ -126,7 +133,6 @@ function ContactsScreen({ navigation }: any) {
     let companyList = companyConnections;
 
     var kw = keyword.toLowerCase();
-    console.log(userList);
     let filteredUserList = userList.filter((item) => {
       if(item["first_name"].toLowerCase().includes(kw))
         return item;
@@ -161,13 +167,21 @@ function ContactsScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-    <View style={{ width: '100%', marginTop: 0 }}>
-      <SearchBar
-        round
-        placeholder="Search Contacts"
-        onChangeText={(e) => updateKeyword(e)}
+    <View style={{ width: '100%', marginTop: 0, justifyContent:'center', flexDirection:'row', alignItems:'center', paddingHorizontal: 16 }}>
+     
+      <Feather name="search" style={{  fontSize: 20 }} /> 
+      <TextInput
         value={keyword}
-      />
+        onChangeText={updateKeyword}
+        style={{
+          backgroundColor:colors.background,
+          width:'95%',
+          paddingHorizontal:16,
+          height: 50,
+          color:colors.text,
+          fontFamily:font.regular
+        }}
+        placeholder="Search Contacts"/>
     </View>
       {companyConnections.length > 0 &&
         <View style={{ flex: 2 }}>
@@ -196,6 +210,7 @@ function ContactsScreen({ navigation }: any) {
         isVisible={modalVisible}
         setModalVisible={setModalVisible}
         people={userConnections} />
+      
       {!companyConnections.length && !userConnections && <Text style={styles.title}>You have no connections. Have someone scan your QR to create one</Text>}
       {isButtonVisible ? <Button onPress={createGroup}>Create Group</Button> : null}
       <FAB

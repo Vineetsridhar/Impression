@@ -8,9 +8,11 @@ import user from '../../config/user';
 import { createStackNavigator } from '@react-navigation/stack';
 import GroupDetail from './GroupDetail';
 
-function GroupScreen() {
+function GroupScreen({ navigation }: any) {
+    let focusListener: () => {};
+
     const [groupConnections, setGroupConnections] = useState<Group[]>([]);
-    useEffect(() => {
+    const refreshData = () => {
         getGroups(user.email).then(response => response.json()).then(json => {
             if (json["success"]) {
                 setGroupConnections(json["response"]);
@@ -21,6 +23,15 @@ function GroupScreen() {
             console.log(err);
             Alert.alert("Error", "There was an error fetching your groups")
         })
+    }
+    const makeListeners = () => {
+        focusListener = navigation.addListener("focus", () => {
+            refreshData();
+        });
+    };
+    useEffect(() => {
+        refreshData();
+        makeListeners()
     }, []);
     return (
         <View style={styles.container}>
