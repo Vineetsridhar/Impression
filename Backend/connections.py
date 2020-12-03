@@ -54,7 +54,8 @@ def on_delete_connection(data):
         .all()
     ):
         DB.session.delete(connection)
-        return 0
+        DB.session.commit()
+        return {"success":True}
     for connection in (
         DB.session.query(tables.Connections)
         .filter(
@@ -64,9 +65,11 @@ def on_delete_connection(data):
         .all()
     ):
         DB.session.delete(connection)
-        return 0
+        DB.session.commit()
+        return {"success":True}
+
     DB.session.close()
-    return -1
+    return {"success":False}
 
 
 #### Given a user X's email, returns a list of users X has a connection with.
