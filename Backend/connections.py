@@ -5,7 +5,7 @@
 # pylint: disable=broad-except
 
 import flask_sqlalchemy
-from server import db
+from server import DB
 import tables
 import users
 
@@ -15,7 +15,7 @@ import users
 def on_new_connection(data):
     try:
         for connection in (
-            db.session.query(tables.Connections)
+            DB.session.query(tables.Connections)
             .filter(
                 (tables.Connections.user1_email == data["user1_email"])
                 & (tables.Connections.user2_email == data["user2_email"])
@@ -24,7 +24,7 @@ def on_new_connection(data):
         ):
             return users.get_user(data["user2_email"])
         for connection in (
-            db.session.query(tables.Connections)
+            DB.session.query(tables.Connections)
             .filter(
                 (tables.Connections.user1_email == data["user2_email"])
                 & (tables.Connections.user2_email == data["user1_email"])
@@ -32,10 +32,9 @@ def on_new_connection(data):
             .all()
         ):
             return users.get_user(data["user2_email"])
-
-        db.session.add(tables.Connections(data["user1_email"], data["user2_email"]))
-        db.session.commit()
-        db.session.close()
+        DB.session.add(tables.Connections(data["user1_email"], data["user2_email"]))
+        DB.session.commit()
+        DB.session.close()
         return users.get_user(data["user2_email"])
     except:
         return {"success": False}
@@ -47,26 +46,26 @@ def on_new_connection(data):
 #### and 0 if the connection existed and was deleted.
 def on_delete_connection(data):
     for connection in (
-        db.session.query(tables.Connections)
+        DB.session.query(tables.Connections)
         .filter(
             (tables.Connections.user1_email == data["user1_email"])
             & (tables.Connections.user2_email == data["user2_email"])
         )
         .all()
     ):
-        db.session.delete(connection)
+        DB.session.delete(connection)
         return 0
     for connection in (
-        db.session.query(tables.Connections)
+        DB.session.query(tables.Connections)
         .filter(
             (tables.Connections.user1_email == data["user2_email"])
             & (tables.Connections.user2_email == data["user1_email"])
         )
         .all()
     ):
-        db.session.delete(connection)
+        DB.session.delete(connection)
         return 0
-    db.session.close()
+    DB.session.close()
     return -1
 
 
@@ -79,14 +78,14 @@ def on_query_connections(data):
     response = []
     try:
         result = (
-            db.session.query(tables.Connections)
+            DB.session.query(tables.Connections)
             .filter(
                 (tables.Connections.user1_email == data["user_email"])
                 | (tables.Connections.user2_email == data["user_email"])
             )
             .all()
         )
-        db.session.close()
+        DB.session.close()
         for connection in result:
             if connection.user1_email == data["user_email"]:
                 connected_user = users.get_user(connection.user2_email)

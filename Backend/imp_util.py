@@ -2,7 +2,7 @@
 # pylint: disable=unused-import
 
 import flask_sqlalchemy
-from server import db
+from server import DB
 import tables
 
 import users
@@ -11,5 +11,4 @@ import groups
 import s3
 import qr
 import linkedin
-import groups
 import notifications

@@ -4,15 +4,16 @@ import styles from "./ContactsStyle";
 import ContactList from "../components/ContactList";
 import GroupList from "../components/GroupList";
 import { User, Group } from "../helpers/interfaces";
-import { getConnections, newGroup, getNearbyUsers } from "../helpers/network";
+import { getConnections, newGroup, getNearbyUsers, batchNewUsers } from "../helpers/network";
 import user from "../../config/user";
 import { Appbar, Button } from 'react-native-paper';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import GroupsScreen from "./GroupScreen";
 import FAB from "../components/FAB";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, Feather } from "@expo/vector-icons";
 import * as Location from 'expo-location';
-
+import SelectionModal from '../components/SelectionModal'
+import { SearchBar } from 'react-native-elements';
 
 function ContactsScreen({ navigation }: any) {
   const [userConnections, setUserConnections] = useState<User[]>([]);
@@ -21,6 +22,7 @@ function ContactsScreen({ navigation }: any) {
   const [isButtonVisible, setButtonVisible] = useState(false);
   const [selected, setSelected] = useState(new Set<number>());
   const [isSelection, setIsSelection] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   let focusListener: () => {};
 
@@ -62,13 +64,43 @@ function ContactsScreen({ navigation }: any) {
       .then(result => result.json())
       .then(json => {
         if (json["success"]) {
-          let temp = new Set<number>();
-          setSelected(temp);
-          setIsSelection(false);
           ToastAndroid.show("Group created", ToastAndroid.LONG)
+          resetList()
         } else {
           Alert.alert("Error", "There was an error with your request")
         }
+      })
+  }
+
+  const resetList = () => {
+    let temp = new Set<number>();
+    setSelected(temp);
+    setIsSelection(false);
+  }
+  const selectItem = () => {
+    setModalVisible(true)
+  }
+
+  const selectionCallback = (email: string) => {
+    setModalVisible(false)
+    let newConnections: { user1_email: string, user2_email: string }[] = [];
+    selected.forEach(i => {
+      newConnections.push({
+        user1_email: email,
+        user2_email: userConnections[i].email
+      })
+    })
+    resetList()
+    batchNewUsers(newConnections)
+      .then(response => {
+        if (response.ok) {
+          ToastAndroid.show("Successfully shared Contacts", ToastAndroid.LONG);
+        }
+        return response.json()
+      }).then(json => {
+        console.log(json)
+      }).catch(err => {
+        ToastAndroid.show("Failed to share Contacts", ToastAndroid.LONG);
       })
   }
 
@@ -82,8 +114,61 @@ function ContactsScreen({ navigation }: any) {
     getNearbyUsers(user.email, location.coords)
   }
 
+  const updateKeyword = (value) => {
+    setKeyword(value);
+  };
+  useEffect(() => {
+    _handleSearch();
+  }, [keyword]);
+
+  const _handleSearch = () => {
+    let userList = userConnections;
+    let companyList = companyConnections;
+
+    var kw = keyword.toLowerCase();
+    console.log(userList);
+    let filteredUserList = userList.filter((item) => {
+      if(item["first_name"].toLowerCase().includes(kw))
+        return item;
+    })
+
+    let filteredCompanyList = companyList.filter((item) => {
+      if(item["first_name"].toLowerCase().includes(kw))
+        return item;
+    })
+
+    if(!keyword || keyword == '') {
+      setUserConnections(
+        userList
+      )
+      setCompanyConnections(
+        companyList
+      )
+    } else {
+      if(Array.isArray(filteredUserList)) {
+        setUserConnections(
+          filteredUserList
+        )
+      }
+      if(Array.isArray(filteredCompanyList)) {
+        setCompanyConnections(
+          filteredCompanyList
+        )
+      }
+    }
+    if (keyword === "" || !keyword.trim().length) refreshData();
+  };
+
   return (
     <View style={styles.container}>
+    <View style={{ width: '100%', marginTop: 0 }}>
+      <SearchBar
+        round
+        placeholder="Search Contacts"
+        onChangeText={(e) => updateKeyword(e)}
+        value={keyword}
+      />
+    </View>
       {companyConnections.length > 0 &&
         <View style={{ flex: 2 }}>
           <Text style={styles.title}>Companies</Text>
@@ -105,100 +190,28 @@ function ContactsScreen({ navigation }: any) {
             setSelected={setSelected}
             isSelection={isSelection}
             setIsSelection={setIsSelection} />
-
         </View>}
+      <SelectionModal
+        selectionCallback={selectionCallback}
+        isVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        people={userConnections} />
       {!companyConnections.length && !userConnections && <Text style={styles.title}>You have no connections. Have someone scan your QR to create one</Text>}
       {isButtonVisible ? <Button onPress={createGroup}>Create Group</Button> : null}
       <FAB
-        onPress={requestLocation}
+        onPress={isSelection ? selectItem : requestLocation}
       >
-        <Entypo name="map" style={{ color: 'white', fontSize: 35 }} />
+        {isSelection ? <Feather name="send" style={{ color: 'white', fontSize: 35 }} /> : <Entypo name="map" style={{ color: 'white', fontSize: 35 }} />}
       </FAB>
     </View>
   );
 }
 
-
-
 const Tab = createMaterialTopTabNavigator();
 
 export default function ContactScreen({ navigation }: any) {
-  //Add on tab focus listener to refresh data
-  const [userConnections, setUserConnections] = useState<User[]>([]);
-  const [companyConnections, setCompanyConnections] = useState<User[]>([]);
-  const [keyword, setKeyword] = useState("");
-
-  let focusListener: () => {};
-
-  const totalConnected = "Total Contacts: " + (userConnections.length + companyConnections.length);
-
-  const _handleSearch = () => {
-    console.log(
-      "TODO add drop down menu or some other feature that allows user to choose from contacts displayed, " +
-      "this will navigate them to the selected users Contact Details page"
-    );
-    console.log(keyword);
-
-    if (keyword === "") return;
-    var kw = keyword;
-    kw = kw.toLowerCase();
-    var names: string[] = [];
-
-    for (var user of userConnections) {
-      var fname = user["first_name"].toLowerCase();
-      if (fname.includes(kw)) names.push(user["first_name"]);
-    }
-    setKeyword("");
-    console.log(names);
-  };
-
-  const makeListeners = () => {
-    focusListener = navigation.addListener("focus", () => {
-      refreshData();
-    });
-  };
-
-  const refreshData = () => {
-    const parseConnections = (allConnections: User[]) => {
-      setUserConnections(
-        allConnections.filter(
-          (connection) => connection.user_type === "Student"
-        )
-      );
-      setCompanyConnections(
-        allConnections.filter(
-          (connection) => connection.user_type === "Recruiter"
-        )
-      );
-    };
-
-    getConnections(user.email)
-      .then((response) => response.json())
-      .then((data) => parseConnections(data["connections"]))
-      .catch((err) => console.log(err));
-  };
-  useEffect(() => {
-    refreshData();
-    makeListeners();
-  }, []);
   return (
     <View style={styles.container}>
-      <View style={{ width: '100%', marginTop: 15 }}>
-        <Appbar.Header style={{ backgroundColor: 'white' }}>
-          <Appbar.Content title="Contacts" subtitle={totalConnected} />
-          <View>
-            <TextInput
-              clearButtonMode="always"
-              placeholder="Search Connections"
-              placeholderTextColor='gray'
-              style={{ color: 'black' }}
-              onChangeText={(value) => setKeyword(value)}
-              value={keyword}
-            />
-          </View>
-          <Appbar.Action icon="magnify" onPress={_handleSearch} />
-        </Appbar.Header>
-      </View>
       <Tab.Navigator>
         <Tab.Screen name="Contacts" component={ContactsScreen} />
         <Tab.Screen name="Groups" component={GroupsScreen} />

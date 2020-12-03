@@ -7,45 +7,40 @@
 
 import os
 from os.path import join, dirname
-from dotenv import load_dotenv
 import flask
 import flask_sqlalchemy
 import flask_socketio
+from dotenv import load_dotenv
 
 ################################
 
 # Values for index.html
 
-pageTitle = "Grow your network with Impression"
+PAGE_TITLE = "Grow your network with Impression"
 
-pageHeader = "Easily connect with classmates and recruiters at your schools Career Fair"
+PAGE_HEADER = "Easily connect with classmates and recruiters at your schools Career Fair"
 
-developerNames = {
-    "Chris" : "Chris Mazzei",
-    "Vineet" : "Vineet Sridhar",
-    "Rami" : "Rami Bazoqa",
-    "Stephanie" : "Stephanie Nieve-Silva"
+DEVELOPER_NAMES = {
+    "Chris": "Chris Mazzei",
+    "Vineet": "Vineet Sridhar",
+    "Rami": "Rami Bazoqa",
+    "Stephanie": "Stephanie Nieve-Silva",
 }
 
-aboutMe = {
-    "Chris" : "About Me.",
-    "Vineet" : "About Me.",
-    "Rami" : "About Me.",
-    "Stephanie": "About Me."
+ABOUT_ME = {
+    "Chris": "About Me.",
+    "Vineet": "About Me.",
+    "Rami": "About Me.",
+    "Stephanie": "About Me.",
 }
 
-links = {
-    "Chris" : "Links.",
-    "Vineet" : "Links.",
-    "Rami" : "Links.",
-    "Stephanie": "Links."
-}
+LINKS = {"Chris": "Links.", "Vineet": "Links.", "Rami": "Links.", "Stephanie": "Links."}
 
-contactInfo = {
-    "Chris" : "Contact Info.",
-    "Vineet" : "Contact Info.",
-    "Rami" : "Contact Info.",
-    "Stephanie": "Contact Info."
+CONTACT_INFO = {
+    "Chris": "Contact Info.",
+    "Vineet": "Contact Info.",
+    "Rami": "Contact Info.",
+    "Stephanie": "Contact Info.",
 }
 ################################
 
@@ -53,30 +48,32 @@ contactInfo = {
 
 SERVER_PREFIX = "\033[96m" + "[SERVER]" + "\033[0m" + " "
 
-dotenv_path = join(dirname(__file__), "secret.env")
-load_dotenv(dotenv_path)
+DOTENV_PATH = join(dirname(__file__), "secret.env")
+load_dotenv(DOTENV_PATH)
 
-app = flask.Flask(__name__, template_folder="../LandingPage", static_folder="../LandingPage")
+APP = flask.Flask(
+    __name__, template_folder="../LandingPage", static_folder="../LandingPage"
+)
 
-socketio = flask_socketio.SocketIO(app)
-socketio.init_app(app, cors_allowed_origins="*")
+SOCKETIO = flask_socketio.SocketIO(APP)
+SOCKETIO.init_app(APP, cors_allowed_origins="*")
 
-database_uri = os.environ["DATABASE_URL"]
-app.config["SQLALCHEMY_DATABASE_URI"] = database_uri
+DB_URI = os.environ["DATABASE_URL"]
+APP.config["SQLALCHEMY_DATABASE_URI"] = DB_URI
 
 
-db = flask_sqlalchemy.SQLAlchemy(app)
-db.init_app(app)
-db.app = app
+DB = flask_sqlalchemy.SQLAlchemy(APP)
+DB.init_app(APP)
+DB.app = APP
 
-db.session.commit()
+DB.session.commit()
 
 import imp_util
 import tables
 import users
 import groups
 
-clients = []
+CLIENTS = []
 print(SERVER_PREFIX + "Server started successfully")
 
 ################################
@@ -84,6 +81,7 @@ print(SERVER_PREFIX + "Server started successfully")
 #### USERS
 
 #### Given info from a user login, creates new user
+
 
 def create_new_user(data):
     try:
@@ -100,49 +98,64 @@ def create_new_user(data):
         print(err)
         return {"success": False}
 
-@app.route("/new_user", methods=["POST"])
+
+@APP.route("/new_user", methods=["POST"])
 def on_new_user():
     data = flask.request.json
     return create_new_user(data)
 
 
+@APP.route("/batch_new_users", methods=["POST"])
+def bach_new_users():
+    data = flask.request.json
+    for person in data:
+        imp_util.connections.on_new_connection(person)
+    return {"success": True}
+
+
 #### Given info from a user input, changes info of user on database
-@app.route("/edit_user", methods=["POST"])
+@APP.route("/edit_user", methods=["POST"])
 def on_edit():
     data = flask.request.json
     return imp_util.users.edit_user(data)
 
 
 #### Given an email, returns a dictionary with the data of the user with such an email
-@app.route("/get_user", methods=["POST"])
+@APP.route("/get_user", methods=["POST"])
 def get_user():
     query_user_email = flask.request.json
     return imp_util.users.get_user(query_user_email["email"])
+
 
 #### GROUPS
 
 #### Makes new group given name and user email
 
-@app.route("/new_group", methods=["POST"])
+
+@APP.route("/new_group", methods=["POST"])
 def new_group():
     data = flask.request.json
     return imp_util.groups.new_group(data["group_name"], data["emails"])
 
+
 #### Given a group name, returns a list of users in the group
-@app.route("/get_users", methods=["POST"])
+@APP.route("/get_users", methods=["POST"])
 def get_users_list():
     query_name = flask.request.json
     return imp_util.groups.get_users(query_name["group_name"])
 
+
 #### Given a group name, returns a list of groups a user is in
-@app.route("/get_groups", methods=["POST"])
+@APP.route("/get_groups", methods=["POST"])
 def get_user_groups_list():
     query_email = flask.request.json
     return imp_util.groups.get_groups(query_email["email"])
 
+
 #### CONNECTIONS
 
-@app.route("/upload_doc", methods=["POST"])
+
+@APP.route("/upload_doc", methods=["POST"])
 def on_upload_doc():
     form = flask.request.form
     data = flask.request.files["file"]
@@ -150,11 +163,12 @@ def on_upload_doc():
     imp_util.s3.upload_pdf(form["email"])
     return {}
 
+
 #### Given 2 user emails, adds them as a new connection
 #### to the DB if such a connection does not already exist.
 #### Returns -1 if such a connection already exists,
 #### and 0 if the connection was added.
-@app.route("/new_connection", methods=["POST"])
+@APP.route("/new_connection", methods=["POST"])
 def on_new_connection():
     data = flask.request.json
     return imp_util.connections.on_new_connection(data)
@@ -164,7 +178,7 @@ def on_new_connection():
 #### remove the exisiting connection between them if it exists.
 #### Returns -1 if such a connection does not exist,
 #### and 0 if the connection existed and was deleted.
-@app.route("/delete_connection", methods=["POST"])
+@APP.route("/delete_connection", methods=["POST"])
 def on_delete_connection():
     data = flask.request.json
     return imp_util.connections.on_delete_connection(data)
@@ -174,7 +188,7 @@ def on_delete_connection():
 #### Specifically, it returns a list of dictionaries
 #### where each dictionary is the data of a user X has a connection with.
 #### Used to query for all connections involving a given user.
-@app.route("/query_connections", methods=["POST"])
+@APP.route("/query_connections", methods=["POST"])
 def on_query_connections():
     data = flask.request.json
     return {
@@ -182,11 +196,13 @@ def on_query_connections():
         "connections": imp_util.connections.on_query_connections(data),
     }
 
+
 #### creates a new notification meant for data["email"] with various related fields required
 #### title and description are meant to store what to display in the notifications tab
-#### type is the type of notifcation, which will specfiy how to handle the notification during various stages (see notifications.py for types)
+#### type is the type of notifcation, which will specfiy how
+#### to handle the notification during various stages (see notifications.py for types)
 #### data1-data4 are generic string variables meant for storing data related to the notification
-@app.route("/new_notification", methods=["POST"])
+@APP.route("/new_notification", methods=["POST"])
 def on_new_notification():
     data = flask.request.json
     notification_data = {data["data1"], data["data2"], data["data3"], data["data4"]}
@@ -200,51 +216,56 @@ def on_new_notification():
             notification_data,
         ),
     }
-    
-@app.route("/group_share_contact", methods=["POST"])
+
+
+@APP.route("/group_share_contact", methods=["POST"])
 def on_group__share_contact():
     data = flask.request.json
 
-@app.route("/get_nearby_users")
+
+@APP.route("/get_nearby_users")
 def get_nearby_users():
     data = flask.request.json
     latitude = data["latitude"]
     longitude = data["longitude"]
     email = data["email"]
-    #Fetch all nearby users
-    #Add current user to nearby users
-    #Return nearby users
+    # Fetch all nearby users
+    # Add current user to nearby users
+    # Return nearby users
     return []
 
 
-@app.route("/linkedin_login", methods=["POST"])
+@APP.route("/linkedin_login", methods=["POST"])
 def on_linkedin_login():
     data = flask.request.json
-    access_token = imp_util.linkedin.get_access_token(data["authorization_token"]["authentication_code"])
-    #get user info
+    access_token = imp_util.linkedin.get_access_token(
+        data["authorization_token"]["authentication_code"]
+    )
+    # get user info
     profile_info = imp_util.linkedin.get_profile(access_token)
-    #get email
+    # get email
     email = imp_util.linkedin.get_user_email(access_token)
-    #add to db
+    # add to db
     profile_info["email"] = email
     return create_new_user(profile_info)
 
-@app.route("/")
+
+@APP.route("/")
 def index():
     return flask.render_template(
-    "index.html",
-    pageTitle = pageTitle,
-    pageHeader = pageHeader,
-    developerNames = developerNames,
-    aboutMe = aboutMe,
-    links = links,
-    contactInfo = contactInfo
+        "index.html",
+        pageTitle=PAGE_TITLE,
+        pageHeader=PAGE_HEADER,
+        developerNames=DEVELOPER_NAMES,
+        aboutMe=ABOUT_ME,
+        links=LINKS,
+        contactInfo=CONTACT_INFO,
     )
 
 
 if __name__ == "__main__":
-    socketio.run(
-        app,
+    SOCKETIO.run(
+        APP,
         host=os.getenv("IP", "0.0.0.0"),
         port=int(os.getenv("PORT", 8080)),
         debug=True,

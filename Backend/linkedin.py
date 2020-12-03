@@ -1,11 +1,14 @@
-import requests
+# pylint: disable=missing-function-docstring
+# pylint: disable=missing-module-docstring
+
 import os
 import json
 from os.path import join, dirname
+import requests
 from dotenv import load_dotenv
 
-dotenv_path = join(dirname(__file__), "secret.env")
-load_dotenv(dotenv_path)
+DOTENV_PATH = join(dirname(__file__), "secret.env")
+load_dotenv(DOTENV_PATH)
 
 REDIRECT_URI = os.getenv("REDIRECT_URI")
 CLIENT_ID = os.getenv("CLIENT_ID")
