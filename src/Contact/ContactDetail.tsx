@@ -9,6 +9,7 @@ import styles from "./ContactDetailStyle";
 import colors from '../../config/colors';
 import ContactDetailRow from "../components/ContactDetailRow";
 import LinkImage from "./LinkImage";
+import { deleteConnection, getConnections } from "../helpers/network";
 
 const iconMap = {
   "email": "envelope",
@@ -30,7 +31,13 @@ export default function ContactDetail({ route }: { route: any }) {
   const { user }: { user: User } = route.params;
   const navigation = useNavigation();
 
-  const _handleMessage = () => console.log('TODO message user');
+  const deleteContact = () => {
+    deleteConnection(user.email)
+    .then(result => result.text())
+    .then(responseData => {
+      console.log(responseData);
+    })
+  }
   const isUrl = (url: string) => {
     //Got from https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
     var res = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
@@ -58,7 +65,7 @@ export default function ContactDetail({ route }: { route: any }) {
         <Appbar.Header style={{ backgroundColor: 'white' }} >
           <Appbar.BackAction onPress={() => { navigation.navigate("Contacts"); }} />
           <Appbar.Content title="Contact Details" />
-          <Appbar.Action icon="message" type="entypo" onPress={_handleMessage} />
+          <Appbar.Action icon="archive" type="entypo" onPress={deleteContact} />
         </Appbar.Header>
       </View>
 
