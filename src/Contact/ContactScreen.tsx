@@ -122,22 +122,39 @@ function ContactsScreen({ navigation }: any) {
   }, [keyword]);
 
   const _handleSearch = () => {
-    let fullList = userConnections;
+    let userList = userConnections;
+    let companyList = companyConnections;
+
     var kw = keyword.toLowerCase();
-    console.log(fullList);
-    let filteredList = fullList.filter((item) => {
+    console.log(userList);
+    let filteredUserList = userList.filter((item) => {
+      if(item["first_name"].toLowerCase().includes(kw))
+        return item;
+    })
+
+    let filteredCompanyList = companyList.filter((item) => {
       if(item["first_name"].toLowerCase().includes(kw))
         return item;
     })
 
     if(!keyword || keyword == '') {
       setUserConnections(
-        fullList
+        userList
       )
-    } else if(Array.isArray(filteredList)) {
-      setUserConnections(
-        filteredList
+      setCompanyConnections(
+        companyList
       )
+    } else {
+      if(Array.isArray(filteredUserList)) {
+        setUserConnections(
+          filteredUserList
+        )
+      }
+      if(Array.isArray(filteredCompanyList)) {
+        setCompanyConnections(
+          filteredCompanyList
+        )
+      }
     }
     if (keyword === "" || !keyword.trim().length) refreshData();
   };
