@@ -35,7 +35,17 @@ def new_user(email, fname, lname, image):
     if not user:
         db.session.add(
             tables.Users(
-                email, fname, lname, None, None, "Student", None, None, None, image, None
+                email,
+                fname,
+                lname,
+                None,
+                None,
+                "Student",
+                None,
+                None,
+                None,
+                image,
+                None,
             )
         )
         db.session.commit()

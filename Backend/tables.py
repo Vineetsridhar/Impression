@@ -9,8 +9,8 @@
 # pylint: disable=unused-import
 
 import flask_sqlalchemy
-from server import db
 from sqlalchemy.orm import relationship
+from server import db
 
 class Users(db.Model):
     email = db.Column(db.String(120), primary_key=True)
@@ -25,8 +25,8 @@ class Users(db.Model):
     image = db.Column(db.String(250))
     doc = db.Column(db.String(250), nullable=True)
 
-    def __init__(self, e, fname, lname, org, des, u_type, gl1, gl2, gl3, img, d):
-        self.email = e
+    def __init__(self, email, fname, lname, org, des, u_type, gl1, gl2, gl3, img, doc):
+        self.email = email
         self.first_name = fname
         self.last_name = lname
         self.organization = org
@@ -36,7 +36,7 @@ class Users(db.Model):
         self.gen_link_2 = gl2
         self.gen_link_3 = gl3
         self.image = img
-        self.doc = d
+        self.doc = doc
 
 
 class Connections(db.Model):
@@ -51,9 +51,11 @@ class Connections(db.Model):
 
 class Groups(db.Model):
     group_id = db.Column(db.Integer, primary_key=True)
-    user_email = db.Column(db.String(120), db.ForeignKey("users.email"), primary_key=True)
+    user_email = db.Column(
+        db.String(120), db.ForeignKey("users.email"), primary_key=True
+    )
     group_name = db.Column(db.String(128))
-    
+
     def __init__(self, g_id, g_name, u_em):
         self.group_id = g_id
         self.group_name = g_name
@@ -70,7 +72,7 @@ class Notifications(db.Model):
     data2 = db.Column(db.String(256))
     data3 = db.Column(db.String(256))
     data4 = db.Column(db.String(256))
-    
+
     def __init__(self, email, titl, desc, type, data1, data2, data3, data4):
         self.user_email = email
         self.title = titl
@@ -80,5 +82,6 @@ class Notifications(db.Model):
         self.data1 = data2
         self.data1 = data3
         self.data1 = data4
+
 
 db.create_all()

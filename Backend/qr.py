@@ -5,8 +5,8 @@
 import os
 import pathlib
 
-import pyqrcode
 import flask_sqlalchemy
+import pyqrcode
 
 from server import db
 import tables

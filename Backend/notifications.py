@@ -10,7 +10,8 @@ import imp_util
 
 #### creates a new notification meant for data["email"] with various related fields required
 #### title and description are meant to store what to display in the notifications tab
-#### type is the type of notifcation, which will specfiy how to handle the notification during various stages (see notifications.py for types)
+#### type is the type of notifcation, which will specfiy how
+### to handle the notification during various stages (see notifications.py for types)
 #### data1-data4 are generic string variables meant for storing data related to the notification
 def new_notification(email, titl, desc, type, data):
     db.session.add(
@@ -26,22 +27,35 @@ def new_notification(email, titl, desc, type, data):
 #### Given a user email, returns all pending notifications of that user
 #### as a list of dictionaries
 def get_notifications(user_query_email):
-    notifications = db.session.query(tables.Notifications).filter_by(user_email=user_query_email).all()
+    notifications = (
+        db.session.query(tables.Notifications)
+        .filter_by(user_email=user_query_email)
+        .all()
+    )
     db.session.close()
     if not notifications:
         return {"success": False, "response": {}}
     response = []
     for notification in notifications:
-        response.append({"id": notification.id, "email": notification.email, "title": notification.title, "description": notification.description})
+        response.append(
+            {
+                "id": notification.id,
+                "email": notification.email,
+                "title": notification.title,
+                "description": notification.description,
+            }
+        )
     return response
 
 
-#### resolve 
+#### resolve
 def resolve_notification(not_id, answer):
     notification = db.session.query(tables.Notifications).filter_by(id=not_id).first()
     if notification.type == "connection_confirm":
         if answer["accept"] == True:
-            imp_util.connections.on_new_connection({"user1_email": notification.data1, "user2_email": notification.data2})
+            imp_util.connections.on_new_connection(
+                {"user1_email": notification.data1, "user2_email": notification.data2}
+            )
     db.session.delete(notification)
     db.session.commit()
     db.session.close()

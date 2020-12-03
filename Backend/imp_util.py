@@ -11,5 +11,4 @@ import groups
 import s3
 import qr
 import linkedin
-import groups
 import notifications
