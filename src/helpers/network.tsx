@@ -1,7 +1,7 @@
 import user from "../../config/user";
 import { LinkedInToken } from "react-native-linkedin";
 
-const url = "https://njit-cs490-project3-impression.herokuapp.com";
+const url = "http://192.168.2.15:8080";
 
 export function getCallParams(body: any) {
   return {

@@ -4,7 +4,7 @@ import styles from "./ContactsStyle";
 import ContactList from "../components/ContactList";
 import GroupList from "../components/GroupList";
 import { User, Group } from "../helpers/interfaces";
-import { getConnections, newGroup, getNearbyUsers, batchNewUsers } from "../helpers/network";
+import { getConnections, newGroup, getNearbyUsers, batchNewUsers, newConnection } from "../helpers/network";
 import user from "../../config/user";
 import { Appbar, Button } from 'react-native-paper';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -118,10 +118,24 @@ function ContactsScreen({ navigation }: any) {
     }
 
     let location = await Location.getCurrentPositionAsync({});
-    getNearbyUsers(user.email, location.coords)
+    ToastAndroid.show('Fetchiing nearby users...', ToastAndroid.SHORT);
+
+    getNearbyUsers(user.email, location.coords).then(data => data.json()).then(async json => {
+
+      if(json["data"].length == 0){
+        ToastAndroid.show('No users nearby', ToastAndroid.LONG);
+      } else {
+        for(let i = 0; i < json.data.length; i++){
+          const person = json.data[i];
+          await newConnection(person.email)
+        }
+        getConnections(user.email)
+        ToastAndroid.show('Users nearby have been added to your conenctions', ToastAndroid.LONG);
+      }
+    })
   }
 
-  const updateKeyword = (value) => {
+  const updateKeyword = (value:string) => {
     setKeyword(value);
   };
   useEffect(() => {

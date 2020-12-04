@@ -16,12 +16,9 @@ function GroupScreen({ navigation }: any) {
         getGroups(user.email).then(response => response.json()).then(json => {
             if (json["success"]) {
                 setGroupConnections(json["response"]);
-            } else {
-                Alert.alert("Error", "There was an error fetching your groups")
-            }
+            } 
         }).catch(err => {
             console.log(err);
-            Alert.alert("Error", "There was an error fetching your groups")
         })
     }
     const makeListeners = () => {
