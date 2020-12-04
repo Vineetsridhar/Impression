@@ -13,6 +13,8 @@ import users
 #### adds them as a new connection to the DB if such a connection does not already exist.
 #### Returns -1 if such a connection already exists, and 0 if the connection was added.
 def on_new_connection(data):
+    if data["user1_email"] == data["user2_email"]:
+        return {"success": False}
     try:
         for connection in (
             DB.session.query(tables.Connections)

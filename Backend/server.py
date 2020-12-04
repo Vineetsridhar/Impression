@@ -223,9 +223,10 @@ def on_group__share_contact():
     data = flask.request.json
 
 
-@APP.route("/get_nearby_users")
+@APP.route("/get_nearby_users", methods=["POST"])
 def get_nearby_users():
     data = flask.request.json
+    print(data)
     imp_util.geo.add_geo(data["email"], data["latitude"], data["longitude"])
     return imp_util.geo.query_nearby(data["email"])
 

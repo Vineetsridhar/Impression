@@ -12,7 +12,12 @@ import imp_util
 import math
 
 def add_geo(email, lat, lon):
-    DB.session.add(tables.geo_loc(email,lat,lon))
+    user = DB.session.query(tables.geo_loc).filter_by(email=email).first()
+    if not user:
+        DB.session.add(tables.geo_loc(email,lat,lon))
+    else:
+        user.latitude = lat
+        user.longitude = lon
     DB.session.commit()
     DB.session.close()
     
@@ -34,4 +39,7 @@ def query_nearby(query_email):
         c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
         distance = c * 6373.0 # distance is in meters
         if distance <= 150:
-            nearby.append(imp_util.users.get_user(user.email))
+            current_user = imp_util.users.get_user(user.email)
+            if current_user["email"] != query_email:
+                nearby.append(current_user)
+    return {"data":nearby}
