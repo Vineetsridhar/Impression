@@ -10,7 +10,6 @@ import colors from '../../config/colors';
 import ContactDetailRow from "../components/ContactDetailRow";
 import LinkImage from "./LinkImage";
 import { deleteConnection, getConnections } from "../helpers/network";
-import ContactsScreen from "./ContactScreen";
 
 const iconMap = {
   "email": "envelope",
@@ -86,7 +85,7 @@ export default function ContactDetail({ route }: { route: any }) {
         <Appbar.Header style={{ backgroundColor: 'white' }} >
           <Appbar.BackAction onPress={() => { navigation.navigate("Contacts"); }} />
           <Appbar.Content title="Contact Details" />
-          <Appbar.Action icon="archive" type="entypo" onPress={deleteContact} />
+          <Appbar.Action icon="delete" onPress={deleteContact} />
         </Appbar.Header>
       </View>
 
