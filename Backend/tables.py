@@ -84,4 +84,14 @@ class Notifications(DB.Model):
         self.data1 = data4
 
 
+class geo_loc(DB.Model):
+    email = DB.Column(DB.String(128), primary_key=True)
+    latitude = DB.Column(DB.Float(16))
+    longitude = DB.Column(DB.Float(16))
+    
+    def __init__(self, ema, lat, lon):
+        self.email = ema
+        self.latitude = lat
+        self.longitude = lon
+
 DB.create_all()

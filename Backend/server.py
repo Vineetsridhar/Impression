@@ -226,13 +226,8 @@ def on_group__share_contact():
 @APP.route("/get_nearby_users")
 def get_nearby_users():
     data = flask.request.json
-    latitude = data["latitude"]
-    longitude = data["longitude"]
-    email = data["email"]
-    # Fetch all nearby users
-    # Add current user to nearby users
-    # Return nearby users
-    return []
+    imp_util.geo.add_geo(data["email"], data["latitude"], data["longitude"])
+    return imp_util.geo.query_nearby(data["email"])
 
 
 @APP.route("/linkedin_login", methods=["POST"])
