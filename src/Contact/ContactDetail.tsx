@@ -30,15 +30,15 @@ const links = ["gen_link_1", "gen_link_2", "gen_link_3"]
 export default function ContactDetail({ route }: { route: any }) {
   const { user }: { user: User } = route.params;
   const navigation = useNavigation();
-
+  let deleteMsg = "Are you sure you want to delete " + user.first_name + " " + user.last_name + " as a contact?";
   const deleteContact = () => {
     Alert.alert(
-      "Delete Contact",
-      "Are you sure you want to delete?",
+      "Confirm Delete",
+      deleteMsg,
       [
         {
           text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
+          onPress: () => console.log("Canceling Delete Contact"),
           style: "cancel"
         },
         {
@@ -50,7 +50,7 @@ export default function ContactDetail({ route }: { route: any }) {
   }
 
   const deleteContactHelper = () => {
-    console.log("deleted");
+    console.log("Contact Deleted");
     navigation.navigate("Contacts");
     deleteConnection(user.email)
     .then(result => result.text())
