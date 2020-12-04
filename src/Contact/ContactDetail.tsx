@@ -10,6 +10,7 @@ import colors from '../../config/colors';
 import ContactDetailRow from "../components/ContactDetailRow";
 import LinkImage from "./LinkImage";
 import { deleteConnection, getConnections } from "../helpers/network";
+import ContactsScreen from "./ContactScreen";
 
 const iconMap = {
   "email": "envelope",
@@ -32,6 +33,26 @@ export default function ContactDetail({ route }: { route: any }) {
   const navigation = useNavigation();
 
   const deleteContact = () => {
+    Alert.alert(
+      "Delete Contact",
+      "Are you sure you want to delete?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        {
+          text: "OK",
+          onPress: () => deleteContactHelper()
+        }
+      ]
+    )
+  }
+
+  const deleteContactHelper = () => {
+    console.log("deleted");
+    navigation.navigate("Contacts");
     deleteConnection(user.email)
     .then(result => result.text())
     .then(responseData => {
