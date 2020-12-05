@@ -111,7 +111,7 @@ def leave_group(g_id, name, email):
     try:
         row = (DB.session.query(tables.Groups)
         .filter_by(group_id=g_id, group_name=name, user_email=email))
-        row.delete()
+        DB.session.delete(row)
         DB.session.commit()
     except:
         print("Error: " + sys.exc_info()[0])
