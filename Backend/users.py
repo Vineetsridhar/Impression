@@ -28,12 +28,12 @@ def get_user(query_user_email):
             "image": user.image,
             "doc": user.doc,
         }
+        return response
     except:
         print("Error: " + sys.exc_info()[0])
         return {"success": False}
     finally:
         DB.session.close()
-    return response
 
 
 def new_user(email, fname, lname, image):
@@ -74,9 +74,9 @@ def edit_user(account):
         user.gen_link_1 = account["gen_link_1"]
         user.gen_link_2 = account["gen_link_2"]
         DB.session.commit()
+        return {"success": True}
     except:
         print("Error: " + sys.exc_info()[0])
         return {"success": False}
     finally:
         DB.session.close()
-    return {"success": True}

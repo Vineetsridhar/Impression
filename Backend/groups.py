@@ -32,12 +32,12 @@ def get_groups(email):
             resp.append(
                 {"group_name": each_group.group_name, "group_id": each_group.group_id}
             )
+        return {"success": True, "response": resp}
     except:
         print("Error: " + sys.exc_info()[0])
         return {"success": False}
     finally:
         DB.session.close()
-    return {"success": True, "response": resp}
 
 
 #### Get list of users' emails from a group
@@ -53,12 +53,12 @@ def get_users(name):
             return {"success": False}
         for each_group in group:
             resp.append(row2dict(each_group.Users))
+        return {"success": True, "response": resp}
     except:
         print("Error: " + sys.exc_info()[0])
         return {"success": False}
     finally:
         DB.session.close()
-    return {"success": True, "response": resp}
 
 
 #### Make new group--
@@ -81,12 +81,12 @@ def new_group(name, emails):
                 DB.session.commit()
             DB.session.close()
             return {"success": True}
+        return {"success": False}
     except:
         print("Error: " + sys.exc_info()[0])
         return {"success": False}
     finally:
         DB.session.close()
-    return {"success": False}
 
 #### add user to an already existing group
 def add_user(name, email):
@@ -99,12 +99,13 @@ def add_user(name, email):
         last_id = group.group_id
         DB.session.add(tables.Groups(last_id, name, email))
         DB.session.commit()
+        return {"success": True}
     except:
         print("Error: " + sys.exc_info()[0])
         return {"success": False}
     finally:
         DB.session.close()
-    return {"success": True}
+
     
 #### have a user leave a group
 def leave_group(g_id, name, email):
@@ -113,12 +114,12 @@ def leave_group(g_id, name, email):
         .filter_by(group_id=g_id, group_name=name, user_email=email))
         DB.session.delete(row)
         DB.session.commit()
+        return {"success": True}
     except:
         print("Error: " + sys.exc_info()[0])
         return {"success": False}
     finally:
         DB.session.close()
-    return {"success": True}
 
 #### sharing documents in a group
 def group_share_doc(url, groupid):

@@ -22,12 +22,12 @@ def new_notification(email, titl, desc, type, data):
             )
         )
         DB.session.commit()
+        return {"success": True}
     except:
         print("Error: " + sys.exc_info()[0])
         return {"success": False}
     finally:
         DB.session.close()
-    return {"success": True}
 
 
 #### Given a user email, returns all pending notifications of that user
@@ -51,12 +51,12 @@ def get_notifications(user_query_email):
                     "description": notification.description,
                 }
             )
+        return response
     except:
         print("Error: " + sys.exc_info()[0])
         return {"success": False}
     finally:
         DB.session.close()
-    return response
 
 
 #### resolve
@@ -70,9 +70,9 @@ def resolve_notification(not_id, answer):
                 )
         DB.session.delete(notification)
         DB.session.commit()
+        return {"success": True}
     except:
         print("Error: " + sys.exc_info()[0])
         return {"success": False}
     finally:
         DB.session.close()
-    return {"success": True}
