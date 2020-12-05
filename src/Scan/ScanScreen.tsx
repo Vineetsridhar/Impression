@@ -4,6 +4,7 @@ import {
   StyleSheet,
   InteractionManager,
   AsyncStorage,
+  ToastAndroid,
 } from "react-native";
 import { Camera } from "expo-camera";
 import metrics from "../../config/metrics";
@@ -78,10 +79,13 @@ export default function ScanScreen({ navigation }: any) {
       newConnection(email)
         .then((response) => response.json())
         .then((json) => {
-          navigation.navigate("Contacts", {
-            screen: "ContactDetail",
-            params: { user: json },
-          });
+          if (!json["success"]) {
+            ToastAndroid.show("There was an error with this QR code", ToastAndroid.LONG);
+          } else
+            navigation.navigate("Contacts", {
+              screen: "ContactDetail",
+              params: { user: json },
+            });
         });
     }
   };
