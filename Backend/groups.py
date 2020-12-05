@@ -8,6 +8,7 @@ from sqlalchemy import desc
 from server import DB
 import tables
 import imp_util
+import sys
 
 # From https://stackoverflow.com/questions/1958219/convert-sqlalchemy-row-object-to-python-dict
 def row2dict(row):
@@ -72,9 +73,41 @@ def new_group(name, emails):
     DB.session.close()
     return {"success": False}
 
+#### add user to an already existing group
+def add_user(name, email):
+    try:
+        group = (
+            DB.session.query(tables.Groups)
+            .filter_by(group_name=name)
+            .order_by(desc(tables.Groups.group_id))
+            .first())
+        last_id = group.group_id
+        DB.session.add(tables.Groups(last_id, name, email))
+        DB.session.commit()
+    except:
+        print("Error: " + sys.exc_info()[0])
+        return {"success": False}
+    finally:
+        DB.session.close()
+    return {"success": True}
+    
+#### have a user leave a group
+def leave_group(g_id, name, email):
+    try:
+        row = (DB.session.query(tables.Groups)
+        .filter_by(group_id=g_id, group_name=name, user_email=email))
+        row.delete()
+        DB.session.commit()
+    except:
+        print("Error: " + sys.exc_info()[0])
+        return {"success": False}
+    finally:
+        DB.session.close()
+    return {"success": True}
 
+#### sharing documents in a group
 def group_share_doc(url, groupid):
-    group = DB.session.query(tables.Group).filter_by(group_id=id).all()
+    group = DB.session.query(tables.Groups).filter_by(group_id=id).all()
     members = []
     for member in group:
         members.append(

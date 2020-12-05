@@ -130,8 +130,6 @@ def get_user():
 #### GROUPS
 
 #### Makes new group given name and user email
-
-
 @APP.route("/new_group", methods=["POST"])
 def new_group():
     data = flask.request.json
@@ -150,6 +148,20 @@ def get_users_list():
 def get_user_groups_list():
     query_email = flask.request.json
     return imp_util.groups.get_groups(query_email["email"])
+
+
+#### Given a group name and email, adds user to existing group
+@APP.route("/add_user", methods=["POST"])
+def add_user():
+    data = flask.request.json
+    return imp_util.groups.add_user(data["group_name"], data["email"])
+
+
+#### Given a group id, group name, and email, removes user from group
+@APP.route("/leave_group", methods=["POST"])
+def leave_group():
+    data = flask.request.json
+    return imp_util.groups.leave_group(data["group_id"], data["group_name"], data["email"])
 
 
 #### CONNECTIONS
