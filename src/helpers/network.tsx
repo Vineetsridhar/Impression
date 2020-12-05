@@ -103,3 +103,23 @@ export function getNearbyUsers(email: string, coordinates: any) {
     getCallParams({ email, ...coordinates })
   )
 }
+
+
+export function uploadGroupDocument(file: any) {
+  const body = new FormData();
+  body.append('file', {
+    uri: file.uri,
+    type: `application/pdf`,
+    name: file.name
+  });
+
+  body.append("email", user.email)
+
+  return fetch(
+    `${url}/upload_group_doc`,
+    {
+      method: 'POST',
+      body,
+    }
+  )
+}

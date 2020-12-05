@@ -16,3 +16,8 @@ export interface Group {
   user_id: number;
   group_name: string;
 }
+
+export interface Document {
+  name:string,
+  url:string
+}
