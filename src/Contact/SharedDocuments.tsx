@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ToastAndroid } from 'react-native';
 import { Button } from 'react-native-paper';
 import {Document} from '../helpers/interfaces'
 import { FlatList } from 'react-native-gesture-handler';
+import { getGroupDocuments } from '../helpers/network';
 
 interface props {
-    navigation: any
+    navigation: any,
+    route:any
 }
-export default function SharedDocument({ navigation }: props) {
+export default function SharedDocument({ navigation, route }: props) {
 
     const [documents,setDocuments] = useState<Document[]>([]);
 
     useEffect(() => {
-        //Make call to fetch all group docs
+        getGroupDocuments(route.params.name).then(response => response.json()).then(json => {
+            if(json["success"]){
+                setDocuments(json["data"])
+            } else {
+                ToastAndroid.show("Error getting group docs data", ToastAndroid.LONG);
+            }
+        })
     }, [])
 
     const documentItem = ({item}:{item:Document}) => {

@@ -123,3 +123,11 @@ export function uploadGroupDocument(file: any) {
     }
   )
 }
+
+
+export function getGroupDocuments(groupName: string) {
+  return fetch(
+    `${url}/get_group_documents`,
+    getCallParams({ group_name: groupName })
+  );
+}
