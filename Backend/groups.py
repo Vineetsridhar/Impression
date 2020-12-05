@@ -23,54 +23,69 @@ def row2dict(row):
 
 #### Get list of groups a user is in
 def get_groups(email):
-    group = DB.session.query(tables.Groups).filter_by(user_email=email).all()
-    DB.session.close()
-    resp = []
-    if not group:
+    try:
+        group = DB.session.query(tables.Groups).filter_by(user_email=email).all()
+        resp = []
+        if not group:
+            return {"success": False}
+        for each_group in group:
+            resp.append(
+                {"group_name": each_group.group_name, "group_id": each_group.group_id}
+            )
+    except:
+        print("Error: " + sys.exc_info()[0])
         return {"success": False}
-    for each_group in group:
-        resp.append(
-            {"group_name": each_group.group_name, "group_id": each_group.group_id}
-        )
+    finally:
+        DB.session.close()
     return {"success": True, "response": resp}
 
 
 #### Get list of users' emails from a group
 def get_users(name):
-    group = (
-        DB.session.query(tables.Groups, tables.Users)
-        .filter_by(group_name=name, user_email=tables.Users.email)
-        .all()
-    )
-    DB.session.close()
-    resp = []
-    if not group:
+    try:
+        group = (
+            DB.session.query(tables.Groups, tables.Users)
+            .filter_by(group_name=name, user_email=tables.Users.email)
+            .all()
+        )
+        resp = []
+        if not group:
+            return {"success": False}
+        for each_group in group:
+            resp.append(row2dict(each_group.Users))
+    except:
+        print("Error: " + sys.exc_info()[0])
         return {"success": False}
-    for each_group in group:
-        resp.append(row2dict(each_group.Users))
+    finally:
+        DB.session.close()
     return {"success": True, "response": resp}
 
 
 #### Make new group--
 #### given name of group and array of emails
 def new_group(name, emails):
-    group = DB.session.query(tables.Groups).filter_by(group_name=name).all()
-    if not group:
-        last_id = (
-            DB.session.query(tables.Groups)
-            .order_by(desc(tables.Groups.group_id))
-            .first()
-        )
-        if not last_id:
-            last_id = 0
-        else:
-            last_id = last_id.group_id
-        for each_email in emails:
-            DB.session.add(tables.Groups(last_id + 1, name, each_email))
-            DB.session.commit()
+    try:
+        group = DB.session.query(tables.Groups).filter_by(group_name=name).all()
+        if not group:
+            last_id = (
+                DB.session.query(tables.Groups)
+                .order_by(desc(tables.Groups.group_id))
+                .first()
+            )
+            if not last_id:
+                last_id = 0
+            else:
+                last_id = last_id.group_id
+            for each_email in emails:
+                DB.session.add(tables.Groups(last_id + 1, name, each_email))
+                DB.session.commit()
+            DB.session.close()
+            return {"success": True}
+    except:
+        print("Error: " + sys.exc_info()[0])
+        return {"success": False}
+    finally:
         DB.session.close()
-        return {"success": True}
-    DB.session.close()
     return {"success": False}
 
 #### add user to an already existing group
@@ -107,11 +122,18 @@ def leave_group(g_id, name, email):
 
 #### sharing documents in a group
 def group_share_doc(url, groupid):
-    group = DB.session.query(tables.Groups).filter_by(group_id=id).all()
-    members = []
-    for member in group:
-        members.append(
-            DB.session.query(tables.Users).filter_by(email=member.user_email)
-        )
-    for user in members:
-        imp_util.notifications.new_notification(user.email, "New Document From Group", "accept new document shared from your group?", "group_share_doc", [url,"","",""])
+    try:
+        group = DB.session.query(tables.Groups).filter_by(group_id=id).all()
+        members = []
+        for member in group:
+            members.append(
+                DB.session.query(tables.Users).filter_by(email=member.user_email)
+            )
+            DB.session.close()
+        for user in members:
+            imp_util.notifications.new_notification(user.email, "New Document From Group", "accept new document shared from your group?", "group_share_doc", [url,"","",""])
+    except:
+        print("Error: " + sys.exc_info()[0])
+        return {"success": False}
+    finally:
+        DB.session.close()
