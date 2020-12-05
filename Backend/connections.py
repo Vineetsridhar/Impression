@@ -8,6 +8,7 @@ import flask_sqlalchemy
 from server import DB
 import tables
 import users
+import sys
 
 #### Given 2 user emails,
 #### adds them as a new connection to the DB if such a connection does not already exist.
@@ -36,10 +37,12 @@ def on_new_connection(data):
             return users.get_user(data["user2_email"])
         DB.session.add(tables.Connections(data["user1_email"], data["user2_email"]))
         DB.session.commit()
-        DB.session.close()
         return users.get_user(data["user2_email"])
     except:
+        print("Error: " + sys.exc_info()[0])
         return {"success": False}
+    finally:
+        DB.session.close()
 
 
 #### Given 2 user emails,
@@ -47,30 +50,34 @@ def on_new_connection(data):
 #### Returns -1 if such a connection does not exist,
 #### and 0 if the connection existed and was deleted.
 def on_delete_connection(data):
-    for connection in (
-        DB.session.query(tables.Connections)
-        .filter(
-            (tables.Connections.user1_email == data["user1_email"])
-            & (tables.Connections.user2_email == data["user2_email"])
-        )
-        .all()
-    ):
-        DB.session.delete(connection)
-        DB.session.commit()
-        return {"success":True}
-    for connection in (
-        DB.session.query(tables.Connections)
-        .filter(
-            (tables.Connections.user1_email == data["user2_email"])
-            & (tables.Connections.user2_email == data["user1_email"])
-        )
-        .all()
-    ):
-        DB.session.delete(connection)
-        DB.session.commit()
-        return {"success":True}
-
-    DB.session.close()
+    try:
+        for connection in (
+            DB.session.query(tables.Connections)
+            .filter(
+                (tables.Connections.user1_email == data["user1_email"])
+                & (tables.Connections.user2_email == data["user2_email"])
+            )
+            .all()
+        ):
+            DB.session.delete(connection)
+            DB.session.commit()
+            return {"success":True}
+        for connection in (
+            DB.session.query(tables.Connections)
+            .filter(
+                (tables.Connections.user1_email == data["user2_email"])
+                & (tables.Connections.user2_email == data["user1_email"])
+            )
+            .all()
+        ):
+            DB.session.delete(connection)
+            DB.session.commit()
+            return {"success":True}
+    except:
+        print("Error: " + sys.exc_info()[0])
+        return {"success": False}
+    finally:
+        DB.session.close()
     return {"success":False}
 
 
@@ -90,7 +97,6 @@ def on_query_connections(data):
             )
             .all()
         )
-        DB.session.close()
         for connection in result:
             if connection.user1_email == data["user_email"]:
                 connected_user = users.get_user(connection.user2_email)
@@ -103,3 +109,6 @@ def on_query_connections(data):
         return response
     except Exception as err:
         print(err)
+        return {"success": False}
+    finally:
+        DB.session.close()
