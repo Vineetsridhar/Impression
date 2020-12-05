@@ -149,6 +149,23 @@ def get_user_groups_list():
     query_email = flask.request.json
     return imp_util.groups.get_groups(query_email["email"])
 
+@APP.route("/upload_group_doc", methods=["POST"])
+def on_upload_group_doc():
+    form = flask.request.form
+    data = flask.request.files["file"]
+    #upload doc
+    return {"success":True} #return from helper function
+
+#### Given a group name, returns a list of groups a user is in
+@APP.route("/get_group_documents", methods=["POST"])
+def get_group_documents():
+    data = flask.request.json
+    group_name = data["group_name"]
+    #Get group docs
+    return {"success":True, "data":[]}
+
+
+
 
 #### Given a group name and email, adds user to existing group
 @APP.route("/add_user", methods=["POST"])
