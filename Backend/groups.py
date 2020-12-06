@@ -116,7 +116,7 @@ def leave_group(g_id, name, email):
         DB.session.commit()
         return {"success": True}
     except:
-        print("Error: " + sys.exc_info()[0])
+        print("Error: " + str(sys.exc_info()[0]))
         return {"success": False}
     finally:
         DB.session.close()
