@@ -36,10 +36,36 @@ def upload(filename, key):
 
 def upload_pdf(user_email):
     filename = str(WORKING_DIR) + "/temp/resume_" + user_email + ".pdf"
-    S3.upload(filename, user_email + "/resume.pdf")
+    upload(filename, user_email + "/resume.pdf")
     os.remove(filename)
 
 
+def upload_group_pdf(groupid, fileKey):
+    try:
+        filePath = str(WORKING_DIR) + "/temp/groupdoc_" + groupid + "_" + fileKey + ".pdf"
+        amazonName = "group_" + groupid + "/" + fileKey
+        upload(filePath, amazonName)
+        os.remove(filePath)
+        return {"success": True}
+    except:
+        print(SERVER_PREFIX + "Error: failed to upload group doc")
+        return {"success": False}
+    
+    
+#### Given a groupid, returns filenames and file URLS of all relevent docs belonging to that group
+def get_groupdocs(groupid):
+    try:
+        conn = boto3.client('s3')  # again assumes boto.cfg setup, assume AWS S3
+        docs = []
+        for file in conn.list_objects(Bucket='impression-app')['Contents']:
+            if file['Key'].split("/")[0] == ("group_" + str(groupid)):
+                docs.append({"name": file['Key'].split("/")[1],"url":"https://impression-app.s3.amazonaws.com/" + file['Key']})
+        return {"success": True, "response": docs}
+    except:
+        print(SERVER_PREFIX + "Error: could not retrieve group documents")
+        return {"success": False}
+        
+        
 ####
 def s3_get_user_data(user_email, data):
     if data == "qr":

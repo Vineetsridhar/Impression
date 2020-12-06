@@ -103,3 +103,32 @@ export function getNearbyUsers(email: string, coordinates: any) {
     getCallParams({ email, ...coordinates })
   )
 }
+
+
+export function uploadGroupDocument(file: any, groupId: number) {
+  const body = new FormData();
+  body.append('file', {
+    uri: file.uri,
+    type: `application/pdf`,
+    name: file.name
+  });
+
+  body.append("filename", file.name);
+  body.append("groupid", groupId.toString());
+
+  return fetch(
+    `${url}/upload_group_pdf`,
+    {
+      method: 'POST',
+      body,
+    }
+  )
+}
+
+
+export function getGroupDocuments(groupid: number) {
+  return fetch(
+    `${url}/get_group_docs`,
+    getCallParams({ groupid })
+  );
+}

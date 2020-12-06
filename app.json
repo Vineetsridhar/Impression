@@ -20,10 +20,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/logo.png",
-        "backgroundColor": "#FFFFFF",
-        "icon":"./src/assets/logo.png"
+        "foregroundImage": "./src/assets/img/logo.png",
+        "backgroundColor": "#FFFFFF"
       },
+      "icon":"./src/assets/img/logo.png",
       "config": {
         "googleSignIn": {
           "apiKey": "AIzaSyC9niOAeax7bmZzF215V4_760ZoonfD41A",

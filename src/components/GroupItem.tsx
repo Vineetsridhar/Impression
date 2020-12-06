@@ -15,7 +15,11 @@ export default function GroupItem({ group }: { group: Group }) {
   return (
     <TouchableOpacity style={styles.rowContainer} onPress={() => {
       getUserFromGroups(group.group_name).then(res => res.json()).then(json => {
-        navigation.navigate("GroupDetail", { data: json["response"], name: group.group_name });
+        navigation.navigate("GroupDetail", {
+          data: json["response"], 
+          name: group.group_name,
+          groupId: group.group_id
+        });
       })
     }}>
       <View style={styles.innerContainer}>
