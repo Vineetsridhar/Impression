@@ -186,7 +186,6 @@ def on_upload_group_doc():
 @APP.route("/get_group_docs", methods=["POST"])
 def on_get_group_doc():
     data = flask.request.json
-    print(data)
     return imp_util.s3.get_groupdocs(data["groupid"])
 
 
