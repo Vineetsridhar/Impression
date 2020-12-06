@@ -120,21 +120,3 @@ def leave_group(g_id, name, email):
         return {"success": False}
     finally:
         DB.session.close()
-
-#### sharing documents in a group
-def group_share_doc(url, groupid):
-    try:
-        group = DB.session.query(tables.Groups).filter_by(group_id=id).all()
-        members = []
-        for member in group:
-            members.append(
-                DB.session.query(tables.Users).filter_by(email=member.user_email)
-            )
-            DB.session.close()
-        for user in members:
-            imp_util.notifications.new_notification(user.email, "New Document From Group", "accept new document shared from your group?", "group_share_doc", [url,"","",""])
-    except:
-        print("Error: " + sys.exc_info()[0])
-        return {"success": False}
-    finally:
-        DB.session.close()

@@ -164,9 +164,6 @@ def leave_group():
     return imp_util.groups.leave_group(data["group_id"], data["group_name"], data["email"])
 
 
-#### CONNECTIONS
-
-
 @APP.route("/upload_doc", methods=["POST"])
 def on_upload_doc():
     form = flask.request.form
@@ -175,6 +172,24 @@ def on_upload_doc():
     imp_util.s3.upload_pdf(form["email"])
     return {}
 
+
+#### Form requires groupid and filename
+@APP.route("/upload_group_pdf", methods=["POST"])
+def on_upload_group_doc():
+    form = flask.request.form
+    data = flask.request.files["file"]
+    data.save("temp/groupdoc_" + form["groupid"] + "_" + form["filename"] + ".pdf")
+    return imp_util.s3.upload_group_pdf(form["groupid"], form["filename"])
+
+
+#### Requires groupid, returns response json with a list of dictionaries that contains filenames and urls of docs
+@APP.route("/get_group_docs", methods=["POST"])
+def on_get_group_doc():
+    data = flask.request.json
+    return imp_util.s3.get_groupdocs(data["groupid"])
+
+
+#### CONNECTIONS
 
 #### Given 2 user emails, adds them as a new connection
 #### to the DB if such a connection does not already exist.
