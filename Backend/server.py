@@ -30,11 +30,11 @@ DEVELOPER_NAMES = {
 ABOUT_ME = {
     "Chris": "About Me.",
     "Vineet": "About Me.",
-    "Rami": "About Me.",
+    "Rami": "Hello! I'm currently a Senior undergraduate at NJIT pursuing a B.S. in Computer Science. I particularly ",
     "Stephanie": "About Me.",
 }
 
-LINKS = {"Chris": "Links.", "Vineet": "Links.", "Rami": "Links.", "Stephanie": "Links."}
+LINKS = {"Chris": "Links.", "Vineet": "Links.", "Rami": " Find me on: GitHub:https://github.com/Bazoqa LinkedIn: https://www.linkedin.com/in/bazoqa/", "Stephanie": "Links."}
 
 CONTACT_INFO = {
     "Chris": "Contact Info.",

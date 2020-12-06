@@ -59,13 +59,13 @@ def get_groupdocs(groupid):
         docs = []
         for file in conn.list_objects(Bucket='impression-app')['Contents']:
             if file['Key'].split("/")[0] == ("group_" + groupid):
-                docs.append({"filename": file['Key'].split("/")[1],"url":"https://impression-app.s3.amazonaws.com/" + file['Key']})
+                docs.append({"name": file['Key'].split("/")[1],"url":"https://impression-app.s3.amazonaws.com/" + file['Key']})
         return {"success": True, "response": docs}
     except:
         print(SERVER_PREFIX + "Error: could not retrieve group documents")
         return {"success": False}
         
-    
+        
 ####
 def s3_get_user_data(user_email, data):
     if data == "qr":
