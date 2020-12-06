@@ -15,6 +15,7 @@ export interface User {
 export interface Group {
   user_id: number;
   group_name: string;
+  group_id: number
 }
 
 export interface Document {

@@ -58,7 +58,6 @@ function GroupScreen({ navigation }: any) {
     } else if (Array.isArray(filteredGroupList)) {
       setGroupConnections(filteredGroupList);
     }
-    console.log(groupConnections);
     if (keyword === "" || !keyword.trim().length) refreshData();
   };
 
@@ -86,7 +85,7 @@ function GroupScreen({ navigation }: any) {
             color: colors.text,
             fontFamily: font.regular,
           }}
-          placeholder="Search Contacts"
+          placeholder="Search Groups"
         />
       </View>
       <GroupList group={groupConnections} />

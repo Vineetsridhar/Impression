@@ -14,9 +14,9 @@ export default function SharedDocument({ navigation, route }: props) {
     const [documents,setDocuments] = useState<Document[]>([]);
 
     useEffect(() => {
-        getGroupDocuments(route.params.name).then(response => response.json()).then(json => {
+        getGroupDocuments(route.params.groupId).then(response => response.json()).then(json => {
             if(json["success"]){
-                setDocuments(json["data"])
+                setDocuments(json["response"])
             } else {
                 ToastAndroid.show("Error getting group docs data", ToastAndroid.LONG);
             }

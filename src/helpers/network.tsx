@@ -105,7 +105,7 @@ export function getNearbyUsers(email: string, coordinates: any) {
 }
 
 
-export function uploadGroupDocument(file: any) {
+export function uploadGroupDocument(file: any, groupId: number) {
   const body = new FormData();
   body.append('file', {
     uri: file.uri,
@@ -113,10 +113,11 @@ export function uploadGroupDocument(file: any) {
     name: file.name
   });
 
-  body.append("email", user.email)
+  body.append("filename", file.name);
+  body.append("groupid", groupId.toString());
 
   return fetch(
-    `${url}/upload_group_doc`,
+    `${url}/upload_group_pdf`,
     {
       method: 'POST',
       body,
@@ -125,9 +126,9 @@ export function uploadGroupDocument(file: any) {
 }
 
 
-export function getGroupDocuments(groupName: string) {
+export function getGroupDocuments(groupid: number) {
   return fetch(
-    `${url}/get_group_documents`,
-    getCallParams({ group_name: groupName })
+    `${url}/get_group_docs`,
+    getCallParams({ groupid })
   );
 }

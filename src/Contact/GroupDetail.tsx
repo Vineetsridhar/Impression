@@ -9,12 +9,12 @@ import { uploadGroupDocument } from '../helpers/network'
 
 export default function GroupDetail({ navigation, route }: any) {
     const goToDocs = () => {
-        navigation.push("GroupDocuments", { name: route.params.name })
+        navigation.push("GroupDocuments", { name: route.params.name, groupId: route.params.groupId })
     }
 
     const uploadDoc = async (file: DocumentPicker.DocumentResult) => {
         if (file != null) {
-            uploadGroupDocument(file).then(response => response.json()).then(json => {
+            uploadGroupDocument(file, route.params.groupId).then(response => response.json()).then(json => {
                 if(json["success"]){
                     ToastAndroid.show("Your document has been shared with the group", ToastAndroid.LONG);
                 } else {
