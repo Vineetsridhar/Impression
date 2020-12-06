@@ -43,7 +43,7 @@ def upload_pdf(user_email):
 def upload_group_pdf(groupid, fileKey):
     try:
         filePath = str(WORKING_DIR) + "/temp/groupdoc_" + groupid + "_" + fileKey + ".pdf"
-        amazonName = "group_" + groupid + "/" + fileKey + ".pdf"
+        amazonName = "group_" + groupid + "/" + fileKey
         upload(filePath, amazonName)
         os.remove(filePath)
         return {"success": True}
@@ -58,7 +58,7 @@ def get_groupdocs(groupid):
         conn = boto3.client('s3')  # again assumes boto.cfg setup, assume AWS S3
         docs = []
         for file in conn.list_objects(Bucket='impression-app')['Contents']:
-            if file['Key'].split("/")[0] == ("group_" + groupid):
+            if file['Key'].split("/")[0] == ("group_" + str(groupid)):
                 docs.append({"name": file['Key'].split("/")[1],"url":"https://impression-app.s3.amazonaws.com/" + file['Key']})
         return {"success": True, "response": docs}
     except:
