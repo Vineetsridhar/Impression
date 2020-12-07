@@ -16,37 +16,36 @@ export default function GroupDetail({ navigation, route }: any) {
     groupName +
     "'s group?";
 
-    const goToDocs = () => {
-        navigation.push("GroupDocuments", { name: route.params.name, groupId: route.params.groupId })
-    }
+  const goToDocs = () => {
+    navigation.push("GroupDocuments", { name: route.params.name, groupId: route.params.groupId })
+  }
 
-    const uploadDoc = async (file: DocumentPicker.DocumentResult) => {
-        if (file != null) {
-            uploadGroupDocument(file, route.params.groupId).then(response => response.json()).then(json => {
-                if(json["success"]){
-                    ToastAndroid.show("Your document has been shared with the group", ToastAndroid.LONG);
-                } else {
-                    throw "error"
-                }
-            }).catch(err => {
-                ToastAndroid.show("There was an error uploading your document", ToastAndroid.LONG);
-            })
+  const uploadDoc = async (file: DocumentPicker.DocumentResult) => {
+    if (file != null) {
+      uploadGroupDocument(file, route.params.groupId).then(response => response.json()).then(json => {
+        if (json["success"]) {
+          ToastAndroid.show("Your document has been shared with the group", ToastAndroid.LONG);
         } else {
-            alert('Please Select File first');
+          throw "error"
         }
-    };
-
-    const documentFetch = () => {
-        DocumentPicker.getDocumentAsync({
-            type: 'application/pdf',
-            copyToCacheDirectory: true
-        }).then(data => {
-            uploadDoc(data)
-        })
+      }).catch(err => {
+        ToastAndroid.show("There was an error uploading your document", ToastAndroid.LONG);
+      })
+    } else {
+      alert('Please Select File first');
     }
+  };
 
-    const handleLeaveGroupAlert = () => {
-    console.log("Leaving " + groupName + "'s group");
+  const documentFetch = () => {
+    DocumentPicker.getDocumentAsync({
+      type: 'application/pdf',
+      copyToCacheDirectory: true
+    }).then(data => {
+      uploadDoc(data)
+    })
+  }
+
+  const handleLeaveGroupAlert = () => {
     Alert.alert("Canceling Leave Group", leaveMsg, [
       {
         text: "Cancel",
@@ -55,7 +54,7 @@ export default function GroupDetail({ navigation, route }: any) {
       },
       {
         text: "OK",
-        onPress: () => handleLeaveGroup(),
+        onPress: handleLeaveGroup,
       },
     ]);
   };
@@ -65,23 +64,24 @@ export default function GroupDetail({ navigation, route }: any) {
       .then((result) => result.json())
       .then((responseData) => {
         console.log(responseData);
+        navigation.pop()
       });
   };
-    return (
-        <ScrollView style={styles.container}>
-            <Text style={styles.title}>{route.params.name}</Text>
-            <ContactList
-                contacts={route.params.data}
-                setButtonVisible={() => { }}
-                selected={new Set<number>()}
-                setSelected={() => { }}
-                isSelection={false}
-                setIsSelection={() => { }} />
-            <Button onPress={documentFetch}>Upload shared document</Button>
-            <Button onPress={goToDocs}>View shared documents</Button>
-            <Button onPress={handleLeaveGroupAlert}>Leave Group</Button>
-        </ScrollView>
-    )
+  return (
+    <ScrollView style={styles.container}>
+      <Text style={styles.title}>{route.params.name}</Text>
+      <ContactList
+        contacts={route.params.data}
+        setButtonVisible={() => { }}
+        selected={new Set<number>()}
+        setSelected={() => { }}
+        isSelection={false}
+        setIsSelection={() => { }} />
+      <Button onPress={documentFetch}>Upload shared document</Button>
+      <Button onPress={goToDocs}>View shared documents</Button>
+      <Button onPress={handleLeaveGroupAlert}>Leave Group</Button>
+    </ScrollView>
+  )
 }
 
 const styles = StyleSheet.create({
