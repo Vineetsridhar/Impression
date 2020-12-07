@@ -178,7 +178,6 @@ def on_upload_doc():
 def on_upload_group_doc():
     form = flask.request.form
     data = flask.request.files["file"]
-    print(SERVER_PREFIX + "temp/groupdoc_" + form["groupid"] + "_" + form["filename"])
     data.save("temp/groupdoc_" + form["groupid"] + "_" + form["filename"])
     return imp_util.s3.upload_group_pdf(form["groupid"], form["filename"])
 
