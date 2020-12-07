@@ -177,7 +177,7 @@ def on_upload_doc():
 @APP.route("/upload_group_pdf", methods=["POST"])
 def on_upload_group_doc():
     try:
-        print(SERVER_PREFIX + os.listdir())
+        print(SERVER_PREFIX + str(os.listdir()))
         form = flask.request.form
         data = flask.request.files["file"]
         data.save("temp/groupdoc_" + form["groupid"] + "_" + form["filename"])
