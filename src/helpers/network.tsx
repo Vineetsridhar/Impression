@@ -1,7 +1,7 @@
 import user from "../../config/user";
 import { LinkedInToken } from "react-native-linkedin";
 
-const url = "http://192.168.2.15:8080";
+const url = "https://cs490-project3-impression-spr2.herokuapp.com/";
 
 export function getCallParams(body: any) {
   return {
@@ -90,6 +90,13 @@ export function getGroups(email: string) {
   );
 }
 
+export function leaveGroup(id: number, groupName: string) {
+  return fetch(
+    `${url}/leave_group`,
+    getCallParams({ group_id: id.toString(), group_name: groupName, email: user.email} )
+  );
+}
+
 export function getUserFromGroups(groupName: string) {
   return fetch(
     `${url}/get_users`,
@@ -103,7 +110,6 @@ export function getNearbyUsers(email: string, coordinates: any) {
     getCallParams({ email, ...coordinates })
   )
 }
-
 
 export function uploadGroupDocument(file: any, groupId: number) {
   const body = new FormData();

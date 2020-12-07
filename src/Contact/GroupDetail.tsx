@@ -1,13 +1,21 @@
 import React from 'react'
 import ContactList from '../components/ContactList'
-import { Text, StyleSheet, ScrollView, ToastAndroid } from 'react-native'
+import { Text, StyleSheet, ScrollView, ToastAndroid, Alert } from 'react-native'
 import colors from '../../config/colors'
 import font from '../../config/font'
 import { Button } from 'react-native-paper'
 import * as DocumentPicker from 'expo-document-picker';
-import { uploadGroupDocument } from '../helpers/network'
+import { uploadGroupDocument } from '../helpers/network';
+import { leaveGroup } from "../helpers/network";
 
 export default function GroupDetail({ navigation, route }: any) {
+
+  const groupName = route.params.name
+  const leaveMsg =
+    "Are you sure you want to leave " +
+    groupName +
+    "'s group?";
+
     const goToDocs = () => {
         navigation.push("GroupDocuments", { name: route.params.name, groupId: route.params.groupId })
     }
@@ -36,6 +44,29 @@ export default function GroupDetail({ navigation, route }: any) {
             uploadDoc(data)
         })
     }
+
+    const handleLeaveGroupAlert = () => {
+    console.log("Leaving " + groupName + "'s group");
+    Alert.alert("Canceling Leave Group", leaveMsg, [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Canceling Leave Group"),
+        style: "cancel",
+      },
+      {
+        text: "OK",
+        onPress: () => handleLeaveGroup(),
+      },
+    ]);
+  };
+
+  const handleLeaveGroup = () => {
+    leaveGroup(route.params.groupId, route.params.name)
+      .then((result) => result.json())
+      .then((responseData) => {
+        console.log(responseData);
+      });
+  };
     return (
         <ScrollView style={styles.container}>
             <Text style={styles.title}>{route.params.name}</Text>
@@ -48,6 +79,7 @@ export default function GroupDetail({ navigation, route }: any) {
                 setIsSelection={() => { }} />
             <Button onPress={documentFetch}>Upload shared document</Button>
             <Button onPress={goToDocs}>View shared documents</Button>
+            <Button onPress={handleLeaveGroupAlert}>Leave Group</Button>
         </ScrollView>
     )
 }
