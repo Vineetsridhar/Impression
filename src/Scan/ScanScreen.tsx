@@ -79,7 +79,7 @@ export default function ScanScreen({ navigation }: any) {
       newConnection(email)
         .then((response) => response.json())
         .then((json) => {
-          if (!json["success"]) {
+          if (json.hasOwnProperty("success") && !json["success"]) {
             ToastAndroid.show("There was an error with this QR code", ToastAndroid.LONG);
           } else
             navigation.navigate("Contacts", {
