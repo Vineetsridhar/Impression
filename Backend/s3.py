@@ -42,7 +42,7 @@ def upload_pdf(user_email):
 
 def upload_group_pdf(groupid, fileKey):
     try:
-        filePath = str(WORKING_DIR) + "/temp/groupdoc_" + groupid + "_" + fileKey + ".pdf"
+        filePath = str(WORKING_DIR) + "/temp/groupdoc_" + groupid + "_" + fileKey
         amazonName = "group_" + groupid + "/" + fileKey
         upload(filePath, amazonName)
         os.remove(filePath)
