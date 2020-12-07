@@ -1,1 +1,1 @@
-web: python Backend/server.py
+web: sh -c 'cd Backend && python server.py'
