@@ -42,7 +42,8 @@ export default function ContactDetail({ route }: { route: any }) {
     " " +
     user.last_name +
     " as a contact?";
-  const deleteContact = () => {
+
+  const deleteContactAlert = () => {
     Alert.alert("Confirm Delete", deleteMsg, [
       {
         text: "Cancel",
@@ -51,12 +52,12 @@ export default function ContactDetail({ route }: { route: any }) {
       },
       {
         text: "OK",
-        onPress: () => deleteContactHelper(),
+        onPress: () => deleteContact(),
       },
     ]);
   };
 
-  const deleteContactHelper = () => {
+  const deleteContact = () => {
     console.log("Contact Deleted");
     navigation.navigate("Contacts");
     deleteConnection(user.email)
@@ -101,7 +102,7 @@ export default function ContactDetail({ route }: { route: any }) {
             }}
           />
           <Appbar.Content title="Contact Details" />
-          <Appbar.Action icon="delete" onPress={deleteContact} />
+          <Appbar.Action icon="delete" onPress={deleteContactAlert} />
         </Appbar.Header>
       </View>
 
