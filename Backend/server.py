@@ -183,6 +183,7 @@ def on_upload_group_doc():
         return imp_util.s3.upload_group_pdf(form["groupid"], form["filename"])
     except Exception as e:
         print(e)
+        return {"success":False}
     
 
 #### Requires groupid, returns response json with a list of dictionaries that contains filenames and urls of docs
