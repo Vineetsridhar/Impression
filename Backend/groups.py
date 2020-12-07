@@ -111,7 +111,7 @@ def add_user(name, email):
 def leave_group(g_id, name, email):
     try:
         row = (DB.session.query(tables.Groups)
-        .filter_by(group_id=g_id, group_name=name, user_email=email))
+        .filter_by(group_id=g_id, group_name=name, user_email=email)).first()
         DB.session.delete(row)
         DB.session.commit()
         return {"success": True}
