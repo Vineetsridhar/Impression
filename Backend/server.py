@@ -176,11 +176,16 @@ def on_upload_doc():
 #### Form requires groupid and filename
 @APP.route("/upload_group_pdf", methods=["POST"])
 def on_upload_group_doc():
-    form = flask.request.form
-    data = flask.request.files["file"]
-    data.save("temp/groupdoc_" + form["groupid"] + "_" + form["filename"])
-    return imp_util.s3.upload_group_pdf(form["groupid"], form["filename"])
-
+    try:
+        print(SERVER_PREFIX + str(os.listdir()))
+        form = flask.request.form
+        data = flask.request.files["file"]
+        data.save("temp/groupdoc_" + form["groupid"] + "_" + form["filename"])
+        return imp_util.s3.upload_group_pdf(form["groupid"], form["filename"])
+    except Exception as e:
+        print(e)
+        return {"success":False}
+    
 
 #### Requires groupid, returns response json with a list of dictionaries that contains filenames and urls of docs
 @APP.route("/get_group_docs", methods=["POST"])
