@@ -112,7 +112,7 @@ def on_new_user():
     data = flask.request.json
     return create_new_user(data)
 
- 
+
 @APP.route("/batch_new_users", methods=["POST"])
 def bach_new_users():
     data = flask.request.json
