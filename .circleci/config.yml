@@ -1,0 +1,22 @@
+version: 2.1
+
+orbs:
+  heroku: circleci/heroku@1.2.2
+
+workflows:
+  heroku_deploy:
+    jobs:
+      - heroku/deploy-via-git
+
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.4
+    steps:
+      - checkout
+      - run:
+            name: Install dependencies
+            command: sudo pip install -r requirements.txt
+      - run: 
+            name: Run connections tests
+            command: python tests/connections_test.py
