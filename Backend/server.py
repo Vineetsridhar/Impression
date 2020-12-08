@@ -29,16 +29,16 @@ DEVELOPER_NAMES = {
 
 ABOUT_ME = {
     "Chris": "About Me.",
-    "Vineet": "About Me.",
+    "Vineet": "I am a 3rd year student at NJIT who has a passion for mobile development",
     "Rami": "Hello! I'm currently a Senior undergraduate at NJIT pursuing a B.S. in Computer Science. I particularly ",
     "Stephanie": "About Me.",
 }
 
-LINKS = {"Chris": "Links.", "Vineet": "Links.", "Rami": " Find me on: GitHub:https://github.com/Bazoqa LinkedIn: https://www.linkedin.com/in/bazoqa/", "Stephanie": "Links."}
+LINKS = {"Chris": "Links.", "Vineet": "My GitHub is: https://github.com/vineetsridhar", "Rami": " Find me on: GitHub:https://github.com/Bazoqa LinkedIn: https://www.linkedin.com/in/bazoqa/", "Stephanie": "Links."}
 
 CONTACT_INFO = {
     "Chris": "Contact Info.",
-    "Vineet": "Contact Info.",
+    "Vineet": "Contact me at https://www.linkedin.com/in/vineet-sridhar/",
     "Rami": "Contact Info.",
     "Stephanie": "Contact Info.",
 }
