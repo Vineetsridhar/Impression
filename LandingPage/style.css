@@ -1,114 +1,46 @@
-.wrapper {
-  display: grid;
-}
-
-.main {
-  margin: 0 auto;
-  overflow-wrap: break-word;
-  height: 400px;
-  width: 100%;
-  text-align: center;
-  vertical-align: middle;
-}
-
-hr.solid {
-  width: 50%;
-  border-top: 3px solid white;
-}
-
-.column {
-  float: left;
-  width: 50%;
-  font-size: 25px;
-  font-family: Sans-serif;
-}
-
-.header img {
-  vertical-align: middle;
-  width: 75px;
-  height: 75px;
-}
-
-.network_image img {
-  vertical-align: middle;
-  width: 400px;
-  height: 400px;
-}
-
-.header2 img {
-  vertical-align: middle;
-  width: 200px;
-  height: 100px;
-}
-
-.header h1 {
-  position: relative;
-  top: 18px;
-  left: 10px;
-  text-align: center;
-}
-.row_container {
-  display: flex;
-  margin-top: 50px;
-}
-
-.row_container > div {
-  flex: 1;
-}
-
-.containers {
-  height: 100px;
-  width: 100%;
-  text-align: center;
-  vertical-align: middle;
-  font-size: 35px;
-  color: white;
-  font-family: Sans-serif;
-}
-
-.text {
-  margin: 0 auto;
-  overflow-wrap: break-word;
-  text-align: center;
-  vertical-align: middle;
-  width: 50%;
+html {
+    font-family: 'Roboto', sans-serif;
 }
 
 body {
   margin: 0;
-  background-image: linear-gradient(to bottom right, #0F0137, #8AE2FF);
+}
+.icons {
+    font-size: 4.25em;
 }
 
-ul.topnav {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  /*background-color: #333;*/
+.user_icons {
+  font-size: 2em;
 }
 
-ul.topnav li {
-  float: right;
+main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: center;
+    text-align: center;
 }
 
-ul.topnav li a {
-  display: block;
-  color: #B0B0B0;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+main > .header {
+    font-family: 'Reem Kufi', sans-serif;
+    font-size: 4.00em;
+    font-weight: 600;
 }
 
-ul.topnav li a:hover:not(.active) {
-  /*background-color: #111;*/
-  text-decoration: underline;
+main > .intro {
+    font-family: 'Reem Kufi', sans-serif;
+    font-size: 1.5em;
+    margin: 1.5em;
+    font-weight: 100;
 }
 
-ul.topnav li.left {
-  float: left;
+.row_container {
+  display: flex;
+  margin-top: 50px;
+  font-size: 1.25em;
+  font-family: 'Reem Kufi', sans-serif;
 }
 
-@media screen and (max-width: 600px) {
-  ul.topnav li.right,
-  ul.topnav li {float: none;}
+.row_container > div {
+  flex: 1;
 }

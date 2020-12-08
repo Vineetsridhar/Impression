@@ -34,7 +34,8 @@ ABOUT_ME = {
     "Stephanie": "About Me.",
 }
 
-LINKS = {"Chris": "Links.", "Vineet": "My GitHub is: https://github.com/vineetsridhar", "Rami": " Find me on: GitHub:https://github.com/Bazoqa LinkedIn: https://www.linkedin.com/in/bazoqa/", "Stephanie": "Links."}
+LINKEDIN_LINKS = {"Chris": "https://linkedin.com", "Vineet": "https://www.linkedin.com/in/vineet-sridhar/", "Rami": "https://www.linkedin.com/in/bazoqa/", "Stephanie": "https://linkedin.com"}
+GITHUB_LINKS = {"Chris": "https://github.com", "Vineet": "https://github.com/vineetsridhar", "Rami": "https://github.com", "Stephanie": "https://github.com"}
 
 CONTACT_INFO = {
     "Chris": "Contact Info.",
@@ -42,6 +43,13 @@ CONTACT_INFO = {
     "Rami": "Contact Info.",
     "Stephanie": "Contact Info.",
 }
+
+ABOUT_APP = """Due to COVID-19, recruiters and students struggle to find ways to make a
+                virtual connection to be as successful as an in-person one; it has
+                become an arduous task for recruiters and applicants to exchange
+                information. This is where our application, Impression, comes in."""
+
+CREATED_WITH = ["Created with:", "React Native,", "Python,", "Flask,", "PostgreSQL,", "Expo"]
 ################################
 
 # Configuration and Variables
@@ -185,7 +193,7 @@ def on_upload_group_doc():
     except Exception as e:
         print(e)
         return {"success":False}
-    
+
 
 #### Requires groupid, returns response json with a list of dictionaries that contains filenames and urls of docs
 @APP.route("/get_group_docs", methods=["POST"])
@@ -285,8 +293,11 @@ def index():
         pageTitle=PAGE_TITLE,
         pageHeader=PAGE_HEADER,
         developerNames=DEVELOPER_NAMES,
+        aboutApp=ABOUT_APP,
+        createdWith=CREATED_WITH,
         aboutMe=ABOUT_ME,
-        links=LINKS,
+        linkedinLinks=LINKEDIN_LINKS,
+        githubLinks=GITHUB_LINKS,
         contactInfo=CONTACT_INFO,
     )
 
