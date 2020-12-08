@@ -116,6 +116,14 @@ class ConnectionsTests(unittest.TestCase):
                     "doc": "doc",
                 },
             },
+            {
+                KEY_ID: 5,
+                KEY_INPUT: {
+                    "user1_email": None,
+                    "user2_email": 5,
+                },
+                KEY_EXPECTED: {"success": False},
+            },
         ]
 
         self.on_delete_connection_test_params = [
@@ -125,7 +133,7 @@ class ConnectionsTests(unittest.TestCase):
                     "user1_email": "dummy1@gmail.com",
                     "user2_email": "dummy2@gmail.com",
                 },
-                KEY_EXPECTED: 0,
+                KEY_EXPECTED: {"success": True},
             },
             {
                 KEY_ID: 2,
@@ -133,7 +141,15 @@ class ConnectionsTests(unittest.TestCase):
                     "user1_email": "dummy1@gmail.com",
                     "user2_email": "dummy2@gmail.com",
                 },
-                KEY_EXPECTED: -1,
+                KEY_EXPECTED: {"success": False},
+            },
+            {
+                KEY_ID: 3,
+                KEY_INPUT: {
+                    "user1_email": None,
+                    "user2_email": 5,
+                },
+                KEY_EXPECTED: {"success": False},
             },
         ]
 
@@ -157,7 +173,7 @@ class ConnectionsTests(unittest.TestCase):
                 KEY_INPUT: {
                     "": "",
                 },
-                KEY_EXPECTED: None,
+                KEY_EXPECTED: {"success": False},
             },
         ]
 
@@ -208,6 +224,17 @@ class ConnectionsTests(unittest.TestCase):
                             expected = test[KEY_EXPECTED]
 
                 self.assertEqual(response, expected)
+                
+            if test[KEY_ID] == 5:
+                expected = test[KEY_EXPECTED]
+                try:
+                    response = imp_util.connections.on_new_connection(
+                        test[KEY_INPUT]
+                    )
+                except:
+                    response = "ValueError"
+
+                self.assertEqual(response, expected)
 
     def test_delete_connection(self):
         for test in self.on_delete_connection_test_params:
@@ -245,6 +272,13 @@ class ConnectionsTests(unittest.TestCase):
                                     test[KEY_INPUT]
                                 )
                                 expected = test[KEY_EXPECTED]
+
+                self.assertEqual(response, expected)
+            if test[KEY_ID] == 3:
+                response = imp_util.connections.on_delete_connection(
+                    test[KEY_INPUT]
+                )
+                expected = test[KEY_EXPECTED]
 
                 self.assertEqual(response, expected)
 

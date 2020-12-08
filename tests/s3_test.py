@@ -47,6 +47,14 @@ class qr_tests(unittest.TestCase):
             },
         ]
         
+        self.upload_pdf_test_params = [
+            {
+                KEY_ID: 1,
+                KEY_INPUT: {"user_email":"testUser@gmail.com", "data":"qr"},
+                KEY_EXPECTED: "https://impression-app.s3.amazonaws.com/testUser%40gmail.com/qr.png",
+            },
+        ]
+        
     def test_upload(self):
         for test in self.upload_test_params:
             if test[KEY_ID] == 1:
@@ -65,6 +73,15 @@ class qr_tests(unittest.TestCase):
                 response = s3.s3_get_user_data(test[KEY_INPUT]["user_email"], test[KEY_INPUT]["data"])
                 expected = test[KEY_EXPECTED]
                 self.assertEqual(response, expected)
+    
+    def test_upload_pdf(self):
+        for test in self.upload_pdf_test_params:
+            if test[KEY_ID] == 1:
+                response = s3.s3_get_user_data(test[KEY_INPUT]["user_email"], test[KEY_INPUT]["data"])
+                expected = test[KEY_EXPECTED]
+                self.assertEqual(response, expected)
+    
+    
 
 # with mock.patch('AWS.S3.ManagedUpload', self.empty1):
 
