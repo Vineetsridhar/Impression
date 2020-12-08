@@ -34,7 +34,8 @@ ABOUT_ME = {
     "Stephanie": "About Me.",
 }
 
-LINKS = {"Chris": "Links.", "Vineet": "Links.", "Rami": " Find me on: GitHub:https://github.com/Bazoqa LinkedIn: https://www.linkedin.com/in/bazoqa/", "Stephanie": "Links."}
+LINKEDIN_LINKS = {"Chris": "https://linkedin.com", "Vineet": "https://linkedin.com", "Rami": "https://www.linkedin.com/in/bazoqa/", "Stephanie": "https://linkedin.com"}
+GITHUB_LINKS = {"Chris": "https://github.com", "Vineet": "https://github.com", "Rami": "https://github.com", "Stephanie": "https://github.com"}
 
 CONTACT_INFO = {
     "Chris": "Contact Info.",
@@ -295,7 +296,8 @@ def index():
         aboutApp=ABOUT_APP,
         createdWith=CREATED_WITH,
         aboutMe=ABOUT_ME,
-        links=LINKS,
+        linkedinLinks=LINKEDIN_LINKS,
+        githubLinks=GITHUB_LINKS,
         contactInfo=CONTACT_INFO,
     )
 
