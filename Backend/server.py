@@ -237,27 +237,6 @@ def on_query_connections():
     }
 
 
-#### creates a new notification meant for data["email"] with various related fields required
-#### title and description are meant to store what to display in the notifications tab
-#### type is the type of notifcation, which will specfiy how
-#### to handle the notification during various stages (see notifications.py for types)
-#### data1-data4 are generic string variables meant for storing data related to the notification
-@APP.route("/new_notification", methods=["POST"])
-def on_new_notification():
-    data = flask.request.json
-    notification_data = {data["data1"], data["data2"], data["data3"], data["data4"]}
-    return {
-        "success": True,
-        "response": imp_util.notifications.new_notification(
-            data["email"],
-            data["titl"],
-            data["desc"],
-            data["type"],
-            notification_data,
-        ),
-    }
-
-
 @APP.route("/group_share_contact", methods=["POST"])
 def on_group__share_contact():
     data = flask.request.json
