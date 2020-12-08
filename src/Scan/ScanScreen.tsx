@@ -3,22 +3,21 @@ import {
   Text,
   StyleSheet,
   InteractionManager,
-  AsyncStorage,
   ToastAndroid,
+  View,
 } from "react-native";
 import { Camera } from "expo-camera";
 import metrics from "../../config/metrics";
 import FAB from "../components/FAB";
 import { AntDesign } from "@expo/vector-icons";
 import { newConnection } from "../helpers/network";
-import colors from '../../config/colors'
 
-export default function ScanScreen({ navigation }: any) {
+export default function ScanScreen({ navigation }: any):JSX.Element {
   const [hasPermission, setHasPermission] = useState(false);
   const [ratio, setRatio] = useState("");
   const [displayCamera, setDisplayCamera] = useState(true);
 
-  let blurListener: () => {}, focusListener: () => {};
+  let blurListener: () => void, focusListener: () => void;
 
   const makeListeners = () => {
     blurListener = navigation.addListener("blur", () => {
@@ -45,19 +44,20 @@ export default function ScanScreen({ navigation }: any) {
   const updateStateForCameraProps = () => {
     InteractionManager.runAfterInteractions(async () => {
       const ratios = await camera?.getSupportedRatiosAsync();
-      getBestRatio(ratios!!);
+      getBestRatio(ratios);
     });
   };
 
-  const getBestRatio = (ratios: string[]) => {
+  const getBestRatio = (ratios: string[] | undefined) => {
+    if(!ratios) return []
     const wantedRatio = (metrics.HEIGHT_PIXELS + 200) / metrics.WIDTH_PIXELS; //Ideal Ratio of phone. Added 200 to account for appBar
     let diff = 100;
     let curr = "";
     for (let i = 0; i < ratios.length; i++) {
-      let nums = ratios[i].split(":");
-      let h = parseInt(nums[0]);
-      let w = parseInt(nums[1]);
-      let val = Math.abs(h / w - wantedRatio); //Get the absolute difference between current ratio and wated ratio
+      const nums = ratios[i].split(":");
+      const h = parseInt(nums[0]);
+      const w = parseInt(nums[1]);
+      const val = Math.abs(h / w - wantedRatio); //Get the absolute difference between current ratio and wated ratio
       if (val < diff) {
         //Set variables equal to the lowest difference in ratios
         curr = ratios[i];
@@ -94,7 +94,7 @@ export default function ScanScreen({ navigation }: any) {
     return <Text>No access to camera</Text>;
   }
 
-  if (!displayCamera) return null;
+  if (!displayCamera) return <View/>;
 
   return (
     <Camera

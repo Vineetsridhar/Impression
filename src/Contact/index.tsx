@@ -1,13 +1,12 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ContactScreen from "./ContactScreen";
-import ContactList from "../components/ContactList";
 import ContactDetail from "./ContactDetail";
 import GroupScreen from "./GroupScreen";
 
 const Stack = createStackNavigator();
 
-export default function MenuStack() {
+export default function MenuStack():JSX.Element {
   return (
     <Stack.Navigator>
       <Stack.Screen

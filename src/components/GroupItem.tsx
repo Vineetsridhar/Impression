@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import styles from "../Contact/ContactsStyle";
 import colors from '../../config/colors'
-import { Group, User } from "../helpers/interfaces";
+import { Group } from "../helpers/interfaces";
 import { FontAwesome } from "@expo/vector-icons";
 import { getUserFromGroups } from "../helpers/network";
 import { useNavigation } from "@react-navigation/native";
 
 
-export default function GroupItem({ group }: { group: Group }) {
+export default function GroupItem({ group }: { group: Group }):JSX.Element {
   const navigation = useNavigation();
 
 

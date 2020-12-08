@@ -17,7 +17,7 @@ export default function FormItem({
   style,
   value,
   onChangeText,
-}: props) {
+}: props):JSX.Element {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>

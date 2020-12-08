@@ -1,11 +1,10 @@
 import React from "react";
-import { Image, View, Text, StyleSheet } from "react-native";
+import { Image, View, StyleSheet } from "react-native";
 import FAB from "../components/FAB";
 import { Ionicons } from "@expo/vector-icons";
 import user from "../../config/user";
-import colors from '../../config/colors'
 
-export default function QRScreen({ navigation }: any) {
+export default function QRScreen({ navigation }: any):JSX.Element {
   return (
     <View style={styles.container}>
       <Image

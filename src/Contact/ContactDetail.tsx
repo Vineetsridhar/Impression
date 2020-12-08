@@ -17,14 +17,6 @@ import ContactDetailRow from "../components/ContactDetailRow";
 import LinkImage from "./LinkImage";
 import { deleteConnection } from "../helpers/network";
 
-const iconMap = {
-  email: "envelope",
-  organization: "building",
-  descr: "pencil",
-  gen_link_1: "github",
-  gen_link_2: "linkedin",
-  gen_link_3: "link",
-};
 const itemKeys = {
   email: "Email",
   organization: "School/Organization",
@@ -33,7 +25,7 @@ const itemKeys = {
 const wantedRows = ["email", "descr", "organization"];
 const links = ["gen_link_1", "gen_link_2", "gen_link_3"];
 
-export default function ContactDetail({ route }: { route: any }) {
+export default function ContactDetail({ route }: { route: any }):JSX.Element {
   const { user }: { user: User } = route.params;
   const navigation = useNavigation();
   const deleteMsg =
@@ -65,13 +57,6 @@ export default function ContactDetail({ route }: { route: any }) {
       .then((responseData) => {
         console.log(responseData);
       });
-  };
-  const isUrl = (url: string) => {
-    //Got from https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
-    const res = url.match(
-      /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
-    );
-    return res !== null;
   };
 
   const openResume = () => {

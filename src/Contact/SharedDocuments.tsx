@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, ToastAndroid, StyleSheet, Linking, Alert } from 'react-native';
-import { Button } from 'react-native-paper';
 import { Document } from '../helpers/interfaces'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { getGroupDocuments } from '../helpers/network';
@@ -9,10 +8,9 @@ import { Ionicons } from '@expo/vector-icons';
 import font from '../../config/font';
 
 interface props {
-    navigation: any,
     route: any
 }
-export default function SharedDocument({ navigation, route }: props) {
+export default function SharedDocument({ route }: props):JSX.Element {
 
     const [documents, setDocuments] = useState<Document[]>([]);
 

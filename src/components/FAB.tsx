@@ -6,7 +6,7 @@ interface props {
     onPress: ()=>void;
     children: JSX.Element
 }
-export default function FAB({onPress, children}:props){
+export default function FAB({onPress, children}:props):JSX.Element{
     return (
         <TouchableOpacity style={styles.floatingActionButton} onPress={onPress}>
             {children}

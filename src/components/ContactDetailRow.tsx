@@ -1,14 +1,13 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Clipboard, ToastAndroid, Linking } from 'react-native';
+import { View, Text, TouchableOpacity, Linking } from 'react-native';
 import styles from '../Contact/ContactDetailStyle'
-import { FontAwesome } from "@expo/vector-icons";
 import colors from '../../config/colors';
 
 interface props {
     text: string,
     itemKey: string
 }
-export default function ContactDetailRow({ text, itemKey }: props) {
+export default function ContactDetailRow({ text, itemKey }: props):JSX.Element {
     const openEmail = () => {
         Linking.openURL('mailto:' + text)
     }

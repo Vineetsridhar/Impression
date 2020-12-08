@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import avatar from "../../config/avatar";
 import styles from "../Contact/ContactsStyle";
@@ -13,7 +13,7 @@ interface props {
   isSelected: boolean;
   isSelection: boolean
 }
-function Contact({ contact, isSelected, isSelection, toggleSelection }: props) {
+function Contact({ contact, isSelected, isSelection, toggleSelection }: props):JSX.Element {
   const navigation = useNavigation();
   const navigateToContactDetail = () => {
     navigation.navigate("ContactDetail", { user: contact });

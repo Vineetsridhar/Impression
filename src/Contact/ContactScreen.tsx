@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, Alert, ToastAndroid } from "react-native";
 import styles from "./ContactsStyle";
 import ContactList from "../components/ContactList";
-import GroupList from "../components/GroupList";
-import { User, Group } from "../helpers/interfaces";
+import { User } from "../helpers/interfaces";
 import {
   getConnections,
   newGroup,
@@ -12,14 +11,13 @@ import {
   newConnection,
 } from "../helpers/network";
 import user from "../../config/user";
-import { Appbar, Button } from "react-native-paper";
+import { Button } from "react-native-paper";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import GroupsScreen from "./GroupScreen";
 import FAB from "../components/FAB";
 import { Entypo, Feather } from "@expo/vector-icons";
 import * as Location from "expo-location";
 import SelectionModal from "../components/SelectionModal";
-import { SearchBar } from "react-native-elements";
 import colors from "../../config/colors";
 import font from "../../config/font";
 
@@ -33,7 +31,7 @@ function ContactsScreen({ navigation }: any) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const makeListeners = () => {
-    focusListener = navigation.addListener("focus", () => {
+    navigation.addListener("focus", () => {
       refreshData();
     });
   };
@@ -182,6 +180,8 @@ function ContactsScreen({ navigation }: any) {
     if (keyword === "" || !keyword.trim().length) refreshData();
   };
 
+  const emptyFunction = () => {}
+
   return (
     <View style={styles.container}>
       <View
@@ -214,11 +214,11 @@ function ContactsScreen({ navigation }: any) {
           <Text style={styles.title}>Companies</Text>
           <ContactList
             contacts={companyConnections}
-            setButtonVisible={() => {}}
+            setButtonVisible={emptyFunction}
             selected={new Set<number>()}
-            setSelected={() => {}}
+            setSelected={emptyFunction}
             isSelection={false}
-            setIsSelection={() => {}}
+            setIsSelection={emptyFunction}
           />
         </View>
       )}

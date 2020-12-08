@@ -1,6 +1,5 @@
-import React, { useEffect, Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import {
-  Text,
   View,
   Image,
   TouchableOpacity,
@@ -8,7 +7,6 @@ import {
   ToastAndroid,
 } from "react-native";
 import styles from "./loginstyles";
-import avatar from "../config/avatar";
 import * as Google from "expo-google-app-auth";
 import { newUser, linkedinLogin } from "./helpers/network";
 import user from "../config/user";
@@ -17,7 +15,7 @@ import LinkedInModal from 'react-native-linkedin'
 interface props {
   setLoggedIn: Dispatch<SetStateAction<boolean>>;
 }
-export default function Login({ setLoggedIn }: props) {
+export default function Login({ setLoggedIn }: props):JSX.Element {
   const login = (userInfo: any) => {
     newUser(userInfo)
       .then((response) => response.json())
@@ -45,13 +43,13 @@ export default function Login({ setLoggedIn }: props) {
         scopes: ["profile", "email"],
       });
       if (result.type === "success") {
-        let userInfoResponse = await fetch(
+        const userInfoResponse = await fetch(
           "https://www.googleapis.com/userinfo/v2/me",
           {
             headers: { Authorization: `Bearer ${result.accessToken}` },
           }
         );
-        let json = await userInfoResponse.json();
+        const json = await userInfoResponse.json();
         login(json);
       } else {
         console.log("Cancelled");

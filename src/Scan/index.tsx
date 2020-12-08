@@ -5,7 +5,7 @@ import QRScreen from './QRScreen';
 
 const Stack = createStackNavigator();
 
-export default function MenuStack() {
+export default function MenuStack():JSX.Element {
     return (
         <Stack.Navigator>
             <Stack.Screen name={"Scan"} component={ScanScreen} options={{ headerShown: false }} />

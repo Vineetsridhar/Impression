@@ -20,6 +20,8 @@ export default function GroupDetail({ navigation, route }: any) {
     navigation.push("GroupDocuments", { name: route.params.name, groupId: route.params.groupId })
   }
 
+  const emptyFunction = () => {}
+
   const uploadDoc = async (file: DocumentPicker.DocumentResult) => {
     if (file != null) {
       uploadGroupDocument(file, route.params.groupId).then(response => response.json()).then(json => {
@@ -28,7 +30,7 @@ export default function GroupDetail({ navigation, route }: any) {
         } else {
           throw "error"
         }
-      }).catch(err => {
+      }).catch(() => {
         ToastAndroid.show("There was an error uploading your document", ToastAndroid.LONG);
       })
     } else {
@@ -72,11 +74,11 @@ export default function GroupDetail({ navigation, route }: any) {
       <Text style={styles.title}>{route.params.name}</Text>
       <ContactList
         contacts={route.params.data}
-        setButtonVisible={() => { }}
+        setButtonVisible={emptyFunction}
         selected={new Set<number>()}
-        setSelected={() => { }}
+        setSelected={emptyFunction}
         isSelection={false}
-        setIsSelection={() => { }} />
+        setIsSelection={emptyFunction} />
       <Button onPress={documentFetch}>Upload shared document</Button>
       <Button onPress={goToDocs}>View shared documents</Button>
       <Button onPress={handleLeaveGroupAlert}>Leave Group</Button>

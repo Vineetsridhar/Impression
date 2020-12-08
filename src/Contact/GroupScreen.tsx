@@ -12,7 +12,7 @@ import colors from "../../config/colors";
 import font from "../../config/font";
 import {Feather} from "@expo/vector-icons";
 
-function GroupScreen({ navigation }: any) {
+function GroupScreen({ navigation }: any):JSX.Element {
   const [groupConnections, setGroupConnections] = useState<Group[]>([]);
   const [keyword, setKeyword] = useState("");
   let focusListener;

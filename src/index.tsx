@@ -11,7 +11,7 @@ import colors from "../config/colors";
 
 const Tab = createBottomTabNavigator();
 
-export default function Tabs() {
+export default function Tabs():JSX.Element {
 
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -34,7 +34,7 @@ export default function Tabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
+        tabBarIcon: ({ color, size }) => {
           let iconName: string;
 
           if (route.name === "Scan") {

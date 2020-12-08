@@ -21,7 +21,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import TypePicker from "../components/TypePicker";
 
 
-export default function ProfileScreen({ navigation }: any) {
+export default function ProfileScreen({ navigation }: any):JSX.Element {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");

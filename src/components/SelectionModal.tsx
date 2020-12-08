@@ -13,7 +13,7 @@ interface props {
   selectionCallback: (email:string) => void;
 }
 
-export default function SelctionModal({ isVisible, setModalVisible, people, selectionCallback }: props) {
+export default function SelctionModal({ isVisible, setModalVisible, people, selectionCallback }: props):JSX.Element {
 
   const modalItem = ({item}:{item:User}) => {
     return (

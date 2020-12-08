@@ -10,7 +10,7 @@ interface props {
   isSelection: boolean;
   setIsSelection: React.Dispatch<React.SetStateAction<boolean>>,
 }
-function ContactList({ contacts, setButtonVisible, selected, setSelected, isSelection, setIsSelection }: props) {
+function ContactList({ contacts, setButtonVisible, selected, setSelected, isSelection, setIsSelection }: props):JSX.Element {
 
   const toggleSelection = (index: number) => {
     if (selected.size == 0) {
