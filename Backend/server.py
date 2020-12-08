@@ -28,14 +28,14 @@ DEVELOPER_NAMES = {
 }
 
 ABOUT_ME = {
-    "Chris": "About Me.",
+    "Chris": "I am a senior at NJIT pursing a career in Software Engineering.",
     "Vineet": "I am a 3rd year student at NJIT who has a passion for mobile development",
     "Rami": "Hello! I'm currently a Senior undergraduate at NJIT pursuing a B.S. in Computer Science. I particularly ",
     "Stephanie": "About Me.",
 }
 
-LINKEDIN_LINKS = {"Chris": "https://linkedin.com", "Vineet": "https://www.linkedin.com/in/vineet-sridhar/", "Rami": "https://www.linkedin.com/in/bazoqa/", "Stephanie": "https://linkedin.com"}
-GITHUB_LINKS = {"Chris": "https://github.com", "Vineet": "https://github.com/vineetsridhar", "Rami": "https://github.com", "Stephanie": "https://github.com"}
+LINKEDIN_LINKS = {"Chris": "https://www.linkedin.com/in/chris-mazzei-99a843133/", "Vineet": "https://www.linkedin.com/in/vineet-sridhar/", "Rami": "https://www.linkedin.com/in/bazoqa/", "Stephanie": "https://linkedin.com"}
+GITHUB_LINKS = {"Chris": "https://github.com/ChrisMazzei", "Vineet": "https://github.com/vineetsridhar", "Rami": "https://github.com", "Stephanie": "https://github.com"}
 
 CONTACT_INFO = {
     "Chris": "Contact Info.",
@@ -49,7 +49,7 @@ ABOUT_APP = """Due to COVID-19, recruiters and students struggle to find ways to
                 become an arduous task for recruiters and applicants to exchange
                 information. This is where our application, Impression, comes in."""
 
-CREATED_WITH = ["Created with:", "React Native,", "Python,", "Flask,", "PostgreSQL,", "Expo"]
+CREATED_WITH = ["Created with:", "React Native,", "Python,", "Flask,", "PostgreSQL,", "Expo."]
 ################################
 
 # Configuration and Variables
