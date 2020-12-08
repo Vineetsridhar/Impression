@@ -1,81 +1,72 @@
+<!DOCTYPE html>
 <html>
-    <head>
-      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    </head>
-    <body>
-      <div class="wrapper">
+<head>
 
-        <div class="containers">
-          <div class="header">
-            <img src="{{ url_for('static', filename='logo.png') }}"alt="Impression Logo"></img>
-            <span>{{pageTitle}}</span>
-          </div>
-        </div>
+    <title>Impression App</title>
 
-        <div class="containers">
-          <hr class="solid">
-        </div>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Reem+Kufi|Roboto:300" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" rel="stylesheet">
 
-        <div class="containers">
-          <div class="column">
-            <p>{{pageHeader}}</p>
-            <p>What</p>
-            <p>Why</p>
-            <p>Tech</p>
-            <div>
-              <p>Front-End Developers<p>
-            </div>
-            <div class="row_container">
-              <div>
-                {{developerNames["Chris"]}}
-                <p>
-                  {{aboutMe["Chris"]}}     <br>
-                  {{links["Chris"]}}        <br>
-                  {{contactInfo["Chris"]}}   <br>
-                  etc.          <br>
-                </p>
-              </div>
-              <div>
-                {{developerNames["Vineet"]}}
-                <p>
-                  {{aboutMe["Vineet"]}}     <br>
-                  {{links["Vineet"]}}        <br>
-                  {{contactInfo["Vineet"]}}   <br>
-                  etc.          <br>
-                </p>
-              </div>
-            </div>
-            <div>
-              <p>Back-End Developers<p>
-            </div>
-            <div class="row_container">
-              <div>
-                {{developerNames["Rami"]}}
-                <p>
-                  {{aboutMe["Rami"]}}     <br>
-                  {{links["Rami"]}}        <br>
-                  {{contactInfo["Rami"]}}   <br>
-                  etc.          <br>
-                </p>
-              </div>
-              <div>
-                {{developerNames["Stephanie"]}}
-                <p>
-                  {{aboutMe["Stephanie"]}}     <br>
-                  {{links["Stephanie"]}}        <br>
-                  {{contactInfo["Stephanie"]}}   <br>
-                  etc.          <br>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="column">
-            <a href="https://play.google.com/store"><img src="{{ url_for('static', filename='google-play-badge.png') }}" width="250px" height="125px" alt="Download on the Gooogle Play Store"></a>
-            <div class="network_image">
-              <img src="{{ url_for('static', filename='networking_image.jpg') }}"alt="Networking Image"></img>
-            </div>
-          </div>
-          </div>
-        </div>
-    </body>
+</head>
+<body>
+<main>
+    <div class="header">Impression</div>
+    <div class="intro">Easily connect with classmates and recruiters at your schools Career Fair</div>
+
+    <div class="icons">
+        <a href="https://github.com/Impression-App"><i class="fab fa-github"></i></a>
+        <a href="https://play.google.com/store"><i class="fab fa-google-play"></i></a>
+    </div>
+    <div>
+        <h1>What</h1>
+    </div>
+    <div>
+        <h1>Why</h1>
+    </div>
+    <div>
+        <h1>Tech</h1>
+    </div>
+    <div class="row_container">
+      <div>
+        {{developerNames["Chris"]}}
+        <p>
+          {{aboutMe["Chris"]}}     <br>
+          {{links["Chris"]}}        <br>
+          {{contactInfo["Chris"]}}   <br>
+          etc.          <br>
+        </p>
+      </div>
+      <div>
+        {{developerNames["Vineet"]}}
+        <p>
+          {{aboutMe["Vineet"]}}     <br>
+          {{links["Vineet"]}}        <br>
+          {{contactInfo["Vineet"]}}   <br>
+          etc.          <br>
+        </p>
+      </div>
+    </div>
+    <div class="row_container">
+      <div>
+        {{developerNames["Rami"]}}
+        <p>
+          {{aboutMe["Rami"]}}     <br>
+          {{links["Rami"]}}        <br>
+          {{contactInfo["Rami"]}}   <br>
+          etc.          <br>
+        </p>
+      </div>
+      <div>
+        {{developerNames["Stephanie"]}}
+        <p>
+          {{aboutMe["Stephanie"]}}     <br>
+          {{links["Stephanie"]}}        <br>
+          {{contactInfo["Stephanie"]}}   <br>
+          etc.          <br>
+        </p>
+      </div>
+    </div>
+</main>
+</body>
 </html>
