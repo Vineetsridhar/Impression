@@ -42,6 +42,13 @@ CONTACT_INFO = {
     "Rami": "Contact Info.",
     "Stephanie": "Contact Info.",
 }
+
+ABOUT_APP = """Due to COIVD-19, recruiters and students struggle to find ways to make a
+                virtual connection to be as successful as an in-person one; it has
+                become an arduous task for recruiters and applicants to exchange
+                information. This is where our application, Impression, comes in."""
+
+CREATED_WITH = ["Created with:", "React Native,", "Python,", "Flask,", "PostgreSQL,", "Expo"]
 ################################
 
 # Configuration and Variables
@@ -185,7 +192,7 @@ def on_upload_group_doc():
     except Exception as e:
         print(e)
         return {"success":False}
-    
+
 
 #### Requires groupid, returns response json with a list of dictionaries that contains filenames and urls of docs
 @APP.route("/get_group_docs", methods=["POST"])
@@ -285,6 +292,8 @@ def index():
         pageTitle=PAGE_TITLE,
         pageHeader=PAGE_HEADER,
         developerNames=DEVELOPER_NAMES,
+        aboutApp=ABOUT_APP,
+        createdWith=CREATED_WITH,
         aboutMe=ABOUT_ME,
         links=LINKS,
         contactInfo=CONTACT_INFO,
