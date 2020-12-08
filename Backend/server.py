@@ -39,7 +39,7 @@ GITHUB_LINKS = {"Chris": "https://github.com", "Vineet": "https://github.com/vin
 
 CONTACT_INFO = {
     "Chris": "Contact Info.",
-    "Vineet": "Contact me at https://www.linkedin.com/in/vineet-sridhar/",
+    "Vineet": "You can email me at vs583@njit.edu",
     "Rami": "Contact Info.",
     "Stephanie": "Contact Info.",
 }
