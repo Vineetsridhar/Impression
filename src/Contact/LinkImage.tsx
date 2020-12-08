@@ -1,11 +1,11 @@
 import React from 'react'
-import { TouchableOpacity, Image, ImageProps, Linking, Alert } from 'react-native'
+import { TouchableOpacity, Image, ImageProps, Linking, Alert, View } from 'react-native'
 interface props {
     position: number,
     link?: string
 }
 export default function LinkImage({ position, link }: props):JSX.Element {
-    if (!link) return null;
+    if (!link) return <View/>;
 
     let source: ImageProps;
 
