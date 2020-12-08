@@ -6,7 +6,11 @@ body {
   margin: 0;
 }
 .icons {
-    font-size: 3em;
+    font-size: 4.25em;
+}
+
+.user_icons {
+  font-size: 2em;
 }
 
 main {
