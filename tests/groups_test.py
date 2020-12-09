@@ -208,8 +208,8 @@ class AddUser(unittest.TestCase):
         self.success_test_params = [
             {
                 KEY_INPUT: {
-                    KEY_GROUPNAME: "pseudogroup",
-                    KEY_EMAIL: "dummy@gmail.com",
+                    "name": "pseudogroup",
+                    "email": "dummy@gmail.com",
                 },
                 KEY_EXPECTED: {
                     "success": True,
@@ -257,9 +257,9 @@ class LeaveGroup(unittest.TestCase):
         self.success_test_params = [
             {
                 KEY_INPUT: {
-                    KEY_GROUPID: "1",
-                    KEY_GROUPNAME: "pseudogroup",
-                    KEY_EMAIL: "dummy@gmail.com",
+                    "g_id": "1",
+                    "name": "pseudogroup",
+                    "email": "dummy@gmail.com",
                 },
                 KEY_EXPECTED: {
                     "success": True,
