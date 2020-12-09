@@ -30,7 +30,7 @@ def get_user(query_user_email):
         }
         return response
     except:
-        print("Error: " + sys.exc_info()[0])
+        print("Error: cannot retrieve user")
         return {"success": False}
     finally:
         DB.session.close()
@@ -57,7 +57,7 @@ def new_user(email, fname, lname, image):
             )
             DB.session.commit()
     except:
-        print("Error: " + sys.exc_info()[0])
+        print("Error: could not add new user")
     finally:
         DB.session.close()
 
@@ -76,7 +76,7 @@ def edit_user(account):
         DB.session.commit()
         return {"success": True}
     except:
-        print("Error: " + sys.exc_info()[0])
+        print("Error: cannot edit user")
         return {"success": False}
     finally:
         DB.session.close()

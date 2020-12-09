@@ -28,20 +28,28 @@ DEVELOPER_NAMES = {
 }
 
 ABOUT_ME = {
-    "Chris": "I am a senior at NJIT and pursing a career in Software Engineering.",
+    "Chris": "I am a senior at NJIT pursing a career in Software Engineering.",
     "Vineet": "I am a 3rd year student at NJIT who has a passion for mobile development",
-    "Rami": "Hello! I'm currently a Senior undergraduate at NJIT pursuing a B.S. in Computer Science. I particularly ",
-    "Stephanie": "About Me.",
+    "Rami": "Hello! I'm currently a Senior undergraduate at NJIT pursuing a B.S. in Computer Science.",
+    "Stephanie": "I'm a senior CS manjor at NJIT, looking for a career in Software Development.",
 }
 
-LINKEDIN_LINKS = {"Chris": "https://www.linkedin.com/in/chris-mazzei-99a843133/", "Vineet": "https://www.linkedin.com/in/vineet-sridhar/", "Rami": "https://www.linkedin.com/in/bazoqa/", "Stephanie": "https://linkedin.com"}
-GITHUB_LINKS = {"Chris": "https://github.com/ChrisMazzei", "Vineet": "https://github.com/vineetsridhar", "Rami": "https://github.com", "Stephanie": "https://github.com"}
+LINKEDIN_LINKS = {
+    "Chris": "https://www.linkedin.com/in/chris-mazzei-99a843133/",
+    "Vineet": "https://www.linkedin.com/in/vineet-sridhar/",
+    "Rami": "https://www.linkedin.com/in/bazoqa/",
+    "Stephanie": "https://linkedin.com/in/stephanie-nieve-silva"}
+GITHUB_LINKS = {
+    "Chris": "https://github.com/ChrisMazzei",
+    "Vineet": "https://github.com/vineetsridhar",
+    "Rami": "https://github.com/bazoqa",
+    "Stephanie": "https://github.com/smn29"}
 
 CONTACT_INFO = {
     "Chris": "Contact Info.",
-    "Vineet": "You can email me at vs583@njit.edu",
-    "Rami": "Contact Info.",
-    "Stephanie": "Contact Info.",
+    "Vineet": "Contact me at https://www.linkedin.com/in/vineet-sridhar/",
+    "Rami": "Email: rab63@njit.edu",
+    "Stephanie": "Email: smn29@njit.edu",
 }
 
 ABOUT_APP = """Due to COVID-19, recruiters and students struggle to find ways to make a
@@ -49,7 +57,7 @@ ABOUT_APP = """Due to COVID-19, recruiters and students struggle to find ways to
                 become an arduous task for recruiters and applicants to exchange
                 information. This is where our application, Impression, comes in."""
 
-CREATED_WITH = ["Created with:", "React Native,", "Python,", "Flask,", "PostgreSQL,", "Expo"]
+CREATED_WITH = ["Created with:", "React Native,", "Python,", "Flask,", "PostgreSQL,", "Expo."]
 ################################
 
 # Configuration and Variables
@@ -190,8 +198,8 @@ def on_upload_group_doc():
         data = flask.request.files["file"]
         data.save("temp/groupdoc_" + form["groupid"] + "_" + form["filename"])
         return imp_util.s3.upload_group_pdf(form["groupid"], form["filename"])
-    except Exception as e:
-        print(e)
+    except Exception as err:
+        print(err)
         return {"success":False}
 
 

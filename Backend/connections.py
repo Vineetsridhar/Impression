@@ -39,7 +39,7 @@ def on_new_connection(data):
         DB.session.commit()
         return users.get_user(data["user2_email"])
     except:
-        print("Error: " + sys.exc_info()[0])
+        print("Error: Could not make a new connection")
         return {"success": False}
     finally:
         DB.session.close()
@@ -74,7 +74,7 @@ def on_delete_connection(data):
             DB.session.commit()
             return {"success":True}
     except:
-        print("Error: " + sys.exc_info()[0])
+        print("Error: could not delete connection")
         return {"success": False}
     finally:
         DB.session.close()

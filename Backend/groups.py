@@ -2,13 +2,15 @@
 # pylint: disable=no-member
 # pylint: disable=missing-module-docstring
 # pylint: disable=unused-import
+# pylint: disable=bare-except
 
+import sys
 import flask_sqlalchemy
 from sqlalchemy import desc
 from server import DB
 import tables
 import imp_util
-import sys
+
 
 # From https://stackoverflow.com/questions/1958219/convert-sqlalchemy-row-object-to-python-dict
 def row2dict(row):
@@ -34,7 +36,7 @@ def get_groups(email):
             )
         return {"success": True, "response": resp}
     except:
-        print("Error: " + sys.exc_info()[0])
+        print("Error: Could not make a new connection")
         return {"success": False}
     finally:
         DB.session.close()
@@ -55,7 +57,7 @@ def get_users(name):
             resp.append(row2dict(each_group.Users))
         return {"success": True, "response": resp}
     except:
-        print("Error: " + sys.exc_info()[0])
+        print("Error: Could not make a new connection")
         return {"success": False}
     finally:
         DB.session.close()
@@ -83,7 +85,7 @@ def new_group(name, emails):
             return {"success": True}
         return {"success": False}
     except:
-        print("Error: " + sys.exc_info()[0])
+        print("Error: Could not make a new connection")
         return {"success": False}
     finally:
         DB.session.close()
@@ -101,22 +103,22 @@ def add_user(name, email):
         DB.session.commit()
         return {"success": True}
     except:
-        print("Error: " + sys.exc_info()[0])
+        print("Error: Could not make a new connection")
         return {"success": False}
     finally:
         DB.session.close()
 
-    
+
 #### have a user leave a group
 def leave_group(g_id, name, email):
     try:
         row = (DB.session.query(tables.Groups)
-        .filter_by(group_id=g_id, group_name=name, user_email=email)).first()
+               .filter_by(group_id=g_id, group_name=name, user_email=email)).first()
         DB.session.delete(row)
         DB.session.commit()
         return {"success": True}
     except:
-        print("Error: " + str(sys.exc_info()[0]))
+        print("Error: Could not make a new connection")
         return {"success": False}
     finally:
         DB.session.close()

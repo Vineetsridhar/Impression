@@ -47,6 +47,10 @@ dummyUser = tables.Users(
 
 #### unit test for getting a user
 class GetUser(unittest.TestCase):
+    
+    def mocked_query_2(self):
+        return 5
+    
     def mocked_user_query_first(self, email):
         mocked_user = mock.Mock()
         mocked_user.first.return_value = dummyUser
@@ -71,6 +75,13 @@ class GetUser(unittest.TestCase):
                 },
             },
         ]
+        
+        self.success_test_params_2 = [
+            {
+                KEY_INPUT: "dummy@gmail.com",
+                KEY_EXPECTED: {"success": False},
+            }
+        ]
 
     def test_get_user_success(self):
         for test in self.success_test_params:
@@ -82,11 +93,23 @@ class GetUser(unittest.TestCase):
                 expected = test[KEY_EXPECTED]
 
             self.assertDictEqual(response, expected)
+            
+        for test in self.success_test_params_2:
+            with mock.patch('sqlalchemy.orm.Query.first', self.mocked_query_2):
+                response = imp_util.users.get_user(test[KEY_INPUT])
+
+                expected = test[KEY_EXPECTED]
+
+            self.assertDictEqual(response, expected)
 
 
 #### unit test for editing a user
 class EditUser(unittest.TestCase):
 
+
+    def mocked_query_1(self):
+        return dummyUser
+    
     def mocked_user_query_first(self, email):
         mocked_user = mock.Mock()
         mocked_user.first.return_value = dummyUser
@@ -94,6 +117,13 @@ class EditUser(unittest.TestCase):
 
     def setUp(self):
         self.success_test_params = [
+            {
+                KEY_INPUT: "",
+                KEY_EXPECTED: "No errors",
+            },
+        ]
+        
+        self.edit_user_test_params = [
             {
                 KEY_INPUT: {
                     "email": "dummy@gmail.com",
@@ -108,7 +138,8 @@ class EditUser(unittest.TestCase):
                     "image": "image",
                     "doc": "doc",
                 },
-                KEY_EXPECTED: "No errors",
+                
+                KEY_EXPECTED: {"success": True},
             },
         ]
 
@@ -119,8 +150,19 @@ class EditUser(unittest.TestCase):
                         self.mocked_user_query_first):
                     testing = imp_util.users.edit_user(test[KEY_INPUT])
                     response = "No errors"
-            except:
-                response = "Expected Error"
+            except AttributeError:
+                response = "AttributeError"
+
+            expected = test[KEY_EXPECTED]
+            self.assertEqual(response, expected)
+    
+    def test_edit_user(self):
+        for test in self.edit_user_test_params:
+            try:
+                with mock.patch('sqlalchemy.orm.Query.first', self.mocked_query_1):
+                    response = imp_util.users.edit_user(test[KEY_INPUT])
+            except AttributeError:
+                response = "AttributeError"
 
             expected = test[KEY_EXPECTED]
             self.assertEqual(response, expected)
