@@ -112,6 +112,12 @@ For linting, we decided to ignore these errors/warnings:
 8. W0611 (unused-import) because we need the imports for SQL Alchemy in those separate python files
 
 # What we did (Sprint 2)
+## Vineet Sridhar
+ - I implemeted linkedin login on the frontend
+ - I implemented the groups functionality on the frontend
+ - As well as uploading documents to groups
+ - I also created the logic for selecting contacts as well as sharing contacts
+ - I styled a the contact detail screen 
 
 ## Vineet Sridhar
 
