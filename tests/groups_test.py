@@ -50,6 +50,8 @@ class GetGroups(unittest.TestCase):
                         KEY_GROUPNAME: "psuedogroup",
                     }
                 },
+            },
+            {
                 KEY_INPUT: "dummy123@gmail.com",
                 KEY_EXPECTED: {
                     "success": False, 
@@ -214,7 +216,12 @@ class AddUser(unittest.TestCase):
                 KEY_EXPECTED: {
                     "success": True,
                 },
-                KEY_INPUT: None,
+            },
+            {
+                KEY_INPUT: {
+                    KEY_GROUPNAME: None,
+                    KEY_EMAIL: None,
+                },
                 KEY_EXPECTED: {
                     "success": False
                     
@@ -239,7 +246,8 @@ class AddUser(unittest.TestCase):
                         ):
                             response = imp_util.groups.add_user(
                                 test[KEY_INPUT][KEY_GROUPNAME], 
-                                test[KEY_INPUT][KEY_EMAIL])
+                                test[KEY_INPUT][KEY_EMAIL],
+                                )
                             expected = test[KEY_EXPECTED]
                         self.assertDictEqual(response, expected)
 
@@ -266,10 +274,15 @@ class LeaveGroup(unittest.TestCase):
                 KEY_EXPECTED: {
                     "success": True,
                 },
-                KEY_INPUT: None,
+            },
+            {
+                KEY_INPUT: {
+                    KEY_GROUPID: None,
+                    KEY_GROUPNAME: None,
+                    KEY_EMAIL: None,
+                },
                 KEY_EXPECTED: {
                     "success": False
-                    
                 },
             },
         ]
@@ -286,7 +299,8 @@ class LeaveGroup(unittest.TestCase):
                     response = imp_util.groups.leave_group(
                         test[KEY_INPUT][KEY_GROUPID],
                         test[KEY_INPUT][KEY_GROUPNAME],
-                        test[KEY_INPUT][KEY_EMAIL])
+                        test[KEY_INPUT][KEY_EMAIL],
+                        )
                     expected = test[KEY_EXPECTED]
                 self.assertDictEqual(response, expected)
 
