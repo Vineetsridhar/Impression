@@ -208,8 +208,8 @@ class AddUser(unittest.TestCase):
         self.success_test_params = [
             {
                 KEY_INPUT: {
-                    "name": "pseudogroup",
-                    "email": "dummy@gmail.com",
+                    KEY_GROUPNAME: "pseudogroup",
+                    KEY_EMAIL: "dummy1@gmail.com",
                 },
                 KEY_EXPECTED: {
                     "success": True,
@@ -237,7 +237,9 @@ class AddUser(unittest.TestCase):
                         with mock.patch(
                             "sqlalchemy.orm.session.Session.add", self.mocked_add
                         ):
-                            response = imp_util.groups.add_user(test[KEY_INPUT])
+                            response = imp_util.groups.add_user(
+                                test[KEY_INPUT][KEY_GROUPNAME], 
+                                test[KEY_INPUT][KEY_EMAIL])
                             expected = test[KEY_EXPECTED]
                         self.assertDictEqual(response, expected)
 
@@ -257,9 +259,9 @@ class LeaveGroup(unittest.TestCase):
         self.success_test_params = [
             {
                 KEY_INPUT: {
-                    "g_id": "1",
-                    "name": "pseudogroup",
-                    "email": "dummy@gmail.com",
+                    KEY_GROUPID: "1",
+                    KEY_GROUPNAME: "pseudogroup",
+                    KEY_EMAIL: "dummy@gmail.com",
                 },
                 KEY_EXPECTED: {
                     "success": True,
@@ -281,7 +283,10 @@ class LeaveGroup(unittest.TestCase):
                 with mock.patch( 
                     'sqlalchemy.orm.session.Session.delete', self.mocked_delete
                 ):
-                    response = imp_util.groups.leave_group(test[KEY_INPUT])
+                    response = imp_util.groups.leave_group(
+                        test[KEY_INPUT][KEY_GROUPID],
+                        test[KEY_INPUT][KEY_GROUPNAME],
+                        test[KEY_INPUT][KEY_EMAIL])
                     expected = test[KEY_EXPECTED]
                 self.assertDictEqual(response, expected)
 
