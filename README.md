@@ -99,7 +99,7 @@ For linting, we decided to ignore these errors/warnings:
 #### index.tsx
 1. 37:21 error Component definition is missing display name  react/display-name
 2. 37:24 error 'color' is missing in props validation        react/prop-types
-3. 37:31 error 'size' is missing in props validation         react/prop-types 
+3. 37:31 error 'size' is missing in props validation         react/prop-types
 
 1. E1101 (no-member) for all python files that have to do with the SQLAlchemy instances
 2. R0902 (too-many-instance-attributes) because we need that many instances for our project
@@ -111,7 +111,7 @@ For linting, we decided to ignore these errors/warnings:
 7. C0413 (wrong-import-position) because we need the import statements after the 'db.session.commit()' in server.py
 8. W0611 (unused-import) because we need the imports for SQL Alchemy in those separate python files
 
-# What we did
+# What we did (Sprint 2)
 
 ## Vineet Sridhar
 
@@ -122,17 +122,14 @@ For linting, we decided to ignore these errors/warnings:
   - I connected the frontend to the backend, and wrote the calls for the communication between the two.
 
 ## Chris
-- Done
-   - Created expo application to initialize the project.
-   - Created Profile page for a user.
-   - Created Contacts page for People and Organizations.
-   - Styled Profile page.
-   - Styled Contacts page.
-   - Styled Contact Detail page.
-   - Updated User’s Profile page based on backend data.
-- In Progress (extra features not needed for sprint 1)
-   - Add app bar / navigation bar to Contact Detail.
-   - Add search feature for a contact.
+- [Frontend]
+   - Created Landing Page
+   - Implemented real-time search for Contacts and Groups
+   - Implemented option for users to leave a Group
+   - Created Page for Groups
+   - Added app bar for Contact detail page (displays info and has back arrow to navigate to previous page)
+   - Implemented top tab navigation between Contact and Group page.
+   - Implemented Search Bar on Contact and Group Page.
 
 ## Rami Bazoqa
 
