@@ -22,7 +22,7 @@ def add_geo(email, lat, lon):
             user.longitude = lon
         DB.session.commit()
     except:
-        print("Error: " + sys.exc_info()[0])
+        print("Error: could not add geo location")
     finally:
         DB.session.close()
     
@@ -30,7 +30,6 @@ def query_nearby(query_email):
     try:
         geo_users = DB.session.query(tables.geo_loc).all()
         query_user = DB.session.query(tables.geo_loc).filter_by(email=query_email).first()
-        
         lat1 = math.radians(query_user.latitude)
         lon1 = math.radians(query_user.longitude)
         
@@ -50,6 +49,6 @@ def query_nearby(query_email):
                     nearby.append(current_user)
         return {"data":nearby}
     except:
-        print("Error: " + sys.exc_info()[0])
+        print("Error: could not find nearby users")
     finally:
         DB.session.close()
