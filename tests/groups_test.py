@@ -36,7 +36,8 @@ class GetGroups(unittest.TestCase):
         mocked_group = mock.Mock()
         mocked_group.all.return_value = dummyGroup
         return mocked_group
-    
+
+
     def setUp(self):
         self.success_test_params = [
             {
@@ -61,6 +62,7 @@ class GetGroups(unittest.TestCase):
             },
         ]
 
+
     def test_get_user_success(self):
         for test in self.success_test_params:
             with mock.patch(
@@ -79,7 +81,8 @@ class GetUsers(unittest.TestCase):
         mocked_group = mock.Mock()
         mocked_group.all.return_value = dummyGroup
         return mocked_group
-    
+
+
     def setUp(self):
         self.success_test_params = [
             {
@@ -102,6 +105,7 @@ class GetUsers(unittest.TestCase):
             },
         ]
 
+
     def test_get_user_success(self):
         for test in self.success_test_params:
             with mock.patch(
@@ -121,31 +125,38 @@ class NewGroup(unittest.TestCase):
     def mocked_add(self):
         pass
 
-    def mocked_order_by(self):
-        pass
-
     def mocked_desc(self):
         pass
 
-    def mocked_user_query_first(self, name):
+
+    def mocked_group_query_first(self, name):
         mocked_user = mock.Mock()
         mocked_user.first.return_value = dummyGroup
         return mocked_user
 
-    def mocked_user_query_all(self, name):
+
+    def mocked_group_query_all(self, name):
         mocked_user = mock.Mock()
         mocked_user.all.return_value = dummyGroup
         return mocked_user
-    
+
+
     def setUp(self):
         self.success_test_params = [
             {
                 KEY_INPUT: {
-                    KEY_EMAIL: "dummy@gmail.com",
                     KEY_GROUPNAME: "pseudogroup",
+                    KEY_EMAIL: "dummy@gmail.com",
                 },
                 KEY_EXPECTED: {
-                    "success": True,
+                    "success": False,
+                },
+                KEY_INPUT: {
+                    KEY_GROUPNAME: "groupname",
+                    KEY_EMAIL: "dummy123@gmail.com",
+                },
+                KEY_EXPECTED: {
+                    "success": False,
                 },
                 KEY_INPUT: None,
                 KEY_EXPECTED: {
@@ -155,22 +166,23 @@ class NewGroup(unittest.TestCase):
             },
         ]
 
+
     def test_get_user_success(self):
         for test in self.success_test_params:
             with mock.patch(
-                'sqlalchemy.orm.query.Query.filter_by', self.mocked_group_query_first
+                "sqlalchemy.orm.query.Query.filter_by", self.mocked_group_query_all
             ):
                 with mock.patch(
-                    'sqlalchemy.orm.Query.order_by', self.mocked_order_by
+                    'sqlalchemy.orm.Query.order_by', self.mocked_group_query_first
                 ):
                     with mock.patch(
-                        "sqlalchemy.orm.session.Session.add", self.mocked_add
+                        "sqlalchemy.sql.expression.desc", self.mocked_desc
                     ):
                         with mock.patch(
-                            "sqlalchemy.sql.expression.desc", self.mocked_desc
+                            "sqlalchemy.orm.session.Session.add", self.mocked_add
                         ):
-                            response = imp_util.groups.leave_group(test[KEY_INPUT])
-                            expected = test[KEY_EXPECTED]
+                        response = imp_util.groups.new_group(test[KEY_INPUT])
+                        expected = test[KEY_EXPECTED]
             self.assertDictEqual(response, expected)
 
 #### ADD USER test
@@ -178,17 +190,21 @@ class AddUser(unittest.TestCase):
     def mocked_add(self):
         pass
 
+
     def mocked_order_by(self):
         pass
 
+
     def mocked_desc(self):
         pass
+
 
     def mocked_group_query_first(self, g_id, email, name):
         mocked_user = mock.Mock()
         mocked_user.first.return_value = dummyGroup
         return mocked_user
-    
+
+
     def setUp(self):
         self.success_test_params = [
             {
@@ -207,6 +223,7 @@ class AddUser(unittest.TestCase):
             },
         ]
 
+
     def test_get_user_success(self):
         for test in self.success_test_params:
             with mock.patch(
@@ -216,12 +233,12 @@ class AddUser(unittest.TestCase):
                     'sqlalchemy.orm.Query.order_by', self.mocked_order_by
                 ):
                     with mock.patch(
-                        "sqlalchemy.orm.session.Session.add", self.mocked_add
+                        "sqlalchemy.sql.expression.desc", self.mocked_desc
                     ):
                         with mock.patch(
-                            "sqlalchemy.sql.expression.desc", self.mocked_desc
+                            "sqlalchemy.orm.session.Session.add", self.mocked_add
                         ):
-                            response = imp_util.groups.leave_group(test[KEY_INPUT])
+                            response = imp_util.groups.add_user(test[KEY_INPUT])
                             expected = test[KEY_EXPECTED]
             self.assertDictEqual(response, expected)
 
@@ -230,11 +247,13 @@ class LeaveGroup(unittest.TestCase):
     def mocked_delete(self):
         pass
 
+
     def mocked_group_query_first(self, g_id, email, name):
         mocked_user = mock.Mock()
         mocked_user.first.return_value = dummyGroup
         return mocked_user
-    
+
+
     def setUp(self):
         self.success_test_params = [
             {
@@ -254,16 +273,19 @@ class LeaveGroup(unittest.TestCase):
             },
         ]
 
+
     def test_get_user_success(self):
         for test in self.success_test_params:
             with mock.patch(
                 'sqlalchemy.orm.query.Query.filter_by', self.mocked_group_query_first
             ):
-                with mock.patch( 'sqlalchemy.orm.session.Session.delete', self.mocked_delete
-                    ):
+                with mock.patch( 
+                    'sqlalchemy.orm.session.Session.delete', self.mocked_delete
+                ):
                     response = imp_util.groups.leave_group(test[KEY_INPUT])
                     expected = test[KEY_EXPECTED]
             self.assertDictEqual(response, expected)
+
 
 if __name__ == "__main__":
     unittest.main()
