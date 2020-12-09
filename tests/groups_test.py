@@ -148,15 +148,15 @@ class NewGroup(unittest.TestCase):
 
     def setUp(self):
         self.success_test_params = [
-            {
-                KEY_INPUT: {
-                    KEY_GROUPNAME: "pseudogroup",
-                    KEY_EMAIL: "dummy@gmail.com",
-                },
-                KEY_EXPECTED: {
-                    "success": False,
-                },
-            },
+            # {
+            #     KEY_INPUT: {
+            #         KEY_GROUPNAME: "pseudogroup",
+            #         KEY_EMAIL: "dummy@gmail.com",
+            #     },
+            #     KEY_EXPECTED: {
+            #         "success": False,
+            #     },
+            # },
             {
                 KEY_INPUT: {
                     KEY_GROUPNAME: "groupname",
@@ -166,16 +166,16 @@ class NewGroup(unittest.TestCase):
                     "success": True,
                 },
             },
-            {
-                # KEY_INPUT: {
-                #     KEY_GROUPNAME:"",
-                #     KEY_EMAIL: "",
-                # },
-                # KEY_EXPECTED: {
-                #     "success": False
+            # {
+            #     # KEY_INPUT: {
+            #     #     KEY_GROUPNAME:"",
+            #     #     KEY_EMAIL: "",
+            #     # },
+            #     # KEY_EXPECTED: {
+            #     #     "success": False
                     
-                # },
-            },
+            #     # },
+            # },
         ]
 
 
@@ -227,16 +227,16 @@ class AddUser(unittest.TestCase):
                     "success": True,
                 },
             },
-            {
-                # KEY_INPUT: {
-                #     KEY_GROUPNAME: "",
-                #     KEY_EMAIL: "",
-                # },
-                # KEY_EXPECTED: {
-                #     "success": False
+            # {
+            #     # KEY_INPUT: {
+            #     #     KEY_GROUPNAME: "",
+            #     #     KEY_EMAIL: "",
+            #     # },
+            #     # KEY_EXPECTED: {
+            #     #     "success": False
                     
-                # },
-            },
+            #     # },
+            # },
         ]
 
 
@@ -285,16 +285,16 @@ class LeaveGroup(unittest.TestCase):
                     "success": True,
                 },
             },
-            {
-                # KEY_INPUT: {
-                #     KEY_GROUPID: "",
-                #     KEY_GROUPNAME: "",
-                #     KEY_EMAIL: "",
-                # },
-                # KEY_EXPECTED: {
-                #     "success": False
-                # },
-            },
+            # {
+            #     # KEY_INPUT: {
+            #     #     KEY_GROUPID: "",
+            #     #     KEY_GROUPNAME: "",
+            #     #     KEY_EMAIL: "",
+            #     # },
+            #     # KEY_EXPECTED: {
+            #     #     "success": False
+            #     # },
+            # },
         ]
 
 
