@@ -51,19 +51,19 @@ class GetGroups(unittest.TestCase):
                     }
                 },
             },
-            {
-                KEY_INPUT: "dummy123@gmail.com",
-                KEY_EXPECTED: {
-                    "success": False, 
-                },
-            },
-            {
-                KEY_INPUT: "",
-                KEY_EXPECTED: {
-                    "success": False
+            # {
+            #     KEY_INPUT: "dummy123@gmail.com",
+            #     KEY_EXPECTED: {
+            #         "success": False, 
+            #     },
+            # },
+            # {
+            #     KEY_INPUT: "",
+            #     KEY_EXPECTED: {
+            #         "success": False
                     
-                },
-            },
+            #     },
+            # },
         ]
 
 
@@ -100,15 +100,15 @@ class GetUsers(unittest.TestCase):
                         "pseudogroup": "dummy@gmail.com"
                     }
                 },
-                KEY_INPUT: "groupname",
-                KEY_EXPECTED: {
-                    "success": False, 
-                },
-                KEY_INPUT: "",
-                KEY_EXPECTED: {
-                    "success": False
+                # KEY_INPUT: "groupname",
+                # KEY_EXPECTED: {
+                #     "success": False, 
+                # },
+                # KEY_INPUT: "",
+                # KEY_EXPECTED: {
+                #     "success": False
                     
-                },
+                # },
             },
         ]
 
@@ -167,14 +167,14 @@ class NewGroup(unittest.TestCase):
                 },
             },
             {
-                KEY_INPUT: {
-                    KEY_GROUPNAME:"",
-                    KEY_EMAIL: "",
-                },
-                KEY_EXPECTED: {
-                    "success": False
+                # KEY_INPUT: {
+                #     KEY_GROUPNAME:"",
+                #     KEY_EMAIL: "",
+                # },
+                # KEY_EXPECTED: {
+                #     "success": False
                     
-                },
+                # },
             },
         ]
 
@@ -228,14 +228,14 @@ class AddUser(unittest.TestCase):
                 },
             },
             {
-                KEY_INPUT: {
-                    KEY_GROUPNAME: "",
-                    KEY_EMAIL: "",
-                },
-                KEY_EXPECTED: {
-                    "success": False
+                # KEY_INPUT: {
+                #     KEY_GROUPNAME: "",
+                #     KEY_EMAIL: "",
+                # },
+                # KEY_EXPECTED: {
+                #     "success": False
                     
-                },
+                # },
             },
         ]
 
@@ -286,14 +286,14 @@ class LeaveGroup(unittest.TestCase):
                 },
             },
             {
-                KEY_INPUT: {
-                    KEY_GROUPID: "",
-                    KEY_GROUPNAME: "",
-                    KEY_EMAIL: "",
-                },
-                KEY_EXPECTED: {
-                    "success": False
-                },
+                # KEY_INPUT: {
+                #     KEY_GROUPID: "",
+                #     KEY_GROUPNAME: "",
+                #     KEY_EMAIL: "",
+                # },
+                # KEY_EXPECTED: {
+                #     "success": False
+                # },
             },
         ]
 
