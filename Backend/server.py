@@ -42,13 +42,13 @@ LINKEDIN_LINKS = {
 GITHUB_LINKS = {
     "Chris": "https://github.com/ChrisMazzei",
     "Vineet": "https://github.com/vineetsridhar",
-    "Rami": "https://github.com",
+    "Rami": "https://github.com/bazoqa",
     "Stephanie": "https://github.com/smn29"}
 
 CONTACT_INFO = {
     "Chris": "Contact Info.",
     "Vineet": "Contact me at https://www.linkedin.com/in/vineet-sridhar/",
-    "Rami": "Contact Info.",
+    "Rami": "Email: rab63@njit.edu",
     "Stephanie": "Email: smn29@njit.edu",
 }
 

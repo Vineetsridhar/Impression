@@ -57,7 +57,7 @@ def new_user(email, fname, lname, image):
             )
             DB.session.commit()
     except:
-        print("Error: " + sys.exc_info()[0])
+        print("Error: could not add new user")
     finally:
         DB.session.close()
 
