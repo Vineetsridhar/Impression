@@ -193,27 +193,23 @@ class AddUser(unittest.TestCase):
     def mocked_add(self):
         pass
 
-
     def mocked_order_by(self):
         pass
 
-
     def mocked_desc(self):
         pass
-
 
     def mocked_group_query_first(self, g_id, email, name):
         mocked_user = mock.Mock()
         mocked_user.first.return_value = dummyGroup
         return mocked_user
 
-
     def setUp(self):
         self.success_test_params = [
             {
                 KEY_INPUT: {
-                    KEY_EMAIL: "dummy@gmail.com",
                     KEY_GROUPNAME: "pseudogroup",
+                    KEY_EMAIL: "dummy@gmail.com",
                 },
                 KEY_EXPECTED: {
                     "success": True,
@@ -251,7 +247,7 @@ class LeaveGroup(unittest.TestCase):
         pass
 
 
-    def mocked_group_query_first(self, g_id, email, name):
+    def mocked_group_query_first(self, g_id, name, email):
         mocked_user = mock.Mock()
         mocked_user.first.return_value = dummyGroup
         return mocked_user
@@ -262,8 +258,8 @@ class LeaveGroup(unittest.TestCase):
             {
                 KEY_INPUT: {
                     KEY_GROUPID: "1",
-                    KEY_EMAIL: "dummy@gmail.com",
                     KEY_GROUPNAME: "pseudogroup",
+                    KEY_EMAIL: "dummy@gmail.com",
                 },
                 KEY_EXPECTED: {
                     "success": True,
