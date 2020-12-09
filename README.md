@@ -96,6 +96,13 @@ For linting, we decided to ignore these errors/warnings:
 7. C0413 (wrong-import-position) because we need the import statements after the 'db.session.commit()' in server.py
 8. W0611 (unused-import) because we need the imports for SQL Alchemy in those separate python files
 
+# Unit Tests
+
+We provided unit tests for all of our python files except for linkedin.py and we didn't supply unit tests for all of server.py.
+We didn't supply unit tests for linkedin.py because these are just network requests and we are just testing the API (no need to mock).
+We didn't supply unit tests for all of server.py because server.py calls helper functions from the files we already tested,
+so we didn't find it necessary to mock them, as well.
+
 # What we did
 
 ## Vineet Sridhar
@@ -132,7 +139,7 @@ For linting, we decided to ignore these errors/warnings:
 - Setup Amazon S3 Bucket for File Storage
 
 ## Stephanie Nieve-Silva (backend)
-
+MVP:
 - created database for user's information
 - created the functions for users:
    - making a new user
@@ -141,6 +148,13 @@ For linting, we decided to ignore these errors/warnings:
 - created unit tests for:
    - users.py
    - server.py
-      - TODO: find a way to mock getting the flask.request.json for
-      the other functions because we kept running into an error
 - linting python files
+Sprint 2:
+- created logo
+- created database for groups
+- created functions for groups:
+   - group.py
+- created backend for linkedin sign in
+   - linkedin.py
+- created unit tests for groups.py
+- linted python files
