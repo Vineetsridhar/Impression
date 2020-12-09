@@ -95,19 +95,7 @@ class EditUser(unittest.TestCase):
     def setUp(self):
         self.success_test_params = [
             {
-                KEY_INPUT: {
-                    "email": "dummy@gmail.com",
-                    "first_name": "John",
-                    "last_name": "Smith",
-                    "organization": "Impression Co",
-                    "descr": "Description",
-                    "user_type": "Type",
-                    "gen_link_1": "link1",
-                    "gen_link_2": "link2",
-                    "gen_link_3": "link3",
-                    "image": "image",
-                    "doc": "doc",
-                },
+                KEY_INPUT: "",
                 KEY_EXPECTED: "No errors",
             },
         ]
@@ -119,8 +107,8 @@ class EditUser(unittest.TestCase):
                         self.mocked_user_query_first):
                     testing = imp_util.users.edit_user(test[KEY_INPUT])
                     response = "No errors"
-            except:
-                response = "Expected Error"
+            except AttributeError:
+                response = "AttributeError"
 
             expected = test[KEY_EXPECTED]
             self.assertEqual(response, expected)

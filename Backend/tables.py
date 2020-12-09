@@ -60,29 +60,7 @@ class Groups(DB.Model):
         self.group_id = g_id
         self.group_name = g_name
         self.user_email = u_em
-
-
-class Notifications(DB.Model):
-    id = DB.Column(DB.Integer, primary_key=True)
-    user_email = DB.Column(DB.String(120))
-    title = DB.Column(DB.String(128))
-    description = DB.Column(DB.String(128))
-    type = DB.Column(DB.String(128))
-    data1 = DB.Column(DB.String(256))
-    data2 = DB.Column(DB.String(256))
-    data3 = DB.Column(DB.String(256))
-    data4 = DB.Column(DB.String(256))
-
-    def __init__(self, email, titl, desc, type, data1, data2, data3, data4):
-        self.user_email = email
-        self.title = titl
-        self.description = desc
-        self.type = type
-        self.data1 = data1
-        self.data1 = data2
-        self.data1 = data3
-        self.data1 = data4
-
+        
 
 class geo_loc(DB.Model):
     email = DB.Column(DB.String(128), primary_key=True)
