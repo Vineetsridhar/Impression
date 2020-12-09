@@ -239,7 +239,7 @@ class AddUser(unittest.TestCase):
                         ):
                             response = imp_util.groups.add_user(test[KEY_INPUT])
                             expected = test[KEY_EXPECTED]
-            self.assertDictEqual(response, expected)
+                        self.assertDictEqual(response, expected)
 
 #### LEAVE GROUP test
 class LeaveGroup(unittest.TestCase):
@@ -283,7 +283,7 @@ class LeaveGroup(unittest.TestCase):
                 ):
                     response = imp_util.groups.leave_group(test[KEY_INPUT])
                     expected = test[KEY_EXPECTED]
-            self.assertDictEqual(response, expected)
+                self.assertDictEqual(response, expected)
 
 
 if __name__ == "__main__":
