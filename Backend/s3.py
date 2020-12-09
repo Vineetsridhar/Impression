@@ -58,7 +58,7 @@ def get_groupdocs(groupid):
         conn = boto3.client('s3')  # again assumes boto.cfg setup, assume AWS S3
         docs = []
         for file in conn.list_objects(Bucket='impression-app')['Contents']:
-            if file['Key'].split("/")[0] == ("group_" + str(groupid)):
+            if file['Key'].split("/")[0] == ("group_" + groupid):
                 docs.append({"name": file['Key'].split("/")[1],"url":"https://impression-app.s3.amazonaws.com/" + file['Key']})
         return {"success": True, "response": docs}
     except:
