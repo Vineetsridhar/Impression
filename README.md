@@ -22,14 +22,7 @@ as all the information will be stored virtually for the users to revisit if need
 # Setup
 
 ### Clone the Repo
-1. In your desired directory run the command `git clone https://github.com/Impression-App/Impression.git`
-
-NOTE: The steps below were needed for on `Ubuntu Linux` and may not be needed for everyone, proceed with caution. May ignore these steps if you have the latest versions of `node` and `npm` working.
-
-1. Run the commands `node -v` and `npm -v` to verify you have the latest versions of node and npm installed. If not updated, update with the commands `npm install -g npm`.
-   NOTE: The app may not run without up to date `node` and `npm` versions. App is confirmed to run on `node v10.23.0` and `npm 6.14.8`
-2. Add your PATH to your `~/.profile` with `echo "export PATH=$PATH:~/.npm-global/bin" >> ~/.profile`.
-3. To avoid having to source `~/.profile` upon terminal startup, run the command `echo "source ~/.profile" >> ~/.bashrc`
+1. In your desired directory run the command `git clone https://github.com/Impression-App/Impression-Sprint2.git`
 
 # Installs Needed
 
@@ -58,7 +51,7 @@ NOTE: The steps below were needed for on `Ubuntu Linux` and may not be needed fo
 
    `DATBASE_URL`
    `postgres://{user}:{password}@{hostname}:{port}/{database-name}`
-    
+
 # Setup IP Address
 1. Navigate to the `helpers` folder `cd ~/Impression/src/helpers`.
 2. Open the file `network.tsx`.
@@ -80,11 +73,33 @@ NOTE: The steps below were needed for on `Ubuntu Linux` and may not be needed fo
 5. Run the application `npm run start`.
 6. A web browser should open up with the Metro Bundler. If not press `?` in the terminal to display a list of commands for help.
 7. Select the `connection` setting `LAN`.
-8. When the connection is complete, use the `Expo` app to scan the QR code that appears in the terminal or web page. The app should should now appear on your android devices screen.
+8. When the connection is complete, use the `Expo` app to scan the QR code that appears in the terminal or web page. The app should now appear on your android devices screen.
 
 # Linting
 
 For linting, we decided to ignore these errors/warnings:
+
+#### ContactDetail.tsx
+1. 122:11 error Missing "key" prop for element in iterator react/jsx-key
+
+#### ContactScreen.tsx
+1. 183:31 error Unexpected empty arrow function           @typescript-eslint/no-empty-function
+2. 266:41 warning 'navigation' is defined but never used  @typescript-eslint/no-unused-vars
+
+#### GroupDetail.tsx
+1. 23:31 error Unexpected empty arrow function  @typescript-eslint/no-empty-function
+
+#### GroupScreen.tsx
+1. 32:5 warning 'focusListener' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+#### ScanScreen.tsx
+1. 71:5 warning 'type' is defined but never used                                            @typescript-eslint/no-unused-vars
+2. 82:20 error Do not access Object.prototype method 'hasOwnProperty' from target object    no prototype-builtins
+
+#### index.tsx
+1. 37:21 error Component definition is missing display name  react/display-name
+2. 37:24 error 'color' is missing in props validation        react/prop-types
+3. 37:31 error 'size' is missing in props validation         react/prop-types 
 
 1. E1101 (no-member) for all python files that have to do with the SQLAlchemy instances
 2. R0902 (too-many-instance-attributes) because we need that many instances for our project
@@ -105,7 +120,7 @@ For linting, we decided to ignore these errors/warnings:
   - I created the Scan screen
   - I also implemented Google login
   - I connected the frontend to the backend, and wrote the calls for the communication between the two.
-  
+
 ## Chris
 - Done
    - Created expo application to initialize the project.
