@@ -12,7 +12,10 @@
 </head>
 <body>
 <main>
-    <div class="header">Impression</div>
+    <div class="header">
+      <img src="{{ url_for('static', filename='impression_logo.png') }}"alt="Impression Logo" style="width:50px; height:50px" ></img>
+      Impression
+    </div>
     <div class="intro">{{aboutApp}}</div>
     <div class="intro">
       {% for item in createdWith %}
