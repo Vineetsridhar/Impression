@@ -76,119 +76,127 @@ class GetGroups(unittest.TestCase):
 
             self.assertDictEqual(response, expected)
 
-# #### GET users test
-# #### FINISH
-# class GetUsers(unittest.TestCase):
-#     def mocked_group_query_all(self, name, email):
-#         mocked_group = mock.Mock()
-#         mocked_group.all.return_value = dummyGroup
-#         return mocked_group
+#### GET USERS test
+class GetUsers(unittest.TestCase):
+    def mocked_group_query_all(self, name, email):
+        mocked_group = mock.Mock()
+        mocked_group.all.return_value = dummyGroup
+        return mocked_group
 
-#     def mocked_row2dict(self):
-#         mocked_row["pseudogroup"]
-        
+    def mocked_row2dict(self):
+        dct = {}
+        dct["pseudogroup"] = "dummy@gmail.com"
+        return dct
 
-#     def setUp(self):
-#         self.success_test_params = [
-#             {
-#                 KEY_INPUT: "pseudogroup",
-#                 KEY_EXPECTED: {
-#                     "success": True,
-#                     "response": {
-                        
-#                     }
-#                 },
-#                 KEY_INPUT: "groupname",
-#                 KEY_EXPECTED: {
-#                     "success": "False", 
-#                 },
-#                 KEY_INPUT: None,
-#                 KEY_EXPECTED: {
-#                     "success": False
+    def setUp(self):
+        self.success_test_params = [
+            {
+                KEY_INPUT: "pseudogroup",
+                KEY_EXPECTED: {
+                    "success": True,
+                    "response": {
+                        "pseudogroup": "dummy@gmail.com"
+                    }
+                },
+                KEY_INPUT: "groupname",
+                KEY_EXPECTED: {
+                    "success": False, 
+                },
+                KEY_INPUT: None,
+                KEY_EXPECTED: {
+                    "success": False
                     
-#                 },
-#             },
-#         ]
+                },
+            },
+        ]
 
 
-#     def test_get_user_success(self):
-#         for test in self.success_test_params:
-#             with mock.patch(
-#                 "sqlalchemy.orm.query.Query.all", self.mocked_group_query_all
-#             ):
-#                 response = imp_util.users.get_user(test[KEY_INPUT])
+    def test_get_user_success(self):
+        for test in self.success_test_params:
+            with mock.patch(
+                "sqlalchemy.orm.query.Query.all", self.mocked_group_query_all
+            ):
+                with mock.patch(
+                    "groups.row2dict", self.mocked_row2dict
+                ):
+                    response = imp_util.groups.get_users(test[KEY_INPUT])
+                    expected = test[KEY_EXPECTED]
+                self.assertDictEqual(response, expected)
 
-#                 expected = test[KEY_EXPECTED]
+#### NEW GROUP test
+class NewGroup(unittest.TestCase):
+    def mocked_add(self):
+        pass
 
-#             self.assertDictEqual(response, expected)
-
-# #### NEW GROUP test
-# #### FINISH
-# class NewGroup(unittest.TestCase):
-#     #sqlalchemy.sql.expression.desc
-#     #sqlalchemy.orm.Query.order_by
-#     def mocked_add(self):
-#         pass
-
-#     def mocked_desc(self):
-#         pass
+    def mocked_desc(self):
+        pass
 
 
-#     def mocked_group_query_first(self, name):
-#         mocked_user = mock.Mock()
-#         mocked_user.first.return_value = dummyGroup
-#         return mocked_user
+    def mocked_group_query_first(self, name):
+        mocked_user = mock.Mock()
+        mocked_user.first.return_value = dummyGroup
+        return mocked_user
 
 
-#     def mocked_group_query_all(self, name):
-#         mocked_user = mock.Mock()
-#         mocked_user.all.return_value = dummyGroup
-#         return mocked_user
+    def mocked_group_query_all(self, name):
+        mocked_user = mock.Mock()
+        mocked_user.all.return_value = dummyGroup
+        return mocked_user
 
 
-#     def setUp(self):
-#         self.success_test_params = [
-#             {
-#                 KEY_INPUT: {
-#                     KEY_GROUPNAME: "pseudogroup",
-#                     KEY_EMAIL: "dummy@gmail.com",
-#                 },
-#                 KEY_EXPECTED: {
-#                     "success": False,
-#                 },
-#                 KEY_INPUT: {
-#                     KEY_GROUPNAME: "groupname",
-#                     KEY_EMAIL: "dummy123@gmail.com",
-#                 },
-#                 KEY_EXPECTED: {
-#                     "success": False,
-#                 },
-#                 KEY_INPUT: None,
-#                 KEY_EXPECTED: {
-#                     "success": False
+    def setUp(self):
+        self.success_test_params = [
+            {
+                KEY_INPUT: {
+                    KEY_GROUPNAME: "pseudogroup",
+                    KEY_EMAIL: "dummy@gmail.com",
+                },
+                KEY_EXPECTED: {
+                    "success": False,
+                },
+            },
+            {
+                KEY_INPUT: {
+                    KEY_GROUPNAME: "groupname",
+                    KEY_EMAIL: "dummy123@gmail.com",
+                },
+                KEY_EXPECTED: {
+                    "success": True,
+                },
+            },
+            {
+                KEY_INPUT: {
+                    KEY_GROUPNAME: None,
+                    KEY_EMAIL: None,
+                },
+                KEY_EXPECTED: {
+                    "success": False
                     
-#                 },
-#             },
-#         ]
+                },
+            },
+        ]
 
 
-#     def test_get_user_success(self):
-#         for test in self.success_test_params:
-#             with mock.patch(
-#                 "sqlalchemy.orm.query.Query.filter_by", self.mocked_group_query_all
-#             ):
-#                 with mock.patch(
-#                     'sqlalchemy.orm.Query.order_by', self.mocked_group_query_first
-#                 ):
-#                     with mock.patch(
-#                         "sqlalchemy.sql.expression.desc", self.mocked_desc
-#                     ):
-#                         with mock.patch(
-#                             "sqlalchemy.orm.session.Session.add", self.mocked_add
-#                         ):
-#                         response = imp_util.groups.new_group(test[KEY_INPUT])
-#                         expected = test[KEY_EXPECTED]
-#             self.assertDictEqual(response, expected)
+    def test_get_user_success(self):
+        for test in self.success_test_params:
+            with mock.patch(
+                "sqlalchemy.orm.query.Query.filter_by", self.mocked_group_query_all
+            ):
+                with mock.patch(
+                    'sqlalchemy.orm.Query.order_by', self.mocked_group_query_first
+                ):
+                    with mock.patch(
+                        "sqlalchemy.sql.expression.desc", self.mocked_desc
+                    ):
+                        with mock.patch(
+                            "sqlalchemy.orm.session.Session.add", self.mocked_add
+                        ):
+                            response = imp_util.groups.new_group(
+                                test[KEY_INPUT][KEY_GROUPNAME],
+                                test[KEY_INPUT][KEY_EMAIL],
+                                )
+                            expected = test[KEY_EXPECTED]
+                        self.assertDictEqual(response, expected)
 
 #### ADD USER test
 class AddUser(unittest.TestCase):
