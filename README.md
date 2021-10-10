@@ -1,4 +1,4 @@
-# Project3 - Impression
+# Impression
 # About
 
 COVID-19 has had a big impact on daily life. One aspect that was immediately affected by the virus was academics.
